@@ -1,0 +1,687 @@
+{
+  "started_at": "2026-10-29T14:11:13.399974+07:00",
+  "catalog_status": "complete",
+  "review_progress": {
+    "13355366721": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:12:30.760680+07:00"
+    },
+    "13364552558": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:12:44.619179+07:00"
+    },
+    "13449956167": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:12:57.973847+07:00"
+    },
+    "13350614388": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:13:11.234117+07:00"
+    },
+    "13363863238": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:13:24.437643+07:00"
+    },
+    "13364688584": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:13:37.573741+07:00"
+    },
+    "13362692270": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:13:50.972572+07:00"
+    },
+    "13350388288": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:14:04.060195+07:00"
+    },
+    "13363697862": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:14:17.226837+07:00"
+    },
+    "13350720131": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:14:30.368068+07:00"
+    },
+    "13349841306": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:14:43.412222+07:00"
+    },
+    "13350320281": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:14:56.469249+07:00"
+    },
+    "13363306960": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13348964794": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:15:23.350235+07:00"
+    },
+    "13358111089": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:15:35.990042+07:00"
+    },
+    "13351395436": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:15:48.979818+07:00"
+    },
+    "13364228654": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:16:02.813176+07:00"
+    },
+    "13359436303": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:16:17.029407+07:00"
+    },
+    "13350682264": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:16:30.637969+07:00"
+    },
+    "13358754768": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:16:44.327954+07:00"
+    },
+    "13364090965": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:16:58.085665+07:00"
+    },
+    "13350686290": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:17:11.825579+07:00"
+    },
+    "13362797435": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:17:25.663242+07:00"
+    },
+    "13363663761": {
+      "next_page": 1,
+      "count": 0,
+      "status": "complete",
+      "expected_count": 0,
+      "completion_reason": "product_detail_explicit_zero_reviews",
+      "source_observed_at": "2026-10-29T14:17:39.177959+07:00"
+    },
+    "13358127027": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356425806": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361530727": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357060749": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363771471": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13349018851": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361638486": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350592611": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356769154": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357292690": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363416442": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356445666": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363660629": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13360835548": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356452276": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361113504": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13362751513": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350372088": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361091361": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350424063": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354821880": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13362701640": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361306165": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357248217": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13360735865": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13351453194": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363510227": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357232943": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13359484231": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13362775166": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13360960680": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13364700594": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350650426": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13352417983": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13358721272": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356545777": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356469353": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357354514": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13365825827": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350708030": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357288156": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13364682750": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356543773": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361798708": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361071661": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350702627": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361077799": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13358792319": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356230728": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13358009790": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13364688595": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13360343647": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13349729488": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354667778": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354645916": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350316715": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350206821": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357284095": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13349573922": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13356527163": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350360057": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363678201": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357572193": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13362453697": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357326706": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361059888": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354679852": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350710287": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13361780667": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13349352041": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13355656222": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354983360": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354955169": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13349056733": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13352541703": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13355638634": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13352677010": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363699689": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350596009": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13353106987": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13352649201": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13350580203": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13357258932": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13354961453": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13360249881": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13353376373": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13355638281": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363342454": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363604670": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363510131": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363554049": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    },
+    "13363556163": {
+      "next_page": 1,
+      "count": 0,
+      "status": "pending"
+    }
+  },
+  "status": "partial",
+  "pacing": {
+    "page_wait_seconds": 15,
+    "review_wait_seconds": 8
+  },
+  "official_shop_evidence": {
+    "is_authentic": true,
+    "source": "storefront_badge",
+    "badge_text": "LazMall - Gian hàng chính hãng",
+    "badge_asset_urls": [
+      "https://gw.alicdn.com/imgextra/i1/O1CN015YrwXU24LLfbHexea_!!6000000007374-2-tps-299-24.png"
+    ],
+    "verification": "Known badge asset visually verified in live storefront screenshot",
+    "shop_url": "https://www.lazada.vn/shop/viettien-online/",
+    "observed_at": "2026-10-29T14:11:36.164382+07:00",
+    "screenshot": "storefront.png"
+  },
+  "dataset_label": {
+    "value": "official",
+    "source": "user_provided",
+    "counterfeit_independently_verified": false
+  },
+  "next_catalog_page": 4,
+  "updated_at": "2026-10-29T14:32:59.156238+07:00",
+  "product_count": 116,
+  "review_count": 0,
+  "last_url": "https://www.lazada.vn//products/pdp-i13358127027.html/_____tmd_____/punish?x5secdata=xfDW0wTWnAfMszour3ChP0sp-rYqxpIsC8O7nH2ZRr6a2S0Zf8AxkWQa2OnBt95FuODDr2fYE6_5Ee0WJgkG800_oJm4FHLyGHGkDXIvm8EiNB904WRWvz0iW_1BaWJAc5beQN8hidIoWrFRrkIsSlhWER3gfq0a1aynXYmygKG_LB58_f9s69YaToV7AUZcPz-tRmDFuz1lvm_vRk38mic4Uybk4FUOlbAtwirc4xkJs1_Fpd8zv7X_G_t7OSX0TBLvQ2lPuNNo5CqIo4T846xQT31s3mksQghdpgCApGsz1hMHxUoyhDQxjPy8GejxhhYU0PnWi2r4RujhEodxCzHkx6u-8RB2z7n7SMMrIUzOso2BDVuQMKYAI5YMdOVIDCnqAUaK6IndtzS2egG4kQl5hzngg3qguBmVBOMebAbtob2VxoaD6xd77rGxSjcMZEMBuP4CnGNb3z3IsBfUVZOhl3uAJwzAhzT2IEvSMXClyAqVmWpyIKmMpd9gV5TiCzIx20mGJmJYTsKTVWMxwqJQCE-pKlCp5wak6Ia_dp_ZNGMBLtcOcKRm7d-6_fi13BXrMt1FulXN6Y9rKxGq7hW_6mj1z5U99Sgvav-Rm_yChDv9bswX8klpYnp4KO1ua98iKxfde89GpPx_6J-R_pGRYqSNtmOFrNn-TVxDzONSE0_yV1RzvIN-bEq8TsIprD__bx__www.lazada.vn%2fproducts%2fpdp-i13358127027.html&x5step=1",
+  "details_status": "partial",
+  "recovery_started_at": "2026-10-29T14:32:59.156238+07:00",
+  "recovery_mode": "reviews_per_product",
+  "reviews_status": "partial",
+  "recovery_stop_reason": "Shared recovery browser was closed before remaining products were processed"
+}

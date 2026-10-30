@@ -1,0 +1,31 @@
+[
+  {
+    "shop": {
+      "slug": "nike-flagship-store",
+      "name": "Nike Flagship Store",
+      "url": "https://www.lazada.vn/shop/nike-flagship-store/?path=promotion-442259-0.htm&tab=promotion",
+      "official_shop_confirmed": true
+    },
+    "status": "error",
+    "pages": [
+      {
+        "number": 1,
+        "cards": 40,
+        "new_products": 40,
+        "url": "https://www.lazada.vn/nike-flagship-store/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=1"
+      },
+      {
+        "number": 2,
+        "cards": 40,
+        "new_products": 40,
+        "url": "https://www.lazada.vn/nike-flagship-store/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=2"
+      }
+    ],
+    "badge_observed": true,
+    "official_source": "user_confirmed_shop_badge",
+    "scope": "all shop products",
+    "store_title": "Nike Flagship Store Việt Nam Cửa Hàng Chính Hãng Trực Tuyến | Mua Ngay Trên Lazada",
+    "error": "[WinError 5] Access is denied: 'D:\\\\Data engineer\\\\lazada-football-boots\\\\hàng chính hãng\\\\data\\\\20261027_141321_884908\\\\nike-flagship-store\\\\report.json.tmp' -> 'D:\\\\Data engineer\\\\lazada-football-boots\\\\hàng chính hãng\\\\data\\\\20261027_141321_884908\\\\nike-flagship-store\\\\report.json'",
+    "product_count": 80
+  }
+]

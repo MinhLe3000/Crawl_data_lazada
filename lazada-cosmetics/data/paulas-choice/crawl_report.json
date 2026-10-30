@@ -1,0 +1,49 @@
+{
+  "started_at": "2026-10-29T09:20:49.843707+07:00",
+  "catalog_status": "complete",
+  "review_progress": {
+    "279648338": {
+      "next_page": 2,
+      "status": "partial",
+      "count": 5,
+      "source": "Public review API response captured during initial inspection"
+    }
+  },
+  "official_shop_evidence": {
+    "is_authentic": true,
+    "source": "storefront_badge",
+    "badge_text": "LazMall - Gian hàng chính hãng",
+    "badge_asset_urls": [
+      "https://gw.alicdn.com/imgextra/i1/O1CN015YrwXU24LLfbHexea_!!6000000007374-2-tps-299-24.png"
+    ],
+    "verification": "Known badge asset visually verified in live storefront screenshot",
+    "shop_url": "https://www.lazada.vn/shop/paulas-choice/",
+    "observed_at": "2026-10-29T09:20:53.955443+07:00",
+    "screenshot": "storefront.png"
+  },
+  "updated_at": "2026-10-29T09:23:31.558688+07:00",
+  "product_count": 49,
+  "review_count": 5,
+  "status": "blocked",
+  "error": "Lazada reCAPTCHA at detail product 2878087177; stopped without bypass",
+  "details_status": "partial",
+  "pending_detail_ids": [
+    "2878087177",
+    "2761847022",
+    "279646378",
+    "3039396133",
+    "602208130",
+    "279630635",
+    "279644451",
+    "279658158",
+    "279646390",
+    "483294193",
+    "279628686",
+    "279648335",
+    "279632605",
+    "279634585",
+    "2312847578",
+    "279634590"
+  ],
+  "last_url": "https://www.lazada.vn/products/pdp-i2878087177.html"
+}

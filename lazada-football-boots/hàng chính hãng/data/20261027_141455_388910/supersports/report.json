@@ -1,0 +1,46 @@
+{
+  "shop": {
+    "slug": "supersports",
+    "name": "Supersports",
+    "url": "https://www.lazada.vn/shop/supersports/?path=promotion-442259-0.htm&tab=promotion",
+    "official_shop_confirmed": true
+  },
+  "status": "page_limit_reached",
+  "pages": [
+    {
+      "number": 1,
+      "cards": 40,
+      "new_products": 40,
+      "url": "https://www.lazada.vn/supersports/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=1"
+    },
+    {
+      "number": 2,
+      "cards": 40,
+      "new_products": 40,
+      "url": "https://www.lazada.vn/supersports/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=2"
+    },
+    {
+      "number": 3,
+      "cards": 40,
+      "new_products": 40,
+      "url": "https://www.lazada.vn/supersports/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=3"
+    },
+    {
+      "number": 4,
+      "cards": 40,
+      "new_products": 40,
+      "url": "https://www.lazada.vn/supersports/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=4"
+    },
+    {
+      "number": 5,
+      "cards": 40,
+      "new_products": 40,
+      "url": "https://www.lazada.vn/supersports/?q=All-Products&from=wangpu&langFlag=vi&pageTypeId=2&page=5"
+    }
+  ],
+  "badge_observed": true,
+  "official_source": "user_confirmed_shop_badge",
+  "scope": "all shop products",
+  "store_title": "Supersports Việt Nam Cửa Hàng Chính Hãng Trực Tuyến | Mua Ngay Trên Lazada",
+  "product_count": 200
+}

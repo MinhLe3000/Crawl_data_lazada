@@ -1,0 +1,307 @@
+{
+  "api": "mtop.lazada.review.item.getpcreviewlist",
+  "data": {
+    "module": {
+      "impressionTags": [
+        {
+          "count": 76,
+          "formatCount": "76",
+          "polarity": "positive",
+          "tagIcon": "https://gw.alicdn.com/imgextra/i1/O1CN01XLyuG21dvXEJ2yzMC_!!6000000003798-2-tps-36-36.png",
+          "tagId": -1,
+          "tagName": "Có hình/video"
+        },
+        {
+          "count": 10,
+          "formatCount": "10",
+          "polarity": "positive",
+          "tagIcon": "https://gw.alicdn.com/imgextra/i1/O1CN01sqYghh1aDA0cUpTX4_!!6000000003295-2-tps-36-36.png",
+          "tagId": -3,
+          "tagName": "Khách đã mua lại"
+        },
+        {
+          "count": 16,
+          "formatCount": "16",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30034,
+          "tagName": "Hiệu ứng tốt"
+        },
+        {
+          "count": 14,
+          "formatCount": "14",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30035,
+          "tagName": "Chất lượng tốt"
+        },
+        {
+          "count": 7,
+          "formatCount": "7",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30093,
+          "tagName": "Kết cấu mềm"
+        },
+        {
+          "count": 6,
+          "formatCount": "6",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30039,
+          "tagName": "Sản phẩm chính hãng"
+        },
+        {
+          "count": 5,
+          "formatCount": "5",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30074,
+          "tagName": "Kết cấu đẹp"
+        },
+        {
+          "count": 3,
+          "formatCount": "3",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30088,
+          "tagName": "Kết cấu mịn"
+        },
+        {
+          "count": 3,
+          "formatCount": "3",
+          "polarity": "positive",
+          "tagIcon": "",
+          "tagId": 30159,
+          "tagName": "Nên mua"
+        }
+      ],
+      "reviews": [
+        {
+          "buyerName": "K***g",
+          "isMeLike": false,
+          "likeCount": 0,
+          "mediaList": [
+            {
+              "algoCoverUrl": "https://lazada-review.alicdn.com/review/video/cover/98869d435eee43d18805ad8ea963cb52.jpg",
+              "coverUrl": "https://sg-test-11.slatic.net/p/33e0444f7f6c25053f7bd01185cfdcc6.jpg",
+              "height": 640,
+              "mediaType": 2,
+              "reviewRateId": 423286523748338,
+              "videoId": 30267842790,
+              "videoUrl": "https://lazvideo.lazcdn.com/psp/20240707/266ec901-e148-4eed-a13b-a0c74e19c7f2@@ld.mp4?auth_key=1793845174-0-0-d57cdea49b4cd3c5759d823ba1e8dd88",
+              "width": 360
+            },
+            {
+              "coverUrl": "https://lzd-u.slatic.net/b680b1e356a64a618517905f2c80b87b_10_1720367162.847817.jpg",
+              "mediaType": 1,
+              "reviewRateId": 423286523748338
+            }
+          ],
+          "rating": 5,
+          "reply": {
+            "buyerName": "",
+            "isMeLike": false,
+            "likeCount": 0,
+            "rating": 0,
+            "reviewContentList": [
+              {
+                "attribute": "",
+                "content": "Chào bạn, cám ơn bạn tin tưởng và chọn Paula's Choice để chăm sóc làn da của mình. Paula's Choice hi vọng làn da của bạn sẽ khỏe và rạng rỡ hơn sau khi sử dụng sản phẩm và luôn đồng hành ủng hộ Paula's Choice nhé"
+              }
+            ],
+            "reviewId": 425674034548338,
+            "reviewTime": "2024-07-07"
+          },
+          "reviewContentList": [
+            {
+              "attribute": "",
+              "content": "Làm da cảm thấy sảng khoái, Làm da cảm thấy sạch sẽ và sảng khoái, Cải thiện kết cấu da, Sữa rửa mặt tạo bọt mang lại cảm giác sạch sẽ,"
+            }
+          ],
+          "reviewId": 423286523748338,
+          "reviewTime": "2024-07-07",
+          "skuInfo": "Thể tích (ml):190, Hương:Khác"
+        },
+        {
+          "buyerName": "l***2",
+          "isMeLike": false,
+          "likeCount": 0,
+          "mediaList": [
+            {
+              "coverUrl": "https://vn-live-02.slatic.net/p/8457c35dba7c820ff399b6c3305440f5.jpg",
+              "height": 640,
+              "mediaType": 2,
+              "reviewRateId": 366707238748338,
+              "videoId": 30114866594,
+              "videoUrl": "https://lazvideo.lazcdn.com/psp/20230106/1adc784e-e5aa-4695-9dcb-ac062d1ce596@@ld.mp4?auth_key=1793845174-0-0-346d3947d5edac87c3b38d7c70450202",
+              "width": 360
+            },
+            {
+              "coverUrl": "https://lzd-u.slatic.net/514a556eb59f4c29a3c8054733b72f0d_5d83a24c9131493c9314f9073b060f9a.jpg",
+              "mediaType": 1,
+              "reviewRateId": 366707238748338
+            }
+          ],
+          "rating": 5,
+          "reply": {
+            "buyerName": "",
+            "isMeLike": false,
+            "likeCount": 0,
+            "rating": 0,
+            "reviewContentList": [
+              {
+                "attribute": "",
+                "content": "Chào bạn, cám ơn bạn tin tưởng và chọn Paula's Choice để chăm sóc làn da của mình. Paula's Choice hi vọng làn da của bạn sẽ khỏe và rạng rỡ hơn sau khi sử dụng sản phẩm và luôn đồng hành ủng hộ Paula's Choice nhé!"
+              }
+            ],
+            "reviewId": 366722679248338,
+            "reviewTime": "2023-01-06"
+          },
+          "reviewContentList": [
+            {
+              "attribute": "",
+              "content": "Hình ảnh mang tính chất nhận xu...đã mua nhiều lần xài được nên mua tiếp ạ.."
+            }
+          ],
+          "reviewId": 366707238748338,
+          "reviewTime": "2023-01-06",
+          "skuInfo": "Thể tích (ml):190, Hương:Khác"
+        },
+        {
+          "buyerName": "Đ***o",
+          "isMeLike": false,
+          "likeCount": 0,
+          "mediaList": [
+            {
+              "coverUrl": "https://lzd-u.slatic.net/a92cb8595ee84bd7ab7641dd44d4aa5c_3_1723877891.072062.jpg",
+              "mediaType": 1,
+              "reviewRateId": 428882953048338
+            }
+          ],
+          "rating": 5,
+          "reply": {
+            "buyerName": "",
+            "isMeLike": false,
+            "likeCount": 0,
+            "rating": 0,
+            "reviewContentList": [
+              {
+                "attribute": "",
+                "content": "Chào bạn, cám ơn bạn tin tưởng và chọn Paula's Choice để chăm sóc làn da của mình. Paula's Choice hi vọng làn da của bạn sẽ khỏe và rạng rỡ hơn sau khi sử dụng sản phẩm và luôn đồng hành ủng hộ Paula's Choice nhé"
+              }
+            ],
+            "reviewId": 429239773048338,
+            "reviewTime": "2024-08-17"
+          },
+          "reviewContentList": [
+            {
+              "attribute": "",
+              "content": "Không làm mất độ ẩm tự nhiên của da, Làm da cảm thấy sạch sẽ và tươi mát, Nhẹ nhàng trên da, Giúp cân bằng sản xuất dầu,"
+            }
+          ],
+          "reviewId": 428882953048338,
+          "reviewTime": "2024-08-17",
+          "skuInfo": "Thể tích (ml):190, Hương:Khác"
+        },
+        {
+          "buyerName": "N***n",
+          "isMeLike": false,
+          "likeCount": 0,
+          "mediaList": [
+            {
+              "coverUrl": "https://lzd-u.slatic.net/fd981dfd0e104e92870175760ea03cda_4_1723891112.019910.jpg",
+              "height": 0,
+              "mediaType": 1,
+              "reviewRateId": 428533113848338,
+              "width": 0
+            }
+          ],
+          "rating": 5,
+          "reply": {
+            "buyerName": "",
+            "isMeLike": false,
+            "likeCount": 0,
+            "rating": 0,
+            "reviewContentList": [
+              {
+                "attribute": "",
+                "content": "Chào bạn, cám ơn bạn tin tưởng và chọn Paula's Choice để chăm sóc làn da của mình. Paula's Choice hi vọng làn da của bạn sẽ khỏe và rạng rỡ hơn sau khi sử dụng sản phẩm và luôn đồng hành ủng hộ Paula's Choice nhé"
+              }
+            ],
+            "reviewId": 429256804048338,
+            "reviewTime": "2024-08-17"
+          },
+          "reviewContentList": [
+            {
+              "attribute": "",
+              "content": "Giúp cân bằng sản xuất dầu, Loại bỏ tạp chất hiệu quả, Nhẹ và dễ sử dụng, Làm da cảm thấy sạch sẽ và tươi mát,"
+            }
+          ],
+          "reviewId": 428533113848338,
+          "reviewTime": "2024-08-17",
+          "skuInfo": "Thể tích (ml):190, Hương:Khác"
+        },
+        {
+          "buyerName": "B***h",
+          "isMeLike": false,
+          "likeCount": 0,
+          "mediaList": [
+            {
+              "coverUrl": "https://sg-test-11.slatic.net/p/6b81859b8780639cf190747aadf9e291.jpg",
+              "height": 640,
+              "mediaType": 2,
+              "reviewRateId": 428547018648338,
+              "videoId": 30278742692,
+              "videoUrl": "https://lazvideo.lazcdn.com/psp/20240814/8a8123fe-2f1d-4cab-a840-ab328a08325d@@ld.mp4?auth_key=1793845174-0-0-6182eae94b4ffcda4b62206a908adcba",
+              "width": 360
+            },
+            {
+              "coverUrl": "https://lzd-u.slatic.net/dc0faaec13c1449e96e26d33f9cb5f36_12_1723629365.468764.jpg",
+              "mediaType": 1,
+              "reviewRateId": 428547018648338
+            }
+          ],
+          "rating": 5,
+          "reply": {
+            "buyerName": "",
+            "isMeLike": false,
+            "likeCount": 0,
+            "rating": 0,
+            "reviewContentList": [
+              {
+                "attribute": "",
+                "content": "Chào bạn, cám ơn bạn tin tưởng và chọn Paula's Choice để chăm sóc làn da của mình. Paula's Choice hi vọng làn da của bạn sẽ khỏe và rạng rỡ hơn sau khi sử dụng sản phẩm và luôn đồng hành ủng hộ Paula's Choice nhé"
+              }
+            ],
+            "reviewId": 429021441348338,
+            "reviewTime": "2024-08-14"
+          },
+          "reviewContentList": [
+            {
+              "attribute": "",
+              "content": "Đóng gói chắc chắn, đẹp mắt!\nGiao hàng nhanh!!\nSản phẩm giống như hình và chất lương tốt!!! Đẹp! Chuẩn!Nhẹ nhàng nhưng hiệu quả, Không làm mất độ ẩm tự nhiên của da,"
+            }
+          ],
+          "reviewId": 428547018648338,
+          "reviewTime": "2024-08-14",
+          "skuInfo": "Thể tích (ml):190, Hương:Khác"
+        }
+      ]
+    },
+    "notSuccess": false,
+    "paging": {
+      "pageNo": 1,
+      "pageSize": 5,
+      "totalItems": 276,
+      "totalPages": 56
+    }
+  },
+  "ret": [
+    "SUCCESS::调用成功"
+  ],
+  "traceId": "2140c4fd17932403739772468e10f5",
+  "v": "1.0",
+  "responseHeaders": "cache-control: no-cache\r\ncontent-type: application/json;charset=UTF-8\r\npragma: no-cache\r\nx-eagleeye-id: 2140c4fd17932403739772468e10f5\r\n",
+  "retType": 0
+}

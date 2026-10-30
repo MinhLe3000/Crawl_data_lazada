@@ -1,0 +1,2060 @@
+{
+  "data": {
+    "root": {
+      "fields": {
+        "seller": {
+          "chatUrl": "https://pages.lazada.vn/wow/i/vn/im/chat?brandId=8239",
+          "hideAllMetrics": false,
+          "imEnable": true,
+          "imUserId": "100180603",
+          "imageUrl": "https://gw.alicdn.com/imgextra/i1/O1CN015YrwXU24LLfbHexea_!!6000000007374-2-tps-299-24.png",
+          "name": "Paula's Choice",
+          "newSeller": false,
+          "positiveSellerRating": {
+            "labelText": "Đánh giá tích cực",
+            "value": "98%"
+          },
+          "rateLevel": 0,
+          "sellerIcon": "https://vn-test-11.slatic.net/shop/3c76771ffd378d9bb9015c07805dbd9a.png",
+          "sellerId": "100169489",
+          "shopId": 161038,
+          "size": 0,
+          "storeSellingTags": [
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i2/O1CN01OJPqTi1U46amKb6ly_!!6000000002463-2-tps-48-48.png",
+              "value": "Top 17 người bán ngành Chăm sóc da mặt"
+            },
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01kuKV6Y1WIsbGXw5h9_!!6000000002766-2-tps-48-48.png",
+              "value": "668K đã bán tại cửa hàng"
+            },
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01OntvtL1jQkPQc8gCq_!!6000000004543-2-tps-48-48.png",
+              "value": "Cửa hàng 8 năm"
+            },
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i4/O1CN016eFaoW1kR2H3OVGEw_!!6000000004679-2-tps-48-48.png",
+              "value": "Giao hàng nhanh: 100%\nGiao trong 48h"
+            },
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01Nr2pxM1WcZdBsKwZw_!!6000000002809-2-tps-48-48.png",
+              "value": "259 khách hàng quay lại"
+            },
+            {
+              "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01Nr2pxM1WcZdBsKwZw_!!6000000002809-2-tps-48-48.png",
+              "value": "85% tỷ lệ mua lại"
+            }
+          ],
+          "time": 0,
+          "type": "4",
+          "url": "//www.lazada.vn/shop/paulas-choice/?itemId=279648338&channelSource=pdp"
+        },
+        "promotionTags": {
+          "data": {
+            "436518106": [
+              {
+                "description": "với mức chi tiêu tối thiểu 399.000 ₫, giảm tối đa 300.000 ₫ từ <a href=\"https://www.lazada.vn/shop/paulas-choice/?itemId=279648338&channelSource=pdp\">Paula's Choice</a>",
+                "name": "3% Giảm",
+                "products": [],
+                "title": "Voucher",
+                "type": "1",
+                "utKey": "voucher"
+              }
+            ]
+          },
+          "limit": -1
+        },
+        "rules": {},
+        "specifications": {
+          "436518106": {
+            "features": {
+              "Thương hiệu": "Paula's Choice",
+              "SKU": "279648338_VNAMZ-436518106",
+              "Dạng Sản Phẩm": "Chất lỏng",
+              "Mẫu mã": "FULL SIZE",
+              "Người dùng được khuyến nghị": "Tất cả mọi người",
+              "Loại bảo hành": "Không bảo hành",
+              "Ưu Tiên Thành Phần": "Ceramide",
+              "Lợi ích cho da": "Thải độc,Kiểm soát lỗ chân lông",
+              "Xuất xứ": "Hoa Kỳ",
+              "Loại da": "Tất cả các loại da"
+            }
+          }
+        },
+        "tracking": {
+          "pdt_category": [
+            "Làm đẹp",
+            "Chăm sóc da mặt",
+            "Sữa rửa mặt"
+          ],
+          "pagetype": "pdp",
+          "pdt_discount": "-0%",
+          "pdt_photo": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+          "v_voya": 1,
+          "brand_name": "Paula's Choice",
+          "brand_id": "8239",
+          "pdt_sku": 279648338,
+          "core": {
+            "country": "VN",
+            "layoutType": "desktop",
+            "language": "vi",
+            "currencyCode": "VND"
+          },
+          "seller_name": "Paula's Choice",
+          "pdt_simplesku": 436518106,
+          "pdt_name": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830",
+          "page": {
+            "regCategoryId": "080205000000",
+            "xParams": "_p_typ=pdp&_p_ispdp=1&_p_item=279648338_VNAMZ-436518106&_p_prod=279648338&_p_sku=436518106&_p_slr=100169489"
+          },
+          "supplier_id": 100169489,
+          "pdt_price": "760.000 ₫",
+          "extraInfo": {
+            "traceId": "212e428d17932402985752507eb72b",
+            "cnaByBe": "5pppI4sY91QCAQ74U6NgXWvx",
+            "supportH5Revamp": "0"
+          }
+        },
+        "disclaimers": [
+          {
+            "key": "seller_invoice_disclaimer",
+            "text": "Đây là sản phẩm được bán bởi Người bán bên thứ ba và việc xuất hóa đơn VAT (nếu áp dụng) sẽ được thực hiện bởi Nhà Bán Hàng theo quy định của pháp luật"
+          }
+        ],
+        "globalConfig": {
+          "country": "VN",
+          "showTBCBreadCrumb": true,
+          "facebookAppKey": "1503824746501801",
+          "apiForPC": {
+            "getSkuData": "//pdpdesc-m.lazada.vn/pcdetailAsync",
+            "getDeliveryOptions": "//pdpdesc-m.lazada.vn/getDeliveryOptions",
+            "getRecommend": "//pdpdesc-m.lazada.vn/recommend",
+            "getPage": "//pdpdesc-m.lazada.vn/pcdetailSync",
+            "useRecommendMtop": "1"
+          },
+          "siteName": "Lazada",
+          "pvChecksum": "53732040",
+          "isTBC": false,
+          "voucherListApi": "mtop.lazada.detail.getVouchers",
+          "reverseDateMap": {
+            "436518106": 30
+          },
+          "viewedSFOUrl": "//pdpdesc-m.lazada.vn/confirmMsg",
+          "host": "lazada-pdp-ns-s011026144037.sg52",
+          "voucherCollectApi": "mtop.lazada.promotion.voucher.spread",
+          "currency": "VND",
+          "robots": "noindex,follow",
+          "lang": "vi_VN",
+          "atmosphereInfo": {
+            "436518106": {
+              "chatIcon": "https://gw.alicdn.com/imgextra/i3/O1CN010woknU1un9YZWROmx_!!6000000006081-2-tps-80-81.png",
+              "storeIcon": "https://vn-test-11.slatic.net/shop/3c76771ffd378d9bb9015c07805dbd9a.png"
+            }
+          },
+          "sisUrl": "//www.lazada.vn/shop/paulas-choice/?itemId=279648338&channelSource=pdp",
+          "isPcRevamp": true,
+          "toastRule": {
+            "voucherPrice": {
+              "duration": 3,
+              "hit": true,
+              "intervalHours": 24,
+              "stayTime": 3
+            }
+          },
+          "reportUrl": "https://pages.lazada.vn/wow/gcp/vn/report/pdpindex?itemId=279648338",
+          "env": "new env",
+          "showSKUSelect": false,
+          "site": "VN",
+          "isAPPLE": false,
+          "mdsMap": {
+            "shareTitle": "Share",
+            "likeTitle": "Like"
+          },
+          "recommendParameter": "item_id=279648338&is_ab=false&is_tbc=0&brand_id=8239&shop_id=161038&category_id=2289&anonymous_id=d9da677a-4799-49f9-99fe-09ee7b313a5c&regional_key=080205000000&filter_shop_ids=161038&sku=279648338_VNAMZ-436518106&seller_id=100169489&allow_empty=1&_=1793240298804",
+          "showHTBTips": false,
+          "voucherListParams": "timeStamp=1793240298804&itemId=279648338&lzd=460C5A519F1A34D168958364C3598394B8D6F1DF4050CFA3969E04827285838099E8D9597D2499274034753A1696CB6FF894EF96D02651AA41D5E6FF92143AE5D64F539EB84D23C23D58B53D8B832B939B06D0DA2EB9A7A89B06D0DA2EB9A7A8&skuId=436518106&checkCode=03cb456c734ef2a2a27bda25fabe2ba0",
+          "isMsiteRevamp": false,
+          "msiteExperimentConfig": {
+            "hideSmbCard": false,
+            "showMiniSmb": false,
+            "showSmbCloseBt": false,
+            "collapsedReviews": false,
+            "collapsedFaq": false,
+            "collapsedDetail": false,
+            "collapsedHighlights": false,
+            "collapsedJfy": false,
+            "changedJfyToThreeCol": false,
+            "changedJfyToRow": false,
+            "moveJfyUnderFaq": false,
+            "isControlGroup": true,
+            "needCsr": false,
+            "bucketId": 0
+          }
+        },
+        "elevator": {
+          "elevators": [
+            {
+              "elevatorTitle": "Đánh giá",
+              "utKey": "ratings"
+            },
+            {
+              "elevatorTitle": "Chi tiết",
+              "utKey": "product_details"
+            },
+            {
+              "elevatorTitle": "Gợi ý cho bạn",
+              "utKey": "recommend"
+            }
+          ],
+          "PhoneInput": {
+            "offsetTop": 385,
+            "displayName": "PhoneInput"
+          },
+          "Ratings": {
+            "offsetTop": 1570,
+            "displayName": "Ratings"
+          },
+          "Detail": {
+            "offsetTop": 1630,
+            "displayName": "Detail"
+          }
+        },
+        "review": {
+          "averageRating": 4.9,
+          "contentedNum": 277,
+          "itemId": 279648338,
+          "reviews": 277,
+          "scores": [
+            262,
+            6,
+            4,
+            0,
+            5
+          ],
+          "title": "Đánh giá"
+        },
+        "tag": {
+          "entryDialogs": []
+        },
+        "warrantiesInfo": {
+          "436518106": {
+            "icon": "https://gw.alicdn.com/imgextra/i2/O1CN01Ge8CqL1eEJWzl8Ogl_!!6000000003839-2-tps-46-47.png",
+            "popInfo": [
+              {
+                "dataType": "authenticity",
+                "description": "100% chính hãng: Toàn bộ sản phẩm ở LazMall đều được Lazada nhập trực tiếp từ các thương hiệu chính hãng và đảm bảo chất lượng. \nNếu có dấu hiệu bất thường, xin vui lòng gửi trả để Lazada kiếm tra. Sau đó, nếu sản phẩm thật sự không phải hàng chính hãng, Lazada cam kết hoàn tiền gấp 2 lần.",
+                "leftImage": "https://gw.alicdn.com/imgextra/i3/O1CN01uhiEGU1GH1CzQff4d_!!6000000000596-2-tps-54-54.png",
+                "title": "100% chính hãng",
+                "type": "authenticity"
+              },
+              {
+                "dataType": "change_mind_available",
+                "description": "Bạn có thể trả lại sản phẩm cho chương trình Đổi Ý nếu sản phẩm đáp ứng điều kiện: Sản phẩm thời trang có thể được mở và thử nhưng phải sạch sẽ, không bị hư hỏng, không bị chỉnh sửa và còn nguyên nhãn mác. Các sản phẩm khác phải chưa qua sử dụng, chưa mở, còn nguyên niêm phong và đầy đủ các bộ phận. Sản phẩm đã mở, đã qua sử dụng hoặc bị hư hỏng sẽ không được chấp nhận.",
+                "leftImage": "https://laz-img-cdn.alicdn.com/imgextra/i4/O1CN01HLFg791eRalDVt0XN_!!6000000003868-2-tps-54-54.png",
+                "title": "Đổi Trả Do Đổi Ý",
+                "type": "change_mind_available"
+              },
+              {
+                "dataType": "returnPolicy",
+                "description": "30 ngày trả hàng cho sản phẩm LazMall",
+                "title": "30 ngày miễn phí trả hàng",
+                "type": "returnPolicy30"
+              },
+              {
+                "dataType": "warranty",
+                "description": "Sản phẩm của bạn không đi kèm với bất kỳ chính sách bảo hành nào, nhưng bạn vẫn được hưởng Chính sách trả hàng. Chi tiết xem tại <a href = \"https://www.lazada.vn/helpcenter/returns/?setLang=vi\"> đây </a>.",
+                "title": "Không áp dụng chính sách bảo hành",
+                "type": "noWarranty"
+              }
+            ],
+            "popInfoTitle": "Returns & Warranty",
+            "text": "100% chính hãng · Đổi Trả Do Đổi Ý · 30 ngày miễn phí trả hàng · Không áp dụng chính sách bảo hành"
+          }
+        },
+        "seo": {
+          "ocrContent": "",
+          "highlightText": ""
+        },
+        "productOption": {
+          "dnr": true,
+          "options": [
+            {
+              "image": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "path": "100006262:190 ml"
+            }
+          ],
+          "skuBase": {
+            "properties": [
+              {
+                "multiBuyProp": false,
+                "name": "Thể tích",
+                "needLabel": false,
+                "pid": "100006262",
+                "type": "0",
+                "values": [
+                  {
+                    "hoverImage": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+                    "image": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+                    "name": "190 ml",
+                    "vid": "190 ml"
+                  }
+                ]
+              },
+              {
+                "multiBuyProp": false,
+                "name": "Nhóm hương",
+                "needLabel": false,
+                "pid": "100006299",
+                "type": "0",
+                "values": [
+                  {
+                    "name": "Khác",
+                    "vid": "7975"
+                  }
+                ]
+              }
+            ],
+            "skus": [
+              {
+                "cartItemId": "279648338",
+                "cartSkuId": "436518106",
+                "innerSkuId": "279648338_VNAMZ-436518106",
+                "itemId": "279648338",
+                "pageId": "279648338",
+                "pagePath": "/products/sua-rua-mat-can-bang-da-hoan-hao-paulas-choice-resist-perfectly-balanced-foaming-cleanser-7830-i279648338-s436518106.html",
+                "propPath": "100006262:190 ml;100006299:7975",
+                "requestParams": "itemId=279648338&sellerId=100169489&skuId=436518106",
+                "sellerId": "100169489",
+                "skuId": "436518106"
+              }
+            ]
+          }
+        },
+        "skuGalleries": {
+          "0": [
+            {
+              "poster": "https://vn-live-02.slatic.net/p/aa35f5fba92fa52262b2cf273829c18d.jpg",
+              "soundPlay": false,
+              "type": "video",
+              "videoID": "30014098429"
+            },
+            {
+              "itemLevel": true,
+              "poster": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "src": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "src": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/14cab0b9afb6d2fdb05d30d1a1a732a4.jpg",
+              "src": "//vn-test-11.slatic.net/p/14cab0b9afb6d2fdb05d30d1a1a732a4.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/bbfdf82ecf2b1c49ed3f542538a65f60.jpg",
+              "src": "//vn-test-11.slatic.net/p/bbfdf82ecf2b1c49ed3f542538a65f60.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/b2400373440f74b3241a33adfdd0fb9e.jpg",
+              "src": "//vn-test-11.slatic.net/p/b2400373440f74b3241a33adfdd0fb9e.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/ba09c8f93d834b52eccc5655ef977836.jpg",
+              "src": "//vn-test-11.slatic.net/p/ba09c8f93d834b52eccc5655ef977836.jpg",
+              "type": "img"
+            }
+          ],
+          "436518106": [
+            {
+              "poster": "https://vn-live-02.slatic.net/p/aa35f5fba92fa52262b2cf273829c18d.jpg",
+              "soundPlay": false,
+              "type": "video",
+              "videoID": "30014098429"
+            },
+            {
+              "itemLevel": true,
+              "poster": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "src": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "src": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/14cab0b9afb6d2fdb05d30d1a1a732a4.jpg",
+              "src": "//vn-test-11.slatic.net/p/14cab0b9afb6d2fdb05d30d1a1a732a4.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/bbfdf82ecf2b1c49ed3f542538a65f60.jpg",
+              "src": "//vn-test-11.slatic.net/p/bbfdf82ecf2b1c49ed3f542538a65f60.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/b2400373440f74b3241a33adfdd0fb9e.jpg",
+              "src": "//vn-test-11.slatic.net/p/b2400373440f74b3241a33adfdd0fb9e.jpg",
+              "type": "img"
+            },
+            {
+              "itemLevel": false,
+              "poster": "//vn-test-11.slatic.net/p/ba09c8f93d834b52eccc5655ef977836.jpg",
+              "src": "//vn-test-11.slatic.net/p/ba09c8f93d834b52eccc5655ef977836.jpg",
+              "type": "img"
+            }
+          ]
+        },
+        "product": {
+          "brand": {
+            "name": "Paula's Choice",
+            "suggestion": "Xem thêm Chăm sóc da mặt của Paula's Choice",
+            "suggestionUrl": "https://www.lazada.vn/cham-soc-da-mat/paula-s-choice/",
+            "url": "https://www.lazada.vn/paula-s-choice/"
+          },
+          "desc": "<article class=\"lzd-article\" style=\"white-space:break-spaces\"><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span><img src=\"https://vn-live-01.slatic.net/p/b988433725913fc3151d571f7e430447.jpg\" style=\"width:1368px;height:1700px;display:inline;vertical-align:middle\"/><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span><img src=\"https://vn-live-01.slatic.net/p/e433485f7448e25d2bcf58145fa20b53.jpg\" style=\"width:1368px;height:1449px;display:inline;vertical-align:middle\"/><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span><img src=\"https://vn-live-01.slatic.net/p/df603d614c2675fccb212040bcafb14b.jpg\" style=\"width:1368px;height:1226px;display:inline;vertical-align:middle\"/><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span><img src=\"https://vn-live-01.slatic.net/p/3e8b8615496b583b3065370a67ac9613.jpg\" style=\"width:1368px;height:1128px;display:inline;vertical-align:middle\"/><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span> </span></p></article>",
+          "highlights": "<article style=\"white-space:break-spaces\" class=\"lzd-article\"><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>Sữa rửa mặt tạo bọt siêu mịn làm sạch và cân bằng độ ẩm cho da Resist Perfectly Balanced Foaming Cleanser 190ml</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- MÃ SẢN PHẨM: 7830</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- CÔNG DỤNG SẢN PHẨM:</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>Sữa rửa mặt dịu nhẹ Resist Perfectly Balanced Foaming Cleanser dùng hàng ngày dành cho da thường đến da dầu giúp làm sạch bụi bẩn, dầu thừa, tế bào da chết và các lớp trang điểm ở trên da, giúp cân bằng độ ẩm cho da và làm dịu da.</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- KẾT CẤU SẢN PHẨM:</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Kết cấu dạng kem tạo bọt</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- HƯỚNG DẪN SỬ DỤNG:</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Làm ướt da mặt, sử dụng một lượng vừa đủ sản phẩm thoa đều và massage nhẹ nhàng toàn bộ da mặt theo quỹ đạo tròn sau đó rửa sạch lại với nước. Đối với lớp makeup đậm, có thể áp dụng phương pháp double cleansing.</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Sử dụng ở bước đầu tiên trong mỗi quy trình chăm sóc da sáng, tối.</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- THÀNH PHẦN:</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Thành phần chính</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>Hyaluronic Acid, Chiết xuất lô hội, Ceramide</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Bảng thành phần đầy đủ</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>Water (Aqua), Sodium Lauroamphoacetate, Sodium Cocoyl Isethionate (cleansing), Stearic Acid (texture-enhancing), Glycerin (hydration/skin replenishing), Glycol Distearate (texture-enhancing), Helianthus Annuus (Sunflower) Seed Oil (non-fragrant antioxidant plant oil), Acrylates Copolymer, Cetearyl Alcohol, Sodium Hyaluronate, Ceramide NP, Ceramide AP, Ceramide EOP (hydration/skin replenishing), Phytosphingosine (skin-restoring), Phospholipids, Sphingolipids (hydration/skin replenishing), Lecithin (skin-restoring), Arginine (amino acid/hydration/skin replenishing), Cholesterol (hydration/skin replenishing), Aloe Barbadensis Leaf Extract (hydration/skin-soothing), Disodium EDTA (stabilizer), Sodium Chloride (stabilizer), Sodium Hydroxide (pH adjuster), Sodium Lauroyl Lactylate (texture-enhancing), Xanthan Gum, Carbomer (texture-enhancing), Hexylene Glycol, Phenoxyethanol (preservatives), Caprylyl Glycol.</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- HƯỚNG DẪN BẢO QUẢN: </span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>&nbsp;+ Bảo quản ở nhiệt độ phòng, tránh ánh sáng trực tiếp, tránh xa tầm với trẻ em.</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- NGÀY SẢN XUẤT và HẠN SỬ DỤNG: in trên bao bì sản xuất</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- XUẤT XỨ THƯƠNG HIỆU: Mỹ</span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span></span></p><p style=\"line-height:1.7;text-align:left;text-indent:0;margin-left:0;margin-top:0;margin-bottom:0\"><span>- NƠI SẢN XUẤT: Mỹ</span></p></article>",
+          "imageUrl": "https://gw.alicdn.com/imgextra/i4/O1CN01YxEyp41Pm0TSbDFdc_!!6000000001882-2-tps-130-40.png",
+          "imageUrls": [
+            "https://gw.alicdn.com/imgextra/i4/O1CN01YxEyp41Pm0TSbDFdc_!!6000000001882-2-tps-130-40.png"
+          ],
+          "link": "https://www.lazada.vn/products/sua-rua-mat-can-bang-da-hoan-hao-paulas-choice-resist-perfectly-balanced-foaming-cleanser-7830-i279648338-s436518106.html",
+          "rating": {
+            "score": 4.9,
+            "total": 277
+          },
+          "rightImgRatio": 1.9,
+          "title": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830",
+          "titleTag": "lazmallTitle"
+        },
+        "qna": {
+          "haveMainSellerAnswers": true,
+          "hidden": false,
+          "items": [
+            {
+              "answer": "Chào bạn! Sản phẩm dùng an toàn bạn nhé",
+              "answerTime": "Đã trả lời trong vòng 2 ngày",
+              "customerName": "0***1",
+              "itemQuestionId": "206014938348338",
+              "question": "bầu có xài được ko ạ",
+              "questionTime": "16 thg 10 2022",
+              "sellerName": "Paula's Choice"
+            },
+            {
+              "answer": "Chào bạn, bạn liên hệ mục CHAT để được chuyên viên hỗ trợ tư vấn nhanh nhất nhé!",
+              "answerTime": "Đã trả lời trong vòng 1 ngày",
+              "customerName": "Thanh",
+              "itemQuestionId": "205810408448338",
+              "question": "Độ Ph bnhiu ạ",
+              "questionTime": "20 thg 6 2022",
+              "sellerName": "Paula's Choice"
+            },
+            {
+              "answer": "Paula's Choice Việt Nam chào bạn. Bạn dùng an toàn bạn nhé",
+              "answerTime": "Đã trả lời trong vòng 4 tuần",
+              "customerName": "Phương Gấu",
+              "itemQuestionId": "205651843448338",
+              "question": "Mình đang cho em bé bú . Có dùng được sp này k",
+              "questionTime": "12 thg 12 2021",
+              "sellerName": "Paula's Choice"
+            }
+          ],
+          "mainSellerName": "Paula's Choice",
+          "paging": {
+            "pageSize": 3,
+            "totalItems": 8
+          },
+          "params": {
+            "mainSeller": {
+              "itemId": "279648338",
+              "sellerId": "100169489",
+              "skuId": "436518106"
+            }
+          },
+          "totalItems": 8,
+          "totalItemsByMain": 8,
+          "totalItemsByOthers": 0
+        },
+        "htmlRender": {
+          "msiteShare": {
+            "deepLink": "lazada://vn/d?itemId=279648338&ps=279648338_VNAMZ-436518106&skuId=436518106",
+            "facebookFallbackValue": false,
+            "image": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+            "meta": "<meta name=\"og:url\" content=\"https://www.lazada.vn/products/sua-rua-mat-can-bang-da-hoan-hao-paulas-choice-resist-perfectly-balanced-foaming-cleanser-7830-i279648338-s436518106.html/\" /><meta name=\"og:title\" content=\"Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830\" /><meta name=\"og:type\" content=\"product\" /><meta name=\"og:description\" content=\"null\" /><meta name=\"og:image\" content=\"//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png\" />",
+            "showFacebookFallback": false,
+            "title": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830",
+            "type": "product",
+            "url": "https://www.lazada.vn/products/sua-rua-mat-can-bang-da-hoan-hao-paulas-choice-resist-perfectly-balanced-foaming-cleanser-7830-i279648338-s436518106.html"
+          }
+        },
+        "skuInfos": {
+          "0": {
+            "categoryId": "2289",
+            "dataLayer": {
+              "pdt_category": [
+                "Làm đẹp",
+                "Chăm sóc da mặt",
+                "Sữa rửa mặt"
+              ],
+              "pagetype": "pdp",
+              "pdt_discount": "-0%",
+              "pdt_photo": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "v_voya": 1,
+              "brand_name": "Paula's Choice",
+              "brand_id": "8239",
+              "pdt_sku": 279648338,
+              "core": {
+                "country": "VN",
+                "layoutType": "desktop",
+                "language": "vi",
+                "currencyCode": "VND"
+              },
+              "seller_name": "Paula's Choice",
+              "pdt_simplesku": 436518106,
+              "pdt_name": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830",
+              "page": {
+                "regCategoryId": "080205000000",
+                "xParams": "_p_typ=pdp&_p_ispdp=1&_p_item=279648338_VNAMZ-436518106&_p_prod=279648338&_p_sku=436518106&_p_slr=100169489"
+              },
+              "supplier_id": 100169489,
+              "pdt_price": "760.000 ₫"
+            },
+            "image": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+            "inWishlist": false,
+            "itemId": "279648338",
+            "operation": {
+              "disable": false,
+              "operationWeight": 6,
+              "text": "Thêm vào giỏ",
+              "type": "default"
+            },
+            "operations": [
+              {
+                "disable": false,
+                "operationWeight": 2,
+                "text": "Mua ngay",
+                "type": "buyNow",
+                "url": "https://checkout.lazada.vn/shipping"
+              },
+              {
+                "disable": false,
+                "operationWeight": 6,
+                "text": "Thêm vào giỏ",
+                "type": "default"
+              }
+            ],
+            "preSaleTag": false,
+            "price": {
+              "coupon": {
+                "desc": "Mua ngay giảm 22.800 ₫",
+                "priceNumber": 737200,
+                "priceText": "737.200 ₫",
+                "requestParameters": [
+                  {
+                    "applyValue": "1",
+                    "extParam": "{\"benefitId\":-900001485772698,\"bizType\":\"VULCAN\",\"extParamStr\":\"{\\\"exposureId\\\":\\\"3c5b561496e24c0b8d25bb201e12381e\\\",\\\"benefit2VoucherPool\\\":\\\"{}\\\",\\\"benefitPoolToken\\\":\\\"xxxxxxxx-xxxxxxxx-xxxxxxxx-xxxxxxxx\\\"}\",\"shopUrl\":\"//www.lazada.vn/shop/paulas-choice/?itemId=279648338&channelSource=pdp\"}",
+                    "remindCard": false,
+                    "sellerId": "100169489",
+                    "voucherFromBizId": "5",
+                    "voucherId": "900001485772698"
+                  }
+                ]
+              },
+              "discount": "-3%",
+              "isShowCoupon": true,
+              "originalPrice": {
+                "text": "760.000 ₫",
+                "value": 760000
+              },
+              "salePrice": {
+                "isCurrencyLeft": false,
+                "noSymbolPriceText": "760.000",
+                "sign": "₫",
+                "text": "760.000 ₫",
+                "value": 760000
+              },
+              "useOldPriceDisplayLogic": false
+            },
+            "promotionTopBannerUrl": "https://img.lazcdn.com/us/lazgcp/75b29eea-07d6-4e4f-a606-8c6b2da72bd1_ALL-480-72.png#width=480&height=72",
+            "quantity": {
+              "limit": {
+                "max": 30,
+                "min": 1
+              },
+              "type": "default"
+            },
+            "quantityList": [
+              {
+                "limit": {
+                  "max": 30,
+                  "min": 1
+                },
+                "type": "default"
+              }
+            ],
+            "sellerId": "100169489",
+            "skuId": "436518106"
+          },
+          "436518106": {
+            "categoryId": "2289",
+            "dataLayer": {
+              "pdt_category": [
+                "Làm đẹp",
+                "Chăm sóc da mặt",
+                "Sữa rửa mặt"
+              ],
+              "pagetype": "pdp",
+              "pdt_discount": "-0%",
+              "pdt_photo": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+              "v_voya": 1,
+              "brand_name": "Paula's Choice",
+              "brand_id": "8239",
+              "pdt_sku": 279648338,
+              "core": {
+                "country": "VN",
+                "layoutType": "desktop",
+                "language": "vi",
+                "currencyCode": "VND"
+              },
+              "seller_name": "Paula's Choice",
+              "pdt_simplesku": 436518106,
+              "pdt_name": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830",
+              "page": {
+                "regCategoryId": "080205000000",
+                "xParams": "_p_typ=pdp&_p_ispdp=1&_p_item=279648338_VNAMZ-436518106&_p_prod=279648338&_p_sku=436518106&_p_slr=100169489"
+              },
+              "supplier_id": 100169489,
+              "pdt_price": "760.000 ₫"
+            },
+            "image": "//laz-img-sg.alicdn.com/p/f32f832509fafc72981d88cc7228f6a9.png",
+            "inWishlist": false,
+            "itemId": "279648338",
+            "operation": {
+              "disable": false,
+              "operationWeight": 6,
+              "text": "Thêm vào giỏ",
+              "type": "default"
+            },
+            "operations": [
+              {
+                "disable": false,
+                "operationWeight": 2,
+                "text": "Mua ngay",
+                "type": "buyNow",
+                "url": "https://checkout.lazada.vn/shipping"
+              },
+              {
+                "disable": false,
+                "operationWeight": 6,
+                "text": "Thêm vào giỏ",
+                "type": "default"
+              }
+            ],
+            "preSaleTag": false,
+            "price": {
+              "coupon": {
+                "desc": "Mua ngay giảm 22.800 ₫",
+                "priceNumber": 737200,
+                "priceText": "737.200 ₫",
+                "requestParameters": [
+                  {
+                    "applyValue": "1",
+                    "extParam": "{\"benefitId\":-900001485772698,\"bizType\":\"VULCAN\",\"extParamStr\":\"{\\\"exposureId\\\":\\\"3c5b561496e24c0b8d25bb201e12381e\\\",\\\"benefit2VoucherPool\\\":\\\"{}\\\",\\\"benefitPoolToken\\\":\\\"xxxxxxxx-xxxxxxxx-xxxxxxxx-xxxxxxxx\\\"}\",\"shopUrl\":\"//www.lazada.vn/shop/paulas-choice/?itemId=279648338&channelSource=pdp\"}",
+                    "remindCard": false,
+                    "sellerId": "100169489",
+                    "voucherFromBizId": "5",
+                    "voucherId": "900001485772698"
+                  }
+                ]
+              },
+              "discount": "-3%",
+              "isShowCoupon": true,
+              "originalPrice": {
+                "text": "760.000 ₫",
+                "value": 760000
+              },
+              "salePrice": {
+                "isCurrencyLeft": false,
+                "noSymbolPriceText": "760.000",
+                "sign": "₫",
+                "text": "760.000 ₫",
+                "value": 760000
+              },
+              "useOldPriceDisplayLogic": false
+            },
+            "promotionTopBannerUrl": "https://img.lazcdn.com/us/lazgcp/75b29eea-07d6-4e4f-a606-8c6b2da72bd1_ALL-480-72.png#width=480&height=72",
+            "quantity": {
+              "limit": {
+                "max": 30,
+                "min": 1
+              },
+              "type": "default"
+            },
+            "quantityList": [
+              {
+                "limit": {
+                  "max": 30,
+                  "min": 1
+                },
+                "type": "default"
+              }
+            ],
+            "sellerId": "100169489",
+            "skuId": "436518106"
+          }
+        },
+        "Breadcrumb": [
+          {
+            "title": "Làm đẹp",
+            "url": "https://www.lazada.vn/cham-soc-suc-khoe-va-lam-dep/"
+          },
+          {
+            "title": "Chăm sóc da mặt",
+            "url": "https://www.lazada.vn/cham-soc-da-mat/"
+          },
+          {
+            "title": "Sữa rửa mặt",
+            "url": "https://www.lazada.vn/sua-rua-mat/"
+          },
+          {
+            "title": "Sữa rửa mặt cân bằng da hoàn hảo Paula’s Choice RESIST Perfectly Balanced Foaming Cleanser 7830"
+          }
+        ],
+        "guideApp": {
+          "bottomTxt": "Quét mã QR để tải app",
+          "description": "Tải ngay ứng dụng để được miễn phí vận chuyển!",
+          "link": "https://s.lazada.vn/a.gHnf",
+          "logo": "https://img.alicdn.com/tfs/TB1f4HzFbH1gK0jSZFwXXc7aXXa-96-96.png",
+          "shortText": "App"
+        },
+        "vouchers": {
+          "436518106": {
+            "params": {
+              "timeStamp": "1793240298814",
+              "itemId": "279648338",
+              "lzd": "460C5A519F1A34D168958364C3598394B8D6F1DF4050CFA3969E04827285838099E8D9597D2499271A9BDE6AF99902AF0C360CF9053FDA621D0D8A8979D26A1E21F44473184C4CC998ABBCD31D9F1FFF9B06D0DA2EB9A7A89B06D0DA2EB9A7A8",
+              "skuId": "436518106",
+              "checkCode": "244ce468c52aeb9b5fcf36b310d873bf"
+            },
+            "titleContentMore": {
+              "content": "Đơn hàng từ 399k ₫, tối đa 300k ₫",
+              "hasAtmosphere": false,
+              "jumpURL": "",
+              "numberOfLine": 0,
+              "title": "Voucher"
+            },
+            "voucherPreview": {
+              "moreIconUrl": "https://laz-img-cdn.alicdn.com/tfs/TB1P6V4sPDpK1RjSZFrXXa78VXa-124-64.png",
+              "previewList": [
+                "3% Giảm"
+              ]
+            }
+          }
+        },
+        "deliveryOptions": {
+          "436518106": [
+            {
+              "badge": false,
+              "dataType": "delivery",
+              "deliveryWorkTimeMax": "2026-11-04T22:57+07:00[GMT+07:00]",
+              "deliveryWorkTimeMin": "2026-10-30T22:57+07:00[GMT+07:00]",
+              "description": "Đối với hàng nội địa, bạn sẽ nhận được hàng trong 2-4 ngày làm việc. <br/>\r\r\r\nPhí giao hàng sẽ được tính dựa trên tổng kích thước/khối lượng sản phẩm bạn đã mua từ nhà bán hàng.<br/><br/><a href=\"https://www.lazada.vn/helpcenter/shipping-and-delivery/\" target=\"_blank\">Tìm hiểu thêm</a>",
+              "duringTime": "Đảm bảo nhận vào 30 thg 10-4 thg 11",
+              "fee": "16.500 ₫",
+              "feeValue": 16500,
+              "hasTip": true,
+              "title": "Giao tiêu chuẩn",
+              "type": "standard"
+            },
+            {
+              "badge": true,
+              "dataType": "service",
+              "description": "",
+              "feeValue": 0,
+              "hasTip": true,
+              "title": "Thanh toán khi nhận hàng. ",
+              "type": "COD"
+            }
+          ]
+        },
+        "qualification": {
+          "mainPageInfo": {
+            "contents": [
+              {
+                "column1": {
+                  "key": "Loại giấy phép",
+                  "value": "Chứng nhận Công bố sản phẩm mỹ phẩm (CPP)"
+                },
+                "column2": {
+                  "key": "Mã giấy phép",
+                  "popContent": "https://filebroker-cdn.lazada.vn/kf/S02139f3d1acf4c2ca52d1599353ee6fbU.png",
+                  "popContentType": "image"
+                }
+              },
+              {
+                "column1": {
+                  "key": "Loại giấy phép",
+                  "value": "Các loại chứng từ khác (ví dụ: Giấy ủy quyền, Hợp đồng, Hóa đơn VAT, Giấy thông quan, hóa đơn khác)"
+                },
+                "column2": {
+                  "key": "Mã giấy phép"
+                }
+              }
+            ],
+            "title": "Chứng chỉ"
+          }
+        },
+        "warranties": {
+          "436518106": [
+            {
+              "dataType": "authenticity",
+              "description": "100% chính hãng: Toàn bộ sản phẩm ở LazMall đều được Lazada nhập trực tiếp từ các thương hiệu chính hãng và đảm bảo chất lượng. \nNếu có dấu hiệu bất thường, xin vui lòng gửi trả để Lazada kiếm tra. Sau đó, nếu sản phẩm thật sự không phải hàng chính hãng, Lazada cam kết hoàn tiền gấp 2 lần.",
+              "leftImage": "https://gw.alicdn.com/imgextra/i3/O1CN01uhiEGU1GH1CzQff4d_!!6000000000596-2-tps-54-54.png",
+              "title": "100% chính hãng",
+              "type": "authenticity"
+            },
+            {
+              "dataType": "change_mind_available",
+              "description": "Bạn có thể trả lại sản phẩm cho chương trình Đổi Ý nếu sản phẩm đáp ứng điều kiện: Sản phẩm thời trang có thể được mở và thử nhưng phải sạch sẽ, không bị hư hỏng, không bị chỉnh sửa và còn nguyên nhãn mác. Các sản phẩm khác phải chưa qua sử dụng, chưa mở, còn nguyên niêm phong và đầy đủ các bộ phận. Sản phẩm đã mở, đã qua sử dụng hoặc bị hư hỏng sẽ không được chấp nhận.",
+              "leftImage": "https://laz-img-cdn.alicdn.com/imgextra/i4/O1CN01HLFg791eRalDVt0XN_!!6000000003868-2-tps-54-54.png",
+              "title": "Đổi Trả Do Đổi Ý",
+              "type": "change_mind_available"
+            },
+            {
+              "dataType": "returnPolicy",
+              "description": "30 ngày trả hàng cho sản phẩm LazMall",
+              "title": "30 ngày miễn phí trả hàng",
+              "type": "returnPolicy30"
+            },
+            {
+              "dataType": "warranty",
+              "description": "Sản phẩm của bạn không đi kèm với bất kỳ chính sách bảo hành nào, nhưng bạn vẫn được hưởng Chính sách trả hàng. Chi tiết xem tại <a href = \"https://www.lazada.vn/helpcenter/returns/?setLang=vi\"> đây </a>.",
+              "title": "Không áp dụng chính sách bảo hành",
+              "type": "noWarranty"
+            }
+          ]
+        },
+        "deliveryOptionsInfo": {
+          "436518106": {
+            "deliveryOptionDesc": "Giao tiêu chuẩn, phí vận chuyển 16.500 ₫",
+            "estimateDeliveryDate": "Đảm bảo nhận vào 30 thg 10-4 thg 11",
+            "icon": "https://gw.alicdn.com/imgextra/i3/O1CN01WViXlH28KD6Q9Njlh_!!6000000007913-2-tps-48-48.png",
+            "popInfo": [
+              {
+                "badge": false,
+                "dataType": "delivery",
+                "deliveryWorkTimeMax": "2026-11-04T22:57+07:00[GMT+07:00]",
+                "deliveryWorkTimeMin": "2026-10-30T22:57+07:00[GMT+07:00]",
+                "description": "Đối với hàng nội địa, bạn sẽ nhận được hàng trong 2-4 ngày làm việc. <br/>\r\r\r\nPhí giao hàng sẽ được tính dựa trên tổng kích thước/khối lượng sản phẩm bạn đã mua từ nhà bán hàng.<br/><br/><a href=\"https://www.lazada.vn/helpcenter/shipping-and-delivery/\" target=\"_blank\">Tìm hiểu thêm</a>",
+                "duringTime": "Đảm bảo nhận vào 30 thg 10-4 thg 11",
+                "fee": "16.500 ₫",
+                "feeValue": 16500,
+                "hasTip": true,
+                "title": "Giao tiêu chuẩn",
+                "type": "standard"
+              },
+              {
+                "badge": true,
+                "dataType": "service",
+                "description": "",
+                "feeValue": 0,
+                "hasTip": true,
+                "title": "Thanh toán khi nhận hàng. ",
+                "type": "COD"
+              }
+            ],
+            "popInfoTitle": "Shipping"
+          }
+        },
+        "recommendSkus": {},
+        "user": {
+          "anonymousId": "d9da677a-4799-49f9-99fe-09ee7b313a5c",
+          "defaultLocation": {
+            "address": "Thành phố Hồ Chí Minh, Phường Bến Thành",
+            "canChange": true,
+            "country": "VN",
+            "isPostcode": false,
+            "postCode": ""
+          },
+          "isLiveUp": false,
+          "login": false,
+          "loginUrl": "//member.lazada.vn/user/login",
+          "loyalty": false,
+          "noGuest": true,
+          "userId": "0"
+        },
+        "primaryKey": {
+          "defaultSkuId": "436518106",
+          "fromShare": false,
+          "itemId": "279648338",
+          "loadedSkuIds": [
+            "436518106"
+          ],
+          "pageId": "279648338",
+          "purchaseQuantity": 1,
+          "sellerId": "100169489",
+          "skuId": "436518106",
+          "skuNames": [
+            "190 ml",
+            "Khác"
+          ],
+          "skuPath": {
+            "100006262": "190 ml",
+            "100006299": "7975"
+          },
+          "skuTabPath": {}
+        }
+      }
+    },
+    "module_core": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/core"
+    },
+    "block-oNF3zY5T2X7": {
+      "fields": {
+        "className": "pdp-block_group_buy_tip"
+      },
+      "type": "Block"
+    },
+    "module_group_buy_tip": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "groupBuyPcTip"
+        ]
+      },
+      "type": "lzd/group-buy-tip"
+    },
+    "block-kZpMl7A4AUT": {
+      "fields": {
+        "className": "pdp-block__main-information",
+        "style": {
+          "borderRadius": "8px"
+        }
+      },
+      "type": "Block"
+    },
+    "block-uoED2oeLDwO": {
+      "fields": {
+        "className": "pdp-block__gallery"
+      },
+      "type": "Block"
+    },
+    "module_item_gallery_1": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "product",
+          "skuGalleries",
+          "variationHoverImage",
+          "seo"
+        ]
+      },
+      "type": "lzd/item-gallery"
+    },
+    "block--6ameTrYiMr": {
+      "fields": {
+        "className": "pdp-block__main-information-detail"
+      },
+      "type": "Block"
+    },
+    "block-7Kxw8A5ZSxX": {
+      "type": "Block"
+    },
+    "block-63zNb8BS8iE": {
+      "fields": {
+        "className": "pdp-v2-block__product-detail"
+      },
+      "type": "Block"
+    },
+    "module_redmart_top_promo_banner": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "globalConfig",
+          "bottom_add_to_cart_grocer"
+        ]
+      },
+      "type": "lzd/redmart-top-promo-banner"
+    },
+    "block-RH0HhUR0gpo": {
+      "fields": {
+        "className": "pdp-v2-block pdp-v2-padding-top-none"
+      },
+      "type": "Block"
+    },
+    "block-TYojDg-u9My": {
+      "fields": {
+        "className": "pdp-v2-block__title-scan"
+      },
+      "type": "Block"
+    },
+    "block-xoVQerFpcVX": {
+      "fields": {
+        "className": "pdp-v2-block__title-scan__title"
+      },
+      "type": "Block"
+    },
+    "module_product_title_1": {
+      "fields": {
+        "className": "block-table-row",
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "product",
+          "price_grocer",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/product-title"
+    },
+    "block-rVxSuBPYutH": {
+      "fields": {
+        "className": "pdp-v2-block__title-scan__scan"
+      },
+      "type": "Block"
+    },
+    "block-sQb9UDxrW59": {
+      "type": "Block"
+    },
+    "module_guide_app": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "guideApp"
+        ]
+      },
+      "type": "lzd/guideApp"
+    },
+    "module_pre-order-tag": {
+      "fields": {
+        "className": "block-table-row",
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "preOrder",
+          "primaryKey"
+        ]
+      },
+      "type": "lzd/pre-order-tag"
+    },
+    "block-F8zqMtEgsNq": {
+      "fields": {
+        "className": "pdp-v2-block__rating-questions-summary"
+      },
+      "type": "Block"
+    },
+    "block-IfI1DGGxNmi": {
+      "fields": {
+        "className": "pdp-v2-block__rating-questions"
+      },
+      "type": "Block"
+    },
+    "module_product_review_star_1": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "review",
+          "qna",
+          "elevator"
+        ]
+      },
+      "type": "lzd/product-review-summary"
+    },
+    "block-jncKZrar-yU": {
+      "fields": {
+        "className": "pdp-v2-block__brand"
+      },
+      "type": "Block"
+    },
+    "module_product_brand_1": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "product",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/product-brand"
+    },
+    "module_flash_sale": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "flashSale"
+        ],
+        "dnr": "!$store.flashSale"
+      },
+      "type": "lzd/flash-sale"
+    },
+    "module_crazy_deal": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "crazyDeal"
+        ],
+        "dnr": "!$store.crazyDeal"
+      },
+      "type": "lzd/crazy-deal"
+    },
+    "block-fDybCRYThSR": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "priceMask"
+        ]
+      },
+      "type": "lzd/price-mask"
+    },
+    "module_product_price_v2": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "globalConfig",
+          "bulkPurchaseSkuList",
+          "productOption"
+        ]
+      },
+      "type": "lzd/product-price-v2"
+    },
+    "module_product_attrs": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "product_attributes_grocer"
+        ]
+      },
+      "type": "lzd/product-attrs"
+    },
+    "module_redmart_product_price": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "price_grocer"
+        ]
+      },
+      "type": "lzd/redmart-product-price"
+    },
+    "module_promotion_tags": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "promotionTags",
+          "globalConfig",
+          "user",
+          "vouchers",
+          "buyMoreGradients",
+          "gifts",
+          "samples"
+        ],
+        "dnr": "!$store.promotionTags"
+      },
+      "type": "lzd/promotion-tags"
+    },
+    "module_seller_delivery": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "deliveryOptions",
+          "deliveryOptionsInfo",
+          "productOption",
+          "user",
+          "globalConfig"
+        ],
+        "dnr": "!$store.deliveryOptionsInfo"
+      },
+      "type": "lzd/delivery"
+    },
+    "module_seller_warranty": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "warranties",
+          "warrantiesInfo"
+        ]
+      },
+      "type": "lzd/warranty"
+    },
+    "module_installment": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "installments"
+        ]
+      },
+      "type": "lzd/installment"
+    },
+    "module_sku-select": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "productOption",
+          "primaryKey",
+          "showSKUSelect",
+          "skuInfos",
+          "needCheckSKU",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/sku-select"
+    },
+    "module_quantity-input": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "primaryKey",
+          "skuInfos",
+          "productOption"
+        ]
+      },
+      "type": "lzd/quantity-input"
+    },
+    "module_sms-phone-input": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "primaryKey",
+          "skuInfos",
+          "user"
+        ],
+        "elevator": "PhoneInput"
+      },
+      "type": "lzd/sms-phone-input"
+    },
+    "block-u18wAmlTaSz": {
+      "fields": {
+        "style": {
+          "marginTop": "24px",
+          "display": "flex",
+          "alignItems": "center"
+        }
+      },
+      "type": "Block"
+    },
+    "block-dbF4tgMvh5-": {
+      "type": "Block"
+    },
+    "module_add_to_cart": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "productOption",
+          "gifts",
+          "samples",
+          "globalConfig",
+          "product",
+          "user",
+          "bulkPurchaseSkuList",
+          "seller",
+          "tracking",
+          "tag",
+          "rules"
+        ]
+      },
+      "type": "lzd/add-to-cart"
+    },
+    "block-V3yR27hw41x": {
+      "fields": {
+        "dnr": "!$store.product"
+      },
+      "type": "Block"
+    },
+    "block-jKa5Mjaln-_": {
+      "fields": {
+        "style": {
+          "marginLeft": "18px"
+        }
+      },
+      "type": "Block"
+    },
+    "module_product_share_1": {
+      "fields": {
+        "className": "block-inline",
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "product",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/share"
+    },
+    "block-k7K1-z2KX26": {
+      "fields": {
+        "dnr": "!$store.skuInfos"
+      },
+      "type": "Block"
+    },
+    "block-6Pmobk75Ejf": {
+      "fields": {
+        "style": {
+          "marginLeft": "18px"
+        }
+      },
+      "type": "Block"
+    },
+    "module_product_wishlist_1": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "productOption",
+          "user",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/wishlist"
+    },
+    "module_redmart_add_to_cart": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "globalConfig",
+          "bottom_add_to_cart_grocer",
+          "user"
+        ]
+      },
+      "type": "lzd/redmart-add-to-cart"
+    },
+    "block_milkpowder-notice": {
+      "type": "Block"
+    },
+    "module_milkpowder-notice": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "globalConfig",
+          "tag",
+          "rules"
+        ]
+      },
+      "type": "lzd/milkpowder-notice"
+    },
+    "block-AIJij4A2gug": {
+      "fields": {
+        "className": "pdp-block_mini-sku"
+      },
+      "type": "Block"
+    },
+    "block-gjf1lh9BMze": {
+      "fields": {
+        "className": "pdp-block_mini-sku-container"
+      },
+      "type": "Block"
+    },
+    "block-G-pxeMTNtXO": {
+      "fields": {
+        "className": "pdp-block_mini-sku-top"
+      },
+      "type": "Block"
+    },
+    "module_item_gallery_1_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "product",
+          "skuGalleries",
+          "variationHoverImage",
+          "seo"
+        ]
+      },
+      "type": "lzd/item-gallery-mini"
+    },
+    "module_product_price_v2_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "globalConfig",
+          "bulkPurchaseSkuList",
+          "productOption"
+        ]
+      },
+      "type": "lzd/product-price-v2-mini"
+    },
+    "block-Eluy1TeqOz6": {
+      "fields": {
+        "className": "pdp-block_mini-sku-scrollview"
+      },
+      "type": "Block"
+    },
+    "module_product_price_v2_etickets": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "globalConfig",
+          "bulkPurchaseSkuList",
+          "productOption"
+        ]
+      },
+      "type": "lzd/product-price-v2-etickets"
+    },
+    "module_sku-select_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "productOption",
+          "primaryKey",
+          "showSKUSelect",
+          "skuInfos",
+          "needCheckSKU",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/sku-select-mini"
+    },
+    "module_quantity-input_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "primaryKey",
+          "skuInfos",
+          "productOption"
+        ]
+      },
+      "type": "lzd/quantity-input-mini"
+    },
+    "module_sms-phone-input_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "primaryKey",
+          "skuInfos",
+          "user"
+        ],
+        "elevator": "PhoneInput"
+      },
+      "type": "lzd/sms-phone-input-mini"
+    },
+    "module_add_to_cart_mini": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "productOption",
+          "gifts",
+          "samples",
+          "globalConfig",
+          "product",
+          "user",
+          "bulkPurchaseSkuList",
+          "seller",
+          "tracking",
+          "tag",
+          "rules"
+        ]
+      },
+      "type": "lzd/add-to-cart-mini"
+    },
+    "block-TLbclOKUObu": {
+      "fields": {
+        "className": "pdp-block_shop"
+      },
+      "type": "Block"
+    },
+    "module_seller_info": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "seller",
+          "primaryKey",
+          "globalConfig"
+        ]
+      },
+      "type": "lzd/seller"
+    },
+    "block-LyJGDyEmO7g": {
+      "fields": {
+        "className": "pdp-block__multisource"
+      },
+      "type": "Block"
+    },
+    "block_multiple_source": {
+      "fields": {
+        "className": "fixed-width-full"
+      },
+      "type": "Block"
+    },
+    "module_multiple_source": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "multiSource",
+          "user",
+          "product",
+          "globalConfig",
+          "elevator"
+        ],
+        "dnr": "!$store.multiSource"
+      },
+      "type": "lzd/multiple-source"
+    },
+    "block_add_on_service_list": {
+      "fields": {
+        "className": "fixed-width-full pdp-block__add-on-service"
+      },
+      "type": "Block"
+    },
+    "module_add_on_service_list": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "product",
+          "addOnServices",
+          "productOption",
+          "globalConfig",
+          "user",
+          "elevator"
+        ]
+      },
+      "type": "lzd/add-on-service-list"
+    },
+    "block_combo_list": {
+      "fields": {
+        "className": "pdp-block__combo"
+      },
+      "type": "Block"
+    },
+    "module_combo_list": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "skuInfos",
+          "product",
+          "combos",
+          "productOption",
+          "globalConfig",
+          "user",
+          "elevator"
+        ]
+      },
+      "type": "lzd/combo-list"
+    },
+    "block_redmart_min_spend_promotion": {
+      "fields": {
+        "className": "pdp-block__redmart-promotion"
+      },
+      "type": "Block"
+    },
+    "module_redmart_min_spend_promotion": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "user",
+          "min_spend_promotion_grocer",
+          "bottom_add_to_cart_grocer"
+        ]
+      },
+      "type": "lzd/redmart-min-spend-promotion"
+    },
+    "block_redmart_promotion": {
+      "fields": {
+        "className": "pdp-block__redmart-promotion"
+      },
+      "type": "Block"
+    },
+    "module_redmart_promotion": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "user",
+          "multibuy_promotion_grocer",
+          "bottom_add_to_cart_grocer"
+        ]
+      },
+      "type": "lzd/redmart-promotion"
+    },
+    "block-dsMB4SbNReH": {
+      "fields": {
+        "className": "pdp-block__additional-information"
+      },
+      "type": "Block"
+    },
+    "block--u5wd3odt_p": {
+      "fields": {
+        "className": "pdp-block__additional-information-main"
+      },
+      "type": "Block"
+    },
+    "block-y8OIwOAEmKm": {
+      "fields": {
+        "className": "pdp-block__product-description"
+      },
+      "type": "Block"
+    },
+    "block-UohIq4s4eCP": {
+      "fields": {
+        "className": "pdp-block__promotion-ads"
+      },
+      "type": "Block"
+    },
+    "block_shop_promotion": {
+      "fields": {
+        "className": "pdp-block__shop_promotion fixed-width-full background-2"
+      },
+      "type": "Block"
+    },
+    "module_shop_promotion": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "primaryKey",
+          "shopPromotion"
+        ]
+      },
+      "type": "lzd/shop-promotion"
+    },
+    "block-obp0_ZW4x1x": {
+      "fields": {
+        "className": "pdp-block__product-ads fixed-width-full background-2"
+      },
+      "type": "Block"
+    },
+    "module_ads": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "recommendSkus",
+          "globalConfig",
+          "recommendLoadStatus",
+          "user",
+          "primaryKey"
+        ]
+      },
+      "type": "lzd/ads"
+    },
+    "block-UEVS5xO3Yq0": {
+      "fields": {
+        "className": "fixed-width-full background-2"
+      },
+      "type": "Block"
+    },
+    "module_quick_navigation": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "elevator",
+          "recommendSkus"
+        ]
+      },
+      "type": "lzd/quick-navigation"
+    },
+    "block-Ybf5NfqFd_o": {
+      "fields": {
+        "className": "fixed-width-full background-2"
+      },
+      "type": "Block"
+    },
+    "module_product_review": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "review",
+          "primaryKey",
+          "skuInfos",
+          "skuGalleries",
+          "product",
+          "elevator"
+        ],
+        "elevator": "Ratings"
+      },
+      "type": "lzd/review"
+    },
+    "block-KtzNlEPchW_": {
+      "fields": {
+        "className": "fixed-width-full background-2"
+      },
+      "type": "Block"
+    },
+    "module_product_detail": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "disclaimers",
+          "product",
+          "productOption",
+          "specifications",
+          "primaryKey",
+          "elevator",
+          "attributes_grocer",
+          "qualification",
+          "seo",
+          "globalConfig",
+          "user"
+        ],
+        "elevator": "Detail"
+      },
+      "type": "lzd/product-detail"
+    },
+    "block-jJYtKhLFuA_": {
+      "fields": {
+        "className": "pdp-block__additional-information-other"
+      },
+      "type": "Block"
+    },
+    "block-A1wCZEMt0JK": {
+      "fields": {
+        "className": "fixed-width-full  block-margin-top pdp-block__recommendation"
+      },
+      "type": "Block"
+    },
+    "seller_recommend": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "seller",
+          "globalConfig",
+          "user"
+        ]
+      },
+      "type": "lzd/seller-recommend"
+    },
+    "block-U8tHzQbTedx": {
+      "fields": {
+        "className": "fixed-width-full  block-margin-top pdp-block__recommendation"
+      },
+      "type": "Block"
+    },
+    "module_recommendation": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "recommendSkus",
+          "globalConfig",
+          "recommendLoadStatus",
+          "user",
+          "primaryKey"
+        ]
+      },
+      "type": "lzd/recommendation"
+    },
+    "block-I0bh_L6nNF4": {
+      "fields": {
+        "className": "fixed-width-full  block-margin-top pdp-block__recommendation"
+      },
+      "type": "Block"
+    },
+    "module_recommendation_2": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "recommendSkus",
+          "globalConfig",
+          "recommendLoadStatus",
+          "user",
+          "primaryKey"
+        ]
+      },
+      "type": "lzd/recommendation2"
+    },
+    "block-oQhPPSno3aO": {
+      "fields": {
+        "className": "fixed-width-full block-margin-top background-2"
+      },
+      "type": "Block"
+    },
+    "module_inner_link": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "storeMapToProps": [
+          "globalConfig",
+          "primaryKey",
+          "product"
+        ]
+      },
+      "type": "lzd/inner-link"
+    },
+    "block_age-restriction": {
+      "type": "Block"
+    },
+    "module_age-restriction": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "globalConfig",
+          "tag",
+          "rules"
+        ]
+      },
+      "type": "lzd/age-restriction"
+    },
+    "block_popups": {
+      "type": "Block"
+    },
+    "module_popups": {
+      "fields": {
+        "path": "//g.lazcdn.com/g/lzdfe/pdp-modules/2.0.26/pc-v2-mod.js",
+        "ssr": false,
+        "storeMapToProps": [
+          "popups",
+          "user"
+        ]
+      },
+      "type": "lzd/popups"
+    }
+  },
+  "hierarchy": {
+    "root": "root_1",
+    "structure": {
+      "block-oNF3zY5T2X7": [
+        "module_group_buy_tip"
+      ],
+      "block-kZpMl7A4AUT": [
+        "block-uoED2oeLDwO",
+        "block--6ameTrYiMr"
+      ],
+      "block-uoED2oeLDwO": [
+        "module_item_gallery_1"
+      ],
+      "block--6ameTrYiMr": [
+        "block-7Kxw8A5ZSxX"
+      ],
+      "block-7Kxw8A5ZSxX": [
+        "block-63zNb8BS8iE"
+      ],
+      "block-63zNb8BS8iE": [
+        "module_redmart_top_promo_banner",
+        "block-RH0HhUR0gpo",
+        "module_flash_sale",
+        "module_crazy_deal",
+        "block-fDybCRYThSR",
+        "module_product_price_v2",
+        "module_product_attrs",
+        "module_redmart_product_price",
+        "module_promotion_tags",
+        "module_seller_delivery",
+        "module_seller_warranty",
+        "module_installment",
+        "module_sku-select",
+        "module_quantity-input",
+        "module_sms-phone-input",
+        "block-u18wAmlTaSz",
+        "module_redmart_add_to_cart"
+      ],
+      "block-RH0HhUR0gpo": [
+        "block-TYojDg-u9My",
+        "module_pre-order-tag",
+        "block-F8zqMtEgsNq",
+        "block-jncKZrar-yU"
+      ],
+      "block-TYojDg-u9My": [
+        "block-xoVQerFpcVX",
+        "block-rVxSuBPYutH"
+      ],
+      "block-xoVQerFpcVX": [
+        "module_product_title_1"
+      ],
+      "block-rVxSuBPYutH": [
+        "block-sQb9UDxrW59"
+      ],
+      "block-sQb9UDxrW59": [
+        "module_guide_app"
+      ],
+      "block-F8zqMtEgsNq": [
+        "block-IfI1DGGxNmi"
+      ],
+      "block-IfI1DGGxNmi": [
+        "module_product_review_star_1"
+      ],
+      "block-jncKZrar-yU": [
+        "module_product_brand_1"
+      ],
+      "block-u18wAmlTaSz": [
+        "block-dbF4tgMvh5-",
+        "block-V3yR27hw41x",
+        "block-k7K1-z2KX26"
+      ],
+      "block-dbF4tgMvh5-": [
+        "module_add_to_cart"
+      ],
+      "block-V3yR27hw41x": [
+        "block-jKa5Mjaln-_"
+      ],
+      "block-jKa5Mjaln-_": [
+        "module_product_share_1"
+      ],
+      "block-k7K1-z2KX26": [
+        "block-6Pmobk75Ejf"
+      ],
+      "block-6Pmobk75Ejf": [
+        "module_product_wishlist_1"
+      ],
+      "block_milkpowder-notice": [
+        "module_milkpowder-notice"
+      ],
+      "block-AIJij4A2gug": [
+        "block-gjf1lh9BMze"
+      ],
+      "block-gjf1lh9BMze": [
+        "block-G-pxeMTNtXO",
+        "block-Eluy1TeqOz6",
+        "module_add_to_cart_mini"
+      ],
+      "block-G-pxeMTNtXO": [
+        "module_item_gallery_1_mini",
+        "module_product_price_v2_mini"
+      ],
+      "block-Eluy1TeqOz6": [
+        "module_product_price_v2_etickets",
+        "module_sku-select_mini",
+        "module_quantity-input_mini",
+        "module_sms-phone-input_mini"
+      ],
+      "block-TLbclOKUObu": [
+        "module_seller_info"
+      ],
+      "block-LyJGDyEmO7g": [
+        "block_multiple_source"
+      ],
+      "block_multiple_source": [
+        "module_multiple_source"
+      ],
+      "block_add_on_service_list": [
+        "module_add_on_service_list"
+      ],
+      "block_combo_list": [
+        "module_combo_list"
+      ],
+      "block_redmart_min_spend_promotion": [
+        "module_redmart_min_spend_promotion"
+      ],
+      "block_redmart_promotion": [
+        "module_redmart_promotion"
+      ],
+      "block-dsMB4SbNReH": [
+        "block--u5wd3odt_p",
+        "block-jJYtKhLFuA_"
+      ],
+      "block--u5wd3odt_p": [
+        "block-y8OIwOAEmKm"
+      ],
+      "block-y8OIwOAEmKm": [
+        "block-UohIq4s4eCP",
+        "block-UEVS5xO3Yq0",
+        "block-Ybf5NfqFd_o",
+        "block-KtzNlEPchW_"
+      ],
+      "block-UohIq4s4eCP": [
+        "block_shop_promotion",
+        "block-obp0_ZW4x1x"
+      ],
+      "block_shop_promotion": [
+        "module_shop_promotion"
+      ],
+      "block-obp0_ZW4x1x": [
+        "module_ads"
+      ],
+      "block-UEVS5xO3Yq0": [
+        "module_quick_navigation"
+      ],
+      "block-Ybf5NfqFd_o": [
+        "module_product_review"
+      ],
+      "block-KtzNlEPchW_": [
+        "module_product_detail"
+      ],
+      "block-jJYtKhLFuA_": [
+        "block-A1wCZEMt0JK",
+        "block-U8tHzQbTedx",
+        "block-I0bh_L6nNF4",
+        "block-oQhPPSno3aO"
+      ],
+      "block-A1wCZEMt0JK": [
+        "seller_recommend"
+      ],
+      "block-U8tHzQbTedx": [
+        "module_recommendation"
+      ],
+      "block-I0bh_L6nNF4": [
+        "module_recommendation_2"
+      ],
+      "block-oQhPPSno3aO": [
+        "module_inner_link"
+      ],
+      "block_age-restriction": [
+        "module_age-restriction"
+      ],
+      "block_popups": [
+        "module_popups"
+      ],
+      "root": [
+        "module_core",
+        "block-oNF3zY5T2X7",
+        "block-kZpMl7A4AUT",
+        "block_milkpowder-notice",
+        "block-AIJij4A2gug",
+        "block-TLbclOKUObu",
+        "block-LyJGDyEmO7g",
+        "block_add_on_service_list",
+        "block_combo_list",
+        "block_redmart_min_spend_promotion",
+        "block_redmart_promotion",
+        "block-dsMB4SbNReH",
+        "block_age-restriction",
+        "block_popups"
+      ]
+    }
+  }
+}

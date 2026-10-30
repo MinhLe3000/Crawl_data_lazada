@@ -1,0 +1,29 @@
+2026-10-27 14:14:59,713 INFO nike-flagship-store page 1
+2026-10-27 14:15:05,553 INFO nike-flagship-store page 2
+2026-10-27 14:15:11,172 INFO nike-flagship-store page 3
+2026-10-27 14:15:16,885 INFO nike-flagship-store page 4
+2026-10-27 14:15:22,475 INFO nike-flagship-store page 5
+2026-10-27 14:15:28,333 INFO nike-flagship-store: 200 products; page_limit_reached
+2026-10-27 14:15:32,075 INFO supersports page 1
+2026-10-27 14:15:38,052 INFO supersports page 2
+2026-10-27 14:15:43,828 INFO supersports page 3
+2026-10-27 14:15:49,741 INFO supersports page 4
+2026-10-27 14:15:56,971 INFO supersports page 5
+2026-10-27 14:16:04,841 INFO supersports: 200 products; page_limit_reached
+2026-10-27 14:16:08,442 INFO xiao-lizi-football-global page 1
+2026-10-27 14:16:17,844 INFO xiao-lizi-football-global page 2
+2026-10-27 14:16:24,645 INFO xiao-lizi-football-global page 3
+2026-10-27 14:16:29,450 INFO xiao-lizi-football-global: 99 products; complete
+2026-10-27 14:16:33,344 INFO sport-fashion-concept-store page 1
+2026-10-27 14:16:43,545 INFO sport-fashion-concept-store page 2
+2026-10-27 14:16:51,970 INFO sport-fashion-concept-store page 3
+2026-10-27 14:16:57,519 INFO sport-fashion-concept-store page 4
+2026-10-27 14:17:03,854 INFO sport-fashion-concept-store page 5
+2026-10-27 14:17:12,084 INFO sport-fashion-concept-store: 200 products; page_limit_reached
+2026-10-27 14:17:15,903 INFO adidas1631618372 page 1
+2026-10-27 14:17:23,472 INFO adidas1631618372 page 2
+2026-10-27 14:17:30,914 INFO adidas1631618372 page 3
+2026-10-27 14:17:36,426 INFO adidas1631618372 page 4
+2026-10-27 14:17:42,234 INFO adidas1631618372 page 5
+2026-10-27 14:17:48,023 INFO adidas1631618372: 200 products; page_limit_reached
+2026-10-27 14:17:48,409 INFO Output: D:\Data engineer\lazada-football-boots\hàng chính hãng\data\20261027_141455_388910

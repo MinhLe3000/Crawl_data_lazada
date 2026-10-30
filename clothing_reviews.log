@@ -1,0 +1,6 @@
+2026-10-29T14:32:59.156238+07:00 lazada-clothing-fake: 2 products have confirmed review status
+2026-10-29T14:32:59.252058+07:00 lazada-clothing-official: 23 products have confirmed review status
+2026-10-29T14:32:59.277002+07:00 lazada-clothing-authorized: 0 products have confirmed review status
+2026-10-29T14:33:01.292905+07:00 1/1435 lazada-clothing-fake product 2522142597
+2026-10-29T14:33:17.450862+07:00 MANUAL VERIFICATION REQUIRED: lazada-clothing-fake product 2522142597
+2026-10-29T14:33:42.191714+07:00 STOP: Page.wait_for_timeout: Target page, context or browser has been closed

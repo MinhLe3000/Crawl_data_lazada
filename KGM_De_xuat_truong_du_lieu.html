@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KGM — Đề xuất trường dữ liệu</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#15181d; --ink-2:#4a515c; --ink-3:#787f8b;
+    --line:#e2e5ea; --line-2:#cfd4dc;
+    --brand:#2f5bd6; --brand-soft:#eaf0ff;
+    --data:#0e8a74; --data-soft:#e4f5f1;
+    --ai:#6b43c9; --ai-soft:#f0eaff;
+    --warn:#b3690a; --warn-soft:#fdf2e0;
+    --risk:#c0392b; --risk-soft:#fdeceb;
+    --ok:#2f7d32; --ok-soft:#e9f5ea;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1116; --panel:#161a21; --ink:#e8eaee; --ink-2:#aeb5c0; --ink-3:#7d8694;
+      --line:#262c35; --line-2:#333b46;
+      --brand:#7aa0ff; --brand-soft:#1a2238;
+      --data:#45c9ae; --data-soft:#11291f;
+      --ai:#b092ff; --ai-soft:#221a38;
+      --warn:#e0a44a; --warn-soft:#2d2314;
+      --risk:#ef7f73; --risk-soft:#2e1817;
+      --ok:#73c477; --ok-soft:#14271a;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:22px}
+  body{margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Inter","Segoe UI",system-ui,-apple-system,"Noto Sans",Roboto,Arial,sans-serif;
+    font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1380px; margin:0 auto; padding:0 24px}
+  .shell{max-width:1380px; margin:0 auto; padding:0 24px; display:flex; gap:34px; align-items:flex-start}
+  main{flex:1 1 auto; min-width:0}
+  aside.toc{position:sticky; top:22px; flex:0 0 210px; padding:34px 0 24px; max-height:calc(100vh - 22px); overflow-y:auto}
+  aside.toc .toc-label{font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:800; padding:0 12px 10px}
+  aside.toc ul{list-style:none; margin:0; padding:0; border-left:1px solid var(--line)}
+  aside.toc a{display:block; padding:6px 12px; margin-left:-1px; font-size:13px; line-height:1.35; color:var(--ink-3); text-decoration:none; border-left:2px solid transparent}
+  aside.toc a:hover{color:var(--brand)}
+  aside.toc a.active{color:var(--brand); font-weight:700; border-left-color:var(--brand); background:var(--brand-soft); border-radius:0 6px 6px 0}
+  main > section:first-child{padding-top:34px}
+
+  header.top{background:linear-gradient(135deg,#1b2535,#2c3a52 55%,#394a68); color:#fff; padding:44px 0 36px}
+  @media (prefers-color-scheme: dark){ header.top{background:linear-gradient(135deg,#131922,#1c2634 55%,#22304a)} }
+  header.top .eyebrow{font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#9fb4d6; font-weight:700}
+  header.top h1{margin:10px 0 6px; font-size:30px; line-height:1.2; letter-spacing:-.02em}
+  header.top p.sub{margin:0; color:#c3cfe2; max-width:80ch}
+
+  @media(max-width:980px){
+    html{scroll-padding-top:60px}
+    .shell{display:block; padding:0 16px}
+    .wrap{padding:0 16px}
+    aside.toc{position:sticky; top:0; z-index:20; flex:none; margin:0 -16px; padding:0; max-height:none; background:var(--panel); border-bottom:1px solid var(--line); overflow-x:auto}
+    aside.toc .toc-label{display:none}
+    aside.toc ul{display:flex; white-space:nowrap; border-left:none; padding:0 10px}
+    aside.toc a{padding:12px 10px; margin-left:0; border-left:none; border-bottom:2px solid transparent}
+    aside.toc a.active{background:transparent; border-radius:0; border-left-color:transparent; border-bottom-color:var(--brand)}
+    main > section:first-child{padding-top:40px}
+  }
+
+  section{padding:46px 0 10px}
+  h2{font-size:13px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); margin:0 0 6px; font-weight:800}
+  h2 + .h2sub{margin:0 0 16px; font-size:23px; font-weight:700; letter-spacing:-.015em; line-height:1.3}
+  h3{font-size:15px; margin:0 0 8px; font-weight:700}
+  p{margin:0 0 12px; color:var(--ink-2)}
+  a{color:var(--brand)}
+  code{font-family:var(--mono); font-size:.86em; background:var(--bg); border:1px solid var(--line); border-radius:5px; padding:1px 5px; color:var(--ink)}
+
+  .panel{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px}
+  .panel ul{margin:0; padding-left:18px; font-size:13.5px; color:var(--ink-2)}
+  .panel li{margin-bottom:4px}
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media(max-width:860px){ .g2{grid-template-columns:minmax(0,1fr)} .g4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+  .stat{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px}
+  .stat .n{font-size:28px; font-weight:800; letter-spacing:-.02em; line-height:1.1}
+  .stat .l{font-size:12.5px; color:var(--ink-3); margin-top:4px}
+  .stat.b .n{color:var(--brand)} .stat.d .n{color:var(--data)} .stat.a .n{color:var(--ai)} .stat.r .n{color:var(--risk)}
+
+  .tw{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--panel)}
+  table{border-collapse:collapse; width:100%; font-size:13.3px; min-width:820px}
+  table.small{min-width:620px}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:var(--bg); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); font-weight:800; white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tr.grp td{background:var(--bg); font-weight:800; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); padding:7px 12px}
+  td.nw{white-space:nowrap}
+
+  .fn{font-family:var(--mono); font-weight:700; font-size:12.5px; color:var(--ink); overflow-wrap:anywhere}
+  table.wide{min-width:1000px}
+  td.srcs{min-width:118px}
+  .ty{display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:700; color:var(--ink-2); border:1px solid var(--line-2); border-radius:4px; padding:0 5px; margin-right:4px}
+  .ex{display:block; font-family:var(--mono); font-size:11.8px; line-height:1.45; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:6px; padding:4px 7px; overflow-wrap:anywhere; white-space:pre-wrap}
+  .fdesc{font-size:12px; color:var(--ink-3); margin-top:2px; line-height:1.45}
+  .muted{color:var(--ink-3)}
+
+  .t{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px; white-space:nowrap}
+  .t-g1{background:var(--data-soft); color:var(--data)}
+  .t-g2{background:var(--ai-soft); color:var(--ai)}
+  .t-p0{background:var(--brand); color:#fff}
+  .t-p1{background:var(--brand-soft); color:var(--brand)}
+  .t-p2{background:var(--bg); color:var(--ink-3); border:1px solid var(--line)}
+  .t-ok{background:var(--ok-soft); color:var(--ok)}
+  .t-warn{background:var(--warn-soft); color:var(--warn)}
+  .t-risk{background:var(--risk-soft); color:var(--risk)}
+  .t-low{background:var(--bg); color:var(--ink-3); border:1px solid var(--line)}
+
+  .src{display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:700; padding:1px 6px; border-radius:5px; margin:1px 3px 1px 0; background:var(--data-soft); color:var(--data)}
+  .src.g2{background:var(--ai-soft); color:var(--ai)}
+  .src.ref{background:var(--brand-soft); color:var(--brand)}
+  .kind{font-size:12px; font-weight:700; color:var(--ink-2); white-space:nowrap}
+  .pc{display:inline-flex; width:20px; height:20px; border-radius:50%; align-items:center; justify-content:center; font-size:11px; font-weight:800; margin:1px 3px 1px 0; background:var(--brand-soft); color:var(--brand)}
+  .pc.all{width:auto; padding:0 8px; border-radius:999px; background:var(--bg); color:var(--ink-2); border:1px solid var(--line)}
+
+  .legend{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+  @media(max-width:860px){ .legend{grid-template-columns:minmax(0,1fr)} }
+  .legend dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 12px; font-size:13.3px; align-items:baseline}
+  .legend dt{white-space:nowrap}
+  .legend dd{margin:0; color:var(--ink-2)}
+
+  .call{border-radius:10px; padding:13px 16px; font-size:13.8px; border:1px solid; margin:0 0 14px}
+  .call.b{background:var(--brand-soft); border-color:var(--brand); color:var(--ink)}
+  .call.w{background:var(--warn-soft); border-color:var(--warn); color:var(--ink)}
+  .call.r{background:var(--risk-soft); border-color:var(--risk); color:var(--ink)}
+  .call ol,.call ul{margin:6px 0 0; padding-left:20px}
+  .call li{margin-bottom:3px}
+
+  .bt-head{display:flex; gap:10px; align-items:baseline; flex-wrap:wrap; margin-bottom:14px}
+  .bt-count{font-size:13px; color:var(--ink-3)}
+
+  .filters{display:flex; flex-wrap:wrap; gap:10px; margin:0 0 12px; align-items:center}
+  .filters input,.filters select{font:inherit; font-size:13.5px; padding:7px 10px; border:1px solid var(--line-2); border-radius:8px; background:var(--panel); color:var(--ink); min-width:0}
+  .filters input{flex:1 1 220px}
+  .btn{font:inherit; font-size:13.5px; font-weight:700; padding:8px 14px; border-radius:8px; border:1px solid var(--brand); background:var(--brand); color:#fff; cursor:pointer}
+  .btn.ghost{background:transparent; color:var(--brand)}
+  .shown{font-size:13px; color:var(--ink-3); margin-left:auto}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Dự án KGM · Đề xuất thiết kế dữ liệu</div>
+    <h1>Đề xuất trường dữ liệu cho 6 bài toán</h1>
+    <p class="sub">Danh mục trường dữ liệu cần lấy trong scope KGM: giám sát <b>không gian mạng</b>, phân kỳ GĐ I (Facebook theo từ khóa + Lazada) và GĐ II (Shopee, TikTok Shop, website, đa phương tiện). Đã áp dụng các điều chỉnh từ bản review: sản phẩm chuẩn thay cho SKU, khớp sản phẩm, tracking, trạng thái thu thập, giá tham chiếu theo kênh chính hãng, định danh cá nhân lưu dạng keyed hash.</p>
+  </div>
+</header>
+
+<div class="shell">
+<aside class="toc">
+  <div class="toc-label">Nội dung</div>
+  <ul>
+    <li><a href="#tong-quan">Tổng quan &amp; cách đọc</a></li>
+    <li><a href="#thuc-the">Thực thể dữ liệu</a></li>
+    <li><a href="#dung-chung">Trường dùng chung</a></li>
+    <li><a href="#bt1">BT1 · Hàng giả</a></li>
+    <li><a href="#bt2">BT2 · Hàng nhái</a></li>
+    <li><a href="#bt3">BT3 · Quảng cáo sai lệch</a></li>
+    <li><a href="#bt4">BT4 · Hàng cấm</a></li>
+    <li><a href="#bt5">BT5 · Kém chất lượng</a></li>
+    <li><a href="#bt6">BT6 · Đường dây</a></li>
+    <li><a href="#chot">Bảng chốt trường dữ liệu</a></li>
+    <li><a href="#ngoai">Ngoài pipeline &amp; không lấy</a></li>
+    <li><a href="#can-chot">Việc cần chốt</a></li>
+  </ul>
+</aside>
+
+<main>
+
+<!-- ================= TỔNG QUAN ================= -->
+<section id="tong-quan">
+  <h2>Tổng quan &amp; cách đọc</h2>
+  <div class="h2sub">Một danh mục trường duy nhất, dùng chung cho cả 6 bài toán</div>
+
+  <div class="grid g4" style="margin-bottom:16px">
+    <div class="stat b"><div class="n" id="st-all">–</div><div class="l">nhóm trường trong scope</div></div>
+    <div class="stat r"><div class="n" id="st-p0">–</div><div class="l">nhóm trường P0</div></div>
+    <div class="stat d"><div class="n" id="st-g1">–</div><div class="l">có từ GĐ I</div></div>
+    <div class="stat a"><div class="n" id="st-g2">–</div><div class="l">chỉ từ GĐ II</div></div>
+  </div>
+
+  <div class="call b">Mỗi dòng là một <b>trường</b> hoặc một <b>nhóm trường đi cùng nhau</b> (ví dụ <code>width, height, is_full_resolution</code>). Thu một lần, dùng cho nhiều bài toán: các bảng theo bài toán chỉ là lát cắt của <a href="#chot">bảng chốt</a>, và cột “Dùng để” giải thích trường đó phục vụ bài toán đang xem như thế nào.</div>
+
+  <div class="call w"><b>Cột “Ví dụ”</b> là giá trị minh họa xuyên suốt một tình huống giả định: shop <code>Velora Store Auth 88</code> trên Lazada bán kem chống nắng của thương hiệu giả định <b>VELORA</b>. Mọi tên thương hiệu, mã số, tên miền (<code>.example</code>), IP (dải tài liệu 203.0.113.x) đều là giả định; SĐT và số tài khoản luôn hiển thị đã che.</div>
+
+  <div class="legend">
+    <div class="panel">
+      <h3>Loại trường</h3>
+      <dl>
+        <dt><span class="kind">Thu thập</span></dt><dd>Lấy nguyên từ nguồn (sàn, Facebook, website, cổng phản ánh).</dd>
+        <dt><span class="kind">Trích xuất</span></dt><dd>Sinh từ dữ liệu thu thập bằng parser, OCR, NLP, CV.</dd>
+        <dt><span class="kind">Tham chiếu</span></dt><dd>Kho đối chiếu: doanh nghiệp, cơ quan, nghiệp vụ cung cấp.</dd>
+        <dt><span class="kind">Hệ thống</span></dt><dd>Hệ thống tự sinh: khóa, hash, khớp, thống kê.</dd>
+        <dt><span class="kind">Xác minh</span></dt><dd>Cán bộ ghi nhận qua form xác minh hoặc ứng dụng.</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Nguồn, giai đoạn, mức độ</h3>
+      <dl>
+        <dt><span class="src">LZ</span><span class="src">FB</span></dt><dd>Lazada, Facebook — có từ GĐ I.</dd>
+        <dt><span class="src g2">SP</span><span class="src g2">TK</span><span class="src g2">WEB</span></dt><dd>Shopee, TikTok Shop, website độc lập — từ GĐ II.</dd>
+        <dt><span class="src ref">DN</span><span class="src ref">CQ</span><span class="src ref">NV</span><span class="src ref">CB</span></dt><dd>Doanh nghiệp / chủ thể quyền · Cơ quan, trục liên thông · Nghiệp vụ dự án · Cán bộ, cổng phản ánh, app.</dd>
+        <dt><span class="t t-g1">GĐ I</span> <span class="t t-g2">GĐ II</span></dt><dd>Giai đoạn sớm nhất có thể lấy được trường này.</dd>
+        <dt><span class="t t-p0">P0</span> <span class="t t-p1">P1</span> <span class="t t-p2">P2</span></dt><dd>P0: nền tối thiểu cho thí điểm · P1: nâng chất lượng · P2: chuyên sâu.</dd>
+        <dt><span class="t t-ok">Cao</span> <span class="t t-warn">TB</span> <span class="t t-risk">Thấp</span> <span class="t t-low">Chưa rõ</span></dt><dd>Mức khả thi lấy được dữ liệu; cần xác nhận bằng audit mẫu thật.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THỰC THỂ ================= -->
+<section id="thuc-the">
+  <h2>Thực thể dữ liệu</h2>
+  <div class="h2sub">Các thực thể chính, nối với nhau qua khóa nội bộ</div>
+  <div class="tw">
+    <table class="small">
+      <thead><tr><th style="width:24%">Thực thể</th><th style="width:22%">Khóa</th><th style="width:24%">Gắn với</th><th style="width:30%">Nguồn chính</th></tr></thead>
+      <tbody>
+        <tr><td><b>Bản ghi &amp; nguồn gốc</b></td><td class="fn">record_id</td><td>Mọi bản ghi thu thập</td><td>Hệ thống thu thập; mỗi lần quét là một snapshot mới</td></tr>
+        <tr><td><b>Listing / bài đăng</b></td><td class="fn">source + source_record_id</td><td>Người bán, biến thể, media, review</td><td>LZ, FB (GĐ I); SP, TK, WEB (GĐ II)</td></tr>
+        <tr><td><b>Biến thể &amp; giá</b></td><td class="fn">source_variant_id</td><td>Listing</td><td>Sàn; giá trong text bài FB</td></tr>
+        <tr><td><b>Người bán / tài khoản</b></td><td class="fn">source + source_seller_id</td><td>Listing, định danh, website</td><td>Mọi kênh</td></tr>
+        <tr><td><b>Định danh liên hệ</b></td><td class="fn">identifier_keyed_hash</td><td>Người bán, listing</td><td>Trích từ text và ảnh, chủ yếu FB và website</td></tr>
+        <tr><td><b>Media</b></td><td class="fn">media_id</td><td>Listing, review, ảnh tang vật, ảnh chuẩn</td><td>Mọi kênh</td></tr>
+        <tr><td><b>Review / bình luận</b></td><td class="fn">source_comment_id</td><td>Listing / bài đăng</td><td>Sàn, FB</td></tr>
+        <tr><td><b>Website</b></td><td class="fn">domain</td><td>Người bán</td><td>WEB (GĐ II)</td></tr>
+        <tr><td><b>Nội dung trích xuất</b></td><td class="fn">record_id + extractor_version</td><td>Listing, media, review</td><td>Hệ thống (OCR, NLP)</td></tr>
+        <tr><td><b>Khớp sản phẩm chuẩn</b></td><td class="fn">listing/variant → canonical_product_id</td><td>Listing, biến thể, tham chiếu</td><td>Hệ thống + cán bộ duyệt</td></tr>
+        <tr><td><b>Tham chiếu sản phẩm, kênh chính thức, giá</b></td><td class="fn">brand_id, canonical_product_id</td><td>Khớp sản phẩm</td><td>Doanh nghiệp; kênh chính hãng quan sát được</td></tr>
+        <tr><td><b>Tham chiếu pháp lý &amp; danh mục</b></td><td class="fn">control_item_id, rule_id…</td><td>Nội dung trích xuất</td><td>Nghiệp vụ, cơ quan</td></tr>
+        <tr><td><b>Lịch sử vi phạm</b></td><td class="fn">violation_case_id</td><td>Người bán, định danh (qua khóa liên kết)</td><td>CSDL vi phạm từ 2020</td></tr>
+        <tr><td><b>Xác minh &amp; nhãn</b></td><td class="fn">alert_id</td><td>Mọi đối tượng bị cảnh báo hoặc được audit</td><td>Cán bộ, cổng phản ánh, app</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= DÙNG CHUNG ================= -->
+<section id="dung-chung">
+  <h2>Trường dùng chung</h2>
+  <div class="h2sub">Bắt buộc cho mọi bản ghi, áp dụng cho cả 6 bài toán</div>
+  <p>Nhóm này không lặp lại trong các bảng theo bài toán. Thiếu nhóm này thì không truy vết được bằng chứng, không phân biệt được listing bị xóa với lỗi thu thập, và không có nhãn để đánh giá.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th style="width:30%">Trường</th><th style="width:28%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead>
+      <tbody id="tb-core"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= BT1 ================= -->
+<section id="bt1">
+  <h2>Bài toán 1 · Hàng giả</h2>
+  <div class="h2sub">Tổ hợp: thương hiệu lớn + không ủy quyền + giá dưới mặt bằng kênh chính hãng + dùng lại ảnh hãng / từ lách luật</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>official_image_reuse</code> — ảnh listing trùng ảnh kho chuẩn / gian hàng chính hãng</li>
+      <li>Giá so với <code>official_price_floor</code>, hoặc <code>market_median_price</code> khi ngoài kho</li>
+      <li><code>authorization_status</code>; cam kết “chính hãng” mâu thuẫn với tư cách shop</li>
+      <li><code>evasion_keyword_score</code>; tỷ lệ review phản ánh hàng giả</li>
+      <li><code>qr_domain_match</code>, <code>gtin_check_valid</code>; tuổi shop</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Kho sản phẩm chuẩn cho các thương hiệu thí điểm (thương hiệu, cây sản phẩm, quy cách, ảnh chuẩn).</li>
+      <li>Danh sách gian hàng / domain chính thức và nhà phân phối ủy quyền kèm ID shop.</li>
+      <li>Tracking gian hàng chính hãng để có giá sàn hợp lệ.</li>
+    </ul></div>
+  </div>
+  <div class="call w"><b>Giá tham chiếu lấy từ đâu:</b> giá gạch ngang trên sàn do người bán tự đặt, không dùng làm RRP. Thứ tự nguồn: bảng giá doanh nghiệp nộp → website hãng → gian hàng chính hãng trên sàn → chuỗi bán lẻ ủy quyền → trung vị giá thị trường theo cụm. So với <b>giá thấp nhất kênh chính hãng trong cửa sổ 60–90 ngày</b> để không gắn cờ nhầm các đợt khuyến mãi; luôn so cùng biến thể hoặc quy về đơn giá.</div>
+  <div class="bt-head"><span class="bt-count" id="cnt-1"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-1"></tbody></table></div>
+</section>
+
+<!-- ================= BT2 ================= -->
+<section id="bt2">
+  <h2>Bài toán 2 · Hàng nhái</h2>
+  <div class="h2sub">Đo mức độ giống (số liên tục) với thương hiệu và mẫu chuẩn, không phải khớp / không khớp</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>brand_name_similarity</code> so với từ điển thương hiệu (không dấu, ký tự đồng dạng)</li>
+      <li>Độ giống ảnh tổng thể bao bì (GĐ I); độ giống logo theo vùng (GĐ II)</li>
+      <li>Mức chép mô tả chính hãng; nhắc thương hiệu khác, mạo nhận liên hệ</li>
+      <li>Tỷ lệ review phản ánh nhầm lẫn</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Từ điển thương hiệu và tên gọi khác.</li>
+      <li>Ảnh chuẩn bao bì / logo của các thương hiệu thí điểm.</li>
+      <li>GĐ II: nhãn hiệu do chủ thể quyền đăng ký; bbox logo trên ảnh chuẩn.</li>
+    </ul></div>
+  </div>
+  <div class="bt-head"><span class="bt-count" id="cnt-2"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-2"></tbody></table></div>
+</section>
+
+<!-- ================= BT3 ================= -->
+<section id="bt3">
+  <h2>Bài toán 3 · Quảng cáo sai lệch</h2>
+  <div class="h2sub">Trích claim từ text, ảnh và review, đối chiếu với quy tắc claim theo ngành và dữ liệu công bố</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>claim_rule_hit</code> — claim khớp quy tắc cấm / hạn chế theo ngành</li>
+      <li><code>claim_reference_status</code> — khớp / mâu thuẫn / chưa đủ cơ sở so với công bố</li>
+      <li><code>strikethrough_inflation</code> — giảm giá ảo (cần tracking)</li>
+      <li>Tỷ lệ review “không đúng mô tả”; lệch rating – nội dung</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Bộ quy tắc claim cho 1–2 ngành thí điểm.</li>
+      <li>Ngành thí điểm có dữ liệu công bố tra cứu được.</li>
+      <li>Tracking để phát hiện giảm giá ảo.</li>
+    </ul></div>
+  </div>
+  <div class="bt-head"><span class="bt-count" id="cnt-3"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-3"></tbody></table></div>
+</section>
+
+<!-- ================= BT4 ================= -->
+<section id="bt4">
+  <h2>Bài toán 4 · Hàng cấm / hạn chế / có điều kiện</h2>
+  <div class="h2sub">Chủ yếu là luật đối chiếu với danh mục có cấu trúc và từ điển từ lóng</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>control_list_match</code> — mục kiểm soát, loại (cấm / hạn chế / có điều kiện), độ tin cậy</li>
+      <li><code>evasion_keyword_score</code> theo từ điển từ lóng</li>
+      <li><code>category_mismatch</code> — ngành khai báo khác ngành dự đoán</li>
+      <li><code>license_status</code> (GĐ II, qua liên thông); lời mời liên hệ sang kênh khác</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Danh mục kiểm soát đã số hóa có cấu trúc, có hiệu lực.</li>
+      <li>Từ điển từ lóng / từ lách luật có phiên bản.</li>
+    </ul></div>
+  </div>
+  <div class="bt-head"><span class="bt-count" id="cnt-4"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-4"></tbody></table></div>
+</section>
+
+<!-- ================= BT5 ================= -->
+<section id="bt5">
+  <h2>Bài toán 5 · Kém chất lượng</h2>
+  <div class="h2sub">Từ dữ liệu trực tuyến chỉ phát hiện được thông tin chất lượng không nhất quán</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>label_value_deviation</code> — nhãn / khai báo lệch so với công bố</li>
+      <li>Công dụng vượt nội dung được phép</li>
+      <li>Tỷ lệ review phản ánh chất lượng; sản phẩm / lô bị thu hồi; hàng hết hạn tại thời điểm quan sát</li>
+      <li>Độ phủ ảnh nhãn (để biết bài toán có đủ dữ liệu)</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Ngành thí điểm có dữ liệu công bố tra cứu được.</li>
+      <li>Đo độ phủ ảnh mặt sau / bảng thành phần trong đợt audit trước khi cam kết.</li>
+      <li>Kết quả kiểm nghiệm là dữ liệu vụ việc, đưa vào làm nhãn, không thu thập.</li>
+    </ul></div>
+  </div>
+  <div class="bt-head"><span class="bt-count" id="cnt-5"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-5"></tbody></table></div>
+</section>
+
+<!-- ================= BT6 ================= -->
+<section id="bt6">
+  <h2>Bài toán 6 · Đường dây</h2>
+  <div class="h2sub">Đặc trưng tính theo cụm đối tượng, dựng từ thuộc tính dùng chung quan sát được công khai</div>
+  <div class="grid g2" style="margin-bottom:14px">
+    <div class="panel"><h3>Feature chính tính được</h3><ul>
+      <li><code>shared_attribute_degree</code> — số đối tượng dùng chung SĐT / STK / ảnh / template, kèm độ hiếm</li>
+      <li>Cấp cụm: <code>cluster_size</code>, <code>platform_count</code>, <code>verified_region_count</code>, <code>confirmed_history_ratio</code></li>
+      <li><code>coordination_score</code> — GĐ I chỉ trên thời gian đăng bài FB</li>
+      <li>GĐ II: <code>seller_recreation_score</code>, liên kết hạ tầng website</li>
+    </ul></div>
+    <div class="panel"><h3>Điều kiện tối thiểu để chạy</h3><ul>
+      <li>Trích SĐT / STK từ text và ảnh, lưu keyed hash.</li>
+      <li>Hash ảnh và MinHash mô tả.</li>
+      <li>Tracking cho phát hiện shop tái lập và doanh số đồng bộ.</li>
+    </ul></div>
+  </div>
+  <div class="bt-head"><span class="bt-count" id="cnt-6"></span><span class="bt-count">· cộng với nhóm <a href="#dung-chung">trường dùng chung</a></span></div>
+  <div class="tw"><table class="wide"><thead><tr><th style="width:24%">Trường</th><th style="width:22%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th style="width:21%">Dùng để</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead><tbody id="tb-6"></tbody></table></div>
+</section>
+
+<!-- ================= BẢNG CHỐT ================= -->
+<section id="chot">
+  <h2>Bảng chốt trường dữ liệu</h2>
+  <div class="h2sub">Toàn bộ trường cần lấy trong scope KGM, đầu vào cho hợp đồng dữ liệu</div>
+  <p>Mỗi trường xuất hiện đúng một lần; cột “Bài toán” cho biết trường phục vụ bài toán nào. Dùng bộ lọc để lấy danh sách theo giai đoạn hoặc bài toán, và tải CSV để đưa vào bảng hợp đồng dữ liệu.</p>
+  <div class="filters">
+    <input id="f-q" type="search" placeholder="Tìm tên trường hoặc mô tả…" aria-label="Tìm trường">
+    <select id="f-ph" aria-label="Giai đoạn"><option value="">Mọi giai đoạn</option><option value="I">GĐ I</option><option value="II">GĐ II</option></select>
+    <select id="f-bt" aria-label="Bài toán"><option value="">Mọi bài toán</option><option value="core">Dùng chung</option><option value="1">1 · Hàng giả</option><option value="2">2 · Hàng nhái</option><option value="3">3 · Quảng cáo sai lệch</option><option value="4">4 · Hàng cấm</option><option value="5">5 · Kém chất lượng</option><option value="6">6 · Đường dây</option></select>
+    <select id="f-k" aria-label="Loại"><option value="">Mọi loại</option><option>Thu thập</option><option>Trích xuất</option><option>Tham chiếu</option><option>Hệ thống</option><option>Xác minh</option></select>
+    <select id="f-p" aria-label="Ưu tiên"><option value="">Mọi ưu tiên</option><option>P0</option><option>P1</option><option>P2</option></select>
+    <button class="btn ghost" id="f-reset" type="button">Xóa lọc</button>
+    <button class="btn" id="f-csv" type="button">Tải CSV</button>
+    <span class="shown" id="f-shown"></span>
+  </div>
+  <div class="tw">
+    <table style="min-width:1000px">
+      <thead><tr><th style="width:26%">Trường · kiểu</th><th style="width:25%">Ví dụ</th><th>Loại</th><th>Nguồn</th><th>Bài toán</th><th>GĐ</th><th>Ưu tiên</th><th>Khả thi</th></tr></thead>
+      <tbody id="tb-all"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= NGOÀI PIPELINE ================= -->
+<section id="ngoai">
+  <h2>Ngoài pipeline &amp; không lấy</h2>
+  <div class="h2sub">Những gì không nằm trong luồng thu thập, và những gì không được lấy</div>
+
+  <h3>Dữ liệu chỉ có theo vụ việc / theo thỏa thuận</h3>
+  <p>Lược đồ có sẵn chỗ nạp với <code>access_basis</code> = legal_request / case_file, nhưng không dùng làm feature chạy hằng ngày và không trộn vào tập huấn luyện chung.</p>
+  <div class="tw" style="margin-bottom:18px">
+    <table class="small">
+      <thead><tr><th style="width:28%">Dữ liệu</th><th style="width:26%">Có được từ</th><th style="width:10%">Bài toán</th><th style="width:36%">Cách đưa vào hệ thống</th></tr></thead>
+      <tbody>
+        <tr><td>IP, thiết bị đăng nhập</td><td>Nền tảng, theo yêu cầu từng vụ</td><td><span class="pc">6</span></td><td>Nạp theo vụ việc; cạnh đồ thị loại “theo hồ sơ”</td></tr>
+        <tr><td>Giao dịch thanh toán thật</td><td>Nền tảng, ngân hàng</td><td><span class="pc">6</span></td><td>Như trên</td></tr>
+        <tr><td>Đơn hàng, địa chỉ lấy hàng, vận chuyển</td><td>Nền tảng, đơn vị vận chuyển</td><td><span class="pc">6</span></td><td>Như trên</td></tr>
+        <tr><td>Danh tính chủ tài khoản</td><td>Nền tảng</td><td><span class="pc">6</span></td><td>Như trên</td></tr>
+        <tr><td>Kết quả kiểm nghiệm, giám định, mua mẫu</td><td>Hồ sơ vụ việc</td><td><span class="pc">1</span><span class="pc">3</span><span class="pc">5</span></td><td>Vào nhãn với <code>label_strength</code> mức cao nhất</td></tr>
+        <tr><td>Tra cứu serial qua hệ thống hãng</td><td>Hãng, theo thỏa thuận</td><td><span class="pc">1</span></td><td>Kết quả lưu như một tín hiệu xác minh</td></tr>
+        <tr><td>Biên bản vận chuyển, bảo quản</td><td>Hồ sơ kiểm tra</td><td><span class="pc">5</span></td><td>Chỉ trong hồ sơ vụ việc</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid g2">
+    <div class="call r" style="margin:0">
+      <b>Không lấy / không dùng</b>
+      <ul>
+        <li>Giá gạch ngang làm RRP (vẫn lấy <code>price_strikethrough</code> cho bài toán 3).</li>
+        <li>Dữ liệu qua giỏ hàng, bước thanh toán (cần tài khoản người mua).</li>
+        <li>Nội dung Zalo; chỉ dùng SĐT / Zalo ID xuất hiện ở kênh khác.</li>
+        <li>Tên thật người bình luận, người mua; thay bằng <code>author_pseudo_id</code>.</li>
+        <li>Nội dung nhóm kín khi chưa có cơ sở pháp lý.</li>
+      </ul>
+    </div>
+    <div class="call w" style="margin:0">
+      <b>Chờ chốt phạm vi (P2, GĐ II)</b>
+      <ul>
+        <li>Livestream: bản ghi luồng, transcript theo mốc thời gian, sản phẩm gắn kèm — chỉ danh sách shop trọng điểm (bài toán 3).</li>
+        <li>Quản trị viên, thành viên nhóm Facebook (bài toán 6).</li>
+        <li>Quảng cáo trả phí qua thư viện quảng cáo công khai của Meta (bài toán 3).</li>
+        <li>Phân loại ảnh trước–sau (bài toán 3).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CẦN CHỐT ================= -->
+<section id="can-chot">
+  <h2>Việc cần chốt</h2>
+  <div class="h2sub">Quyết định ảnh hưởng trực tiếp tới danh mục trường</div>
+  <div class="panel">
+    <ol style="margin:0; padding-left:20px; font-size:14px; color:var(--ink-2)">
+      <li style="margin-bottom:8px"><b>Thương hiệu và ngành thí điểm</b> → phạm vi các trường tham chiếu sản phẩm, kênh chính thức, giá.</li>
+      <li style="margin-bottom:8px"><b>Tần suất tracking</b> → các trường theo thời gian: <code>first_seen_at</code>, <code>official_channel_price</code>, <code>sold_count_value</code>, <code>price_strikethrough</code>.</li>
+      <li style="margin-bottom:8px"><b>Doanh nghiệp cung cấp được gì</b>: <code>official_store_ids</code>, <code>official_domains</code>, <code>authorized_sellers</code>, <code>gtin_list</code>, ảnh chuẩn theo quy cách.</li>
+      <li style="margin-bottom:8px"><b>Profiling CSDL vi phạm từ 2020</b> → các trường lịch sử vi phạm có dùng được không.</li>
+      <li style="margin-bottom:8px"><b>Pháp chế</b>: phạm vi thu thập Facebook, cách lưu định danh cá nhân.</li>
+      <li><b>Ngành thí điểm cho bài toán 3 và 5</b> có dữ liệu công bố tra cứu được.</li>
+    </ol>
+  </div>
+</section>
+
+<div style="height:60px"></div>
+</main>
+</div>
+
+<script>
+(function(){
+  var ENT = {
+    R:'Bản ghi & nguồn gốc', L:'Listing / bài đăng', V:'Biến thể & giá', S:'Người bán / tài khoản',
+    I:'Định danh liên hệ', M:'Media (ảnh / video)', C:'Review / bình luận', W:'Website',
+    T:'Nội dung trích xuất (NLP / OCR)', X:'Khớp sản phẩm chuẩn', P:'Tham chiếu — sản phẩm & thương hiệu',
+    A:'Tham chiếu — kênh chính thức & ủy quyền', Q:'Giá tham chiếu', G:'Tham chiếu — pháp lý & danh mục',
+    H:'Lịch sử vi phạm', N:'Xác minh & nhãn'
+  };
+  var ORDER = ['R','L','V','S','I','M','C','W','T','X','P','A','Q','G','H','N'];
+
+  // f: tên trường · e: thực thể · t: kiểu · k: loại · s: nguồn · ph: GĐ · p: ưu tiên · fz: khả thi · d: mô tả · u: dùng cho bài toán · core: dùng chung
+  var F = [
+    // ---------- Bản ghi & nguồn gốc (dùng chung) ----------
+    {f:'record_id', e:'R', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Khóa nội bộ = nguồn + ID gốc + thời điểm quan sát.', core:1},
+    {f:'source', e:'R', t:'enum', k:'Thu thập', s:'LZ FB SP TK WEB CB', ph:'I', p:'P0', fz:'Cao', d:'lazada / shopee / tiktok_shop / facebook / website / cổng phản ánh / app.', core:1},
+    {f:'source_record_id', e:'R', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'ID gốc trong nguồn (item_id, post_id…); chỉ ổn định trong nguồn đó.', core:1},
+    {f:'record_type', e:'R', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'listing / post / review / comment / seller / website / media.', core:1},
+    {f:'canonical_url', e:'R', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'URL chuẩn hóa; thuộc tính hỗ trợ, không dùng làm khóa.', core:1},
+    {f:'observed_at', e:'R', t:'datetime', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Thời điểm thu thập snapshot.', core:1},
+    {f:'published_at', e:'R', t:'datetime', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'TB', d:'Thời điểm đăng, nếu nguồn hiển thị.', core:1},
+    {f:'crawl_mode', e:'R', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'discovery (tìm mới theo từ khóa) / tracking (quét lại danh sách theo dõi).', core:1},
+    {f:'discovery_query', e:'R', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Từ khóa, ID nhóm hoặc URL hạt giống dẫn tới bản ghi; đo độ phủ.', core:1},
+    {f:'fetch_status', e:'R', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'ok / not_found / removed / blocked / login_required / timeout; tách bị xóa với lỗi thu thập.', core:1},
+    {f:'access_basis', e:'R', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'public / vendor / rights_holder / legal_request / case_file; cơ sở tiếp cận dữ liệu.', core:1},
+    {f:'vendor_name, vendor_record_id', e:'R', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P1', fz:'Cao', d:'Nhà cung cấp dữ liệu và mã bản ghi phía họ (nguồn chính / dự phòng).', core:1},
+    {f:'collector_version', e:'R', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'Phiên bản bộ thu thập / parser.', core:1},
+    {f:'raw_payload_uri', e:'R', t:'uri', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'HTML / JSON thô; trích lại feature mới không cần crawl lại.', core:1},
+    {f:'content_hash', e:'R', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Hash nội dung chuẩn hóa; phát hiện nội dung bị sửa giữa các snapshot.', core:1},
+    {f:'first_seen_at, last_seen_at', e:'R', t:'datetime', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'TB', d:'Vòng đời đối tượng; chỉ đáng tin khi có tracking.', core:1},
+    {f:'evidence_capture_uri, evidence_capture_hash', e:'R', t:'uri, string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Ảnh chụp toàn trang / WARC + hash cho đối tượng bị cảnh báo; bằng chứng số.', core:1},
+
+    // ---------- Listing / bài đăng ----------
+    {f:'title', e:'L', t:'text', k:'Thu thập', s:'LZ SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Tiêu đề listing.', u:{1:'Từ khóa lách luật, thương hiệu, cam kết chính hãng',2:'So độ giống tên với từ điển thương hiệu',3:'Trích claim',4:'Khớp danh mục kiểm soát, từ lóng',5:'Thuộc tính khai báo (quy cách, công dụng)'}},
+    {f:'description', e:'L', t:'text', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Mô tả listing hoặc nội dung bài đăng Facebook.', u:{1:'Từ khóa lách luật, claim chính hãng, tự xưng đại lý',2:'Chép mô tả chính hãng, gợi liên tưởng thương hiệu',3:'Trích claim công dụng, xuất xứ, giá',4:'Khớp danh mục, từ lóng, lời mời liên hệ riêng',5:'Thành phần, định lượng, công dụng người bán khai',6:'Trích SĐT / STK; MinHash phát hiện template dùng chung'}},
+    {f:'hashtags', e:'L', t:'list', k:'Thu thập', s:'FB TK', ph:'I', p:'P1', fz:'Cao', d:'Hashtag trong bài đăng.', u:{1:'Từ khóa “rep”, “auth”…',3:'Claim dạng hashtag',4:'Từ lóng mặt hàng kiểm soát'}},
+    {f:'platform_category_id, platform_category_path', e:'L', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'Ngành hàng người bán khai trên sàn.', u:{1:'Nhóm so giá dự phòng khi chưa khớp sản phẩm',4:'So với ngành dự đoán (category_mismatch)',5:'Lọc ngành hàng thí điểm'}},
+    {f:'declared_brand', e:'L', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'Thương hiệu khai báo trong thuộc tính sàn.', u:{1:'Đầu vào khớp sản phẩm chuẩn',2:'So với từ điển thương hiệu'}},
+    {f:'declared_attributes', e:'L', t:'json', k:'Thu thập', s:'LZ SP TK WEB', ph:'I', p:'P1', fz:'Cao', d:'Thuộc tính sàn: model, xuất xứ, dung tích, hạn dùng…', u:{1:'Khớp đúng biến thể',4:'Hoạt chất, hàm lượng',5:'So với nhãn và công bố'}},
+    {f:'listing_badges', e:'L', t:'list', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'Nhãn trên listing: chính hãng, Mall, hàng quốc tế…', u:{1:'Tư cách và tuyên bố chính hãng',2:'Phân biệt gian hàng chính thức'}},
+    {f:'sold_count_raw, sold_count_value, sold_count_rounded', e:'L', t:'string, int, bool', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'TB', d:'“1,2k” → 1200 kèm cờ làm tròn; có ý nghĩa khi có tracking.', u:{1:'Quy mô bán',6:'Doanh số tăng đột biến đồng thời trong cụm'}},
+    {f:'rating_avg, rating_count', e:'L', t:'number', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'Cao', d:'Điểm và số lượt đánh giá.', u:{1:'Mẫu số cho tỷ lệ phản ánh hàng giả',3:'Lệch rating – nội dung review',5:'Mẫu số cho tỷ lệ phản ánh chất lượng'}},
+    {f:'interaction_counts', e:'L', t:'json', k:'Thu thập', s:'FB TK', ph:'I', p:'P1', fz:'TB', d:'Like, chia sẻ, bình luận, lượt xem.', u:{3:'Mức lan truyền của nội dung quảng cáo',6:'Tương tác bất thường, đồng bộ'}},
+    {f:'fb_group_id', e:'L', t:'string', k:'Thu thập', s:'FB', ph:'II', p:'P1', fz:'TB', d:'Nhóm chứa bài đăng (thu thập theo hội nhóm từ GĐ II).', u:{4:'Nhóm chuyên mua bán mặt hàng kiểm soát',6:'Bài đăng chéo nhiều nhóm'}},
+
+    // ---------- Biến thể & giá ----------
+    {f:'source_variant_id', e:'V', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'ID biến thể trong nguồn (thay cho “SKU”).', u:{1:'Khóa biến thể để so giá đúng quy cách',5:'Ghép đúng biến thể với nhãn'}},
+    {f:'variant_name', e:'V', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'Tên tùy chọn: 50ml, màu, combo…', u:{1:'Khớp biến thể sản phẩm chuẩn',5:'Quy cách để so định lượng'}},
+    {f:'price_current', e:'V', t:'number', k:'Thu thập', s:'LZ SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Giá bán đang hiển thị theo biến thể.', u:{1:'So với giá sàn kênh chính hãng / giá thị trường',3:'Giá áp dụng thực tế'}},
+    {f:'price_strikethrough', e:'V', t:'number', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'Cao', d:'Giá gạch ngang do người bán tự đặt. Không dùng làm RRP.', u:{3:'Phát hiện giảm giá ảo (cần tracking)'}},
+    {f:'currency', e:'V', t:'enum', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Tiền tệ.', u:{1:'Điều kiện so sánh giá'}},
+    {f:'price_type', e:'V', t:'enum', k:'Trích xuất', s:'LZ SP TK', ph:'I', p:'P1', fz:'TB', d:'thường / flash sale / combo / có quà kèm.', u:{1:'Loại giá khuyến mãi, combo khỏi so sánh',3:'Điều kiện của mức giá quảng cáo'}},
+    {f:'price_text_raw', e:'V', t:'string', k:'Thu thập', s:'FB', ph:'I', p:'P0', fz:'TB', d:'Giá trong nội dung bài đăng (“550k”, “combo 2”).', u:{1:'Bóc giá cho bài đăng Facebook'}},
+    {f:'pack_quantity, pack_unit', e:'V', t:'number, enum', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'TB', d:'Quy cách: 50 ml, 30 viên…', u:{1:'Quy đổi đơn giá, khớp biến thể',5:'Định lượng để so với công bố'}},
+    {f:'unit_price', e:'V', t:'number', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'TB', d:'Giá theo đơn vị (đ/ml, đ/viên).', u:{1:'So giá giữa các quy cách khác nhau'}},
+    {f:'promo_text', e:'V', t:'text', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P2', fz:'TB', d:'Điều kiện ưu đãi hiển thị trên listing.', u:{3:'Điều kiện bị ẩn hoặc thiếu'}},
+
+    // ---------- Người bán ----------
+    {f:'source_seller_id', e:'S', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'ID shop / page / tài khoản / domain trong nguồn.', u:{1:'Đối chiếu danh sách ủy quyền',2:'Đối chiếu chủ thể quyền',3:'Gom tỷ lệ phản ánh theo shop',4:'Liên kết giấy phép',5:'Gom phản ánh chất lượng theo shop',6:'Node của đồ thị'}},
+    {f:'seller_name', e:'S', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Tên hiển thị.', u:{1:'Khớp danh sách ủy quyền khi thiếu ID',6:'Entity resolution giữa các nền tảng'}},
+    {f:'seller_url', e:'S', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'URL trang shop / page.', u:{1:'Khớp danh sách ủy quyền theo URL',6:'Định danh, bằng chứng'}},
+    {f:'seller_type', e:'S', t:'enum', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'shop / mall_shop / page / profile / group / website.', u:{1:'Phân biệt kênh chính thức',6:'Loại node'}},
+    {f:'seller_badges', e:'S', t:'list', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P0', fz:'Cao', d:'LazMall, Shopee Mall, Preferred…', u:{1:'Tư cách gian hàng',2:'Loại trừ gian hàng chính hãng',4:'Ngữ cảnh người bán'}},
+    {f:'seller_created_at', e:'S', t:'date', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'TB', d:'Ngày tạo nếu nguồn hiển thị; nếu không thì dùng first_seen_at.', u:{1:'Shop mới bán hàng thương hiệu lớn',6:'Phát hiện shop tái lập'}},
+    {f:'seller_stats', e:'S', t:'json', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'Cao', d:'Rating shop, follower, tỷ lệ phản hồi.', u:{1:'Ngữ cảnh uy tín',6:'Tài khoản bất thường'}},
+    {f:'seller_listing_ids', e:'S', t:'list', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'Cao', d:'Danh sách sản phẩm của shop (crawl theo shop).', u:{1:'Tỷ lệ hàng thương hiệu lớn không ủy quyền',6:'Danh mục hàng chung giữa các shop'}},
+    {f:'seller_business_info', e:'S', t:'json', k:'Thu thập', s:'LZ SP TK WEB', ph:'I', p:'P1', fz:'TB', d:'Tên doanh nghiệp, MST, địa chỉ nếu nguồn công khai.', u:{4:'Khớp giấy phép, ngành nghề',6:'Định danh chủ thể; khớp lịch sử vi phạm'}},
+    {f:'ship_from_location', e:'S', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'Cao', d:'Khu vực gửi hàng do sàn hiển thị.', u:{4:'Bối cảnh địa bàn',6:'Địa bàn có căn cứ (liên tỉnh)'}},
+    {f:'admin_unit_code, admin_unit_version', e:'S', t:'string', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'Cao', d:'Địa bàn chuẩn hóa theo đơn vị hành chính hiện hành, kèm ánh xạ cũ → mới.', u:{6:'Đếm số tỉnh của cụm'}},
+    {f:'region_source_type', e:'S', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'platform_ship_from / registered / case_file / self_declared.', u:{6:'Chỉ đếm địa bàn có căn cứ'}},
+
+    // ---------- Định danh liên hệ ----------
+    {f:'identifier_type', e:'I', t:'enum', k:'Trích xuất', s:'FB WEB', ph:'I', p:'P0', fz:'Cao', d:'phone / zalo / bank_account / email / address / link — trích từ text và ảnh.', u:{4:'Lời mời liên hệ sang kênh khác',6:'Loại cạnh của đồ thị'}},
+    {f:'identifier_value_encrypted', e:'I', t:'string', k:'Trích xuất', s:'FB WEB', ph:'I', p:'P0', fz:'Cao', d:'Giá trị đã chuẩn hóa, lưu mã hóa; chỉ vai trò được phép xem.', u:{6:'Truy vết khi cán bộ cần'}},
+    {f:'identifier_keyed_hash', e:'I', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'HMAC của giá trị chuẩn hóa, dùng để nối các đối tượng.', u:{6:'Dựng cạnh “dùng chung SĐT / STK”'}},
+    {f:'bank_name', e:'I', t:'string', k:'Trích xuất', s:'FB WEB', ph:'I', p:'P1', fz:'TB', d:'Ngân hàng, khi định danh là số tài khoản.', u:{6:'Phân biệt tài khoản trùng số khác ngân hàng'}},
+    {f:'identifier_location', e:'I', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Vị trí trong text hoặc vùng ảnh.', u:{6:'Bằng chứng cho cạnh đồ thị'}},
+    {f:'pii_class', e:'I', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Mức nhạy cảm; quyết định quyền xem và thời hạn lưu.', u:{6:'Kiểm soát truy cập định danh'}},
+
+    // ---------- Media ----------
+    {f:'media_id', e:'M', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Khóa media nội bộ.', core:1},
+    {f:'media_source_url', e:'M', t:'string', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'URL ảnh / video gốc, lấy bản độ phân giải lớn nhất.', core:1},
+    {f:'media_uri', e:'M', t:'uri', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Bản lưu trong kho (ảnh lưu dài hạn, kho bất biến).', core:1},
+    {f:'media_role', e:'M', t:'enum', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'main / gallery / description / variant / review / comment / post.', core:1},
+    {f:'parent_record_id', e:'M', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Listing / review / bài đăng chứa media; cho phép so ảnh review với ảnh listing.', core:1},
+    {f:'media_sha256', e:'M', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Trùng chính xác; toàn vẹn bằng chứng.', core:1},
+    {f:'width, height, is_full_resolution', e:'M', t:'int, bool', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Biết ảnh có đủ để so chi tiết và OCR không.', core:1},
+    {f:'media_type, duration', e:'M', t:'enum, number', k:'Thu thập', s:'LZ FB SP TK WEB', ph:'I', p:'P1', fz:'Cao', d:'Ảnh / video và thời lượng.', core:1},
+    {f:'media_phash', e:'M', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Perceptual hash (pHash / PDQ) để phát hiện gần trùng.', u:{1:'Ảnh chính hãng bị dùng lại',3:'Ảnh minh họa tái sử dụng giữa sản phẩm',6:'Số shop dùng chung ảnh'}},
+    {f:'image_embedding_ref', e:'M', t:'ref', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'ID vector + model_version (model pretrained ở GĐ I).', u:{1:'Top-k sản phẩm chuẩn, độ giống ảnh chuẩn',2:'Độ giống tổng thể bao bì',6:'Cụm ảnh gần trùng'}},
+    {f:'image_kind', e:'M', t:'enum', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'TB', d:'marketing / real_photo / screenshot / banner.', u:{1:'Chọn cách so: ảnh marketing chỉ so trùng, ảnh chụp thật mới so chi tiết',3:'Nhận diện banner chứa claim'}},
+    {f:'ocr_text, ocr_boxes, ocr_confidence', e:'M', t:'text, json, number', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Chữ đọc từ ảnh, vị trí và độ tin cậy.', u:{1:'Từ khóa trong ảnh, serial, số lô',3:'Claim trong banner',4:'Tên chất, cảnh báo trên nhãn',5:'Nội dung nhãn',6:'SĐT / STK trong ảnh'}},
+    {f:'decoded_codes', e:'M', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'TB', d:'QR / mã vạch: loại, nội dung, domain đích, GTIN.', u:{1:'qr_domain_match, gtin_check_valid, serial lặp'}},
+    {f:'label_view', e:'M', t:'enum', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'TB', d:'front / back / ingredients / expiry / none.', u:{5:'Đo độ phủ ảnh nhãn, chọn ảnh để OCR'}},
+    {f:'logo_regions', e:'M', t:'json', k:'Trích xuất', s:'', ph:'II', p:'P1', fz:'TB', d:'bbox, thương hiệu, độ tin cậy (detector đã huấn luyện).', u:{1:'So vùng logo / tem với mẫu',2:'Độ giống logo'}},
+
+    // ---------- Review / bình luận ----------
+    {f:'source_comment_id', e:'C', t:'string', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'Cao', d:'ID review / bình luận trong nguồn.', core:1},
+    {f:'comment_parent_id', e:'C', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'Listing / bài đăng / bình luận cha.', core:1},
+    {f:'comment_text', e:'C', t:'text', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'Cao', d:'Nội dung review / bình luận.', u:{1:'Phản ánh “hàng giả”, “fake”',2:'Phản ánh nhầm lẫn thương hiệu',3:'Phản ánh “không đúng mô tả”, “không hiệu quả”',4:'Hỏi mua ẩn ý, dẫn sang kênh kín',5:'Phản ánh chất lượng: hỏng, kích ứng, khác mùi'}},
+    {f:'review_rating', e:'C', t:'number', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'Cao', d:'Điểm của từng review.', u:{3:'Lệch rating – nội dung',5:'Cụm review điểm thấp'}},
+    {f:'comment_created_at', e:'C', t:'datetime', k:'Thu thập', s:'LZ FB SP TK', ph:'I', p:'P1', fz:'Cao', d:'Thời điểm đăng review / bình luận.', u:{3:'Cửa sổ thời gian cho tỷ lệ',5:'Cụm sự cố theo thời gian / lô',6:'Đồng bộ thời gian'}},
+    {f:'purchased_variant', e:'C', t:'string', k:'Thu thập', s:'LZ SP TK', ph:'I', p:'P1', fz:'TB', d:'Biến thể người mua đã mua, nếu sàn hiển thị.', u:{1:'Gắn review với đúng biến thể',5:'Gắn phản ánh chất lượng với biến thể'}},
+    {f:'author_pseudo_id', e:'C', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'Keyed hash của tác giả; không lưu tên thật.', u:{3:'Phát hiện review lặp, review giả',6:'Tài khoản tương tác lặp lại trong cụm'}},
+    {f:'comment_issue_category', e:'C', t:'enum', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'Cao', d:'fake / not_as_described / quality / delivery / confusion / other.', u:{1:'Tỷ lệ phản ánh hàng giả',2:'Tỷ lệ phản ánh nhầm lẫn',3:'Tỷ lệ “không đúng mô tả”',5:'Tỷ lệ phản ánh chất lượng'}},
+
+    // ---------- Website ----------
+    {f:'domain', e:'W', t:'string', k:'Thu thập', s:'WEB', ph:'II', p:'P0', fz:'Cao', d:'Tên miền website bán hàng.', u:{1:'Đối chiếu domain chính thức',4:'Kênh bán mặt hàng kiểm soát',6:'Node website'}},
+    {f:'tracking_ids', e:'W', t:'list', k:'Trích xuất', s:'WEB', ph:'II', p:'P1', fz:'Cao', d:'Mã Google Analytics, Tag Manager, Facebook Pixel trong HTML.', u:{6:'Website cùng chủ'}},
+    {f:'hosting_ip, nameservers', e:'W', t:'list', k:'Thu thập', s:'WEB', ph:'II', p:'P1', fz:'Cao', d:'DNS tại thời điểm đo.', u:{6:'Liên kết hạ tầng (liên kết yếu nếu dùng CDN chung)'}},
+    {f:'tls_cert_fingerprint, cert_names', e:'W', t:'string, list', k:'Thu thập', s:'WEB', ph:'II', p:'P1', fz:'Cao', d:'Chứng thư TLS và các tên miền trong chứng thư.', u:{6:'Chứng thư dùng chung nhiều domain'}},
+    {f:'whois_created_at, whois_registrant', e:'W', t:'date, string', k:'Thu thập', s:'WEB', ph:'II', p:'P1', fz:'Thấp', d:'Thường bị ẩn.', u:{1:'Domain mới đăng ký chứa tên thương hiệu',6:'Chủ thể đăng ký'}},
+    {f:'moit_registration_status', e:'W', t:'enum', k:'Tham chiếu', s:'CQ', ph:'II', p:'P1', fz:'TB', d:'Trạng thái thông báo / đăng ký website TMĐT với Bộ Công Thương.', u:{1:'Website bán hàng chưa thông báo',4:'Tính hợp pháp của kênh bán'}},
+    {f:'site_template_fingerprint', e:'W', t:'string', k:'Trích xuất', s:'WEB', ph:'II', p:'P2', fz:'Cao', d:'Dấu vân tay giao diện / cấu trúc trang.', u:{6:'Website nhân bản cùng giao diện'}},
+
+    // ---------- Nội dung trích xuất ----------
+    {f:'brand_mentions', e:'T', t:'list', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Thương hiệu, model được nhắc tới trong text và OCR.', u:{1:'Khớp sản phẩm chuẩn',2:'Nhắc thương hiệu khác, gợi liên tưởng'}},
+    {f:'extracted_attributes', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Quy cách, thành phần, định lượng, xuất xứ trích từ text.', u:{1:'Khớp biến thể',4:'Hoạt chất, hàm lượng',5:'Thuộc tính người bán khai'}},
+    {f:'evasion_terms', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Thuật ngữ lách luật: vị trí, có phủ định hay trích dẫn.', u:{1:'evasion_keyword_score',4:'Từ lóng mặt hàng kiểm soát'}},
+    {f:'authenticity_claims', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'“chính hãng”, “auth”, “xách tay”, “nhập khẩu”…', u:{1:'Cam kết chính hãng mâu thuẫn với tư cách shop'}},
+    {f:'authorization_claims', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'Cao', d:'Shop tự xưng đại lý, nhà phân phối.', u:{1:'Mâu thuẫn với danh sách ủy quyền',2:'Mạo nhận liên hệ với thương hiệu'}},
+    {f:'product_claims', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Claim: loại, câu gốc, vị trí, sản phẩm được nói tới.', u:{3:'Đối chiếu quy tắc claim và công bố',5:'Công dụng vượt nội dung được phép'}},
+    {f:'predicted_category, category_confidence', e:'T', t:'string, number', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Ngành hàng dự đoán từ text và ảnh.', u:{1:'Nhóm so giá',4:'category_mismatch',5:'Chọn hồ sơ công bố theo ngành'}},
+    {f:'control_list_matches', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P0', fz:'Cao', d:'Mã mục kiểm soát, loại (cấm / hạn chế / có điều kiện), độ tin cậy.', u:{4:'Khớp danh mục kiểm soát'}},
+    {f:'label_fields', e:'T', t:'json', k:'Trích xuất', s:'', ph:'I', p:'P1', fz:'TB', d:'Thành phần, định lượng, số công bố, NSX / HSD, số lô đọc từ ảnh nhãn.', u:{1:'Số lô, serial',4:'Tên chất trên nhãn',5:'label_value_deviation, hàng hết hạn'}},
+    {f:'extraction_confidence, extractor_version', e:'T', t:'number, string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Độ tin cậy và phiên bản của bước OCR / NLP / CV.', core:1},
+
+    // ---------- Khớp sản phẩm chuẩn ----------
+    {f:'canonical_product_id', e:'X', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'TB', d:'Sản phẩm chuẩn mà listing / biến thể được gán vào.', u:{1:'Chọn giá, ảnh, danh sách ủy quyền để đối chiếu',2:'Chọn mẫu để so độ giống',5:'Chọn hồ sơ công bố'}},
+    {f:'match_level', e:'X', t:'enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'brand / line / model / variant / packaging_version / none.', u:{1:'Biết feature nào tính được (giá cần cấp variant)',2:'Cấp so sánh',5:'Cấp đối chiếu'}},
+    {f:'match_confidence, match_method', e:'X', t:'number, enum', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Phương pháp: text / image / gtin / hybrid / human.', u:{1:'Loại khớp yếu khỏi cảnh báo',2:'Loại khớp yếu khỏi so sánh',5:'Loại khớp yếu khỏi đối chiếu'}},
+    {f:'matched_brand_id', e:'X', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Thương hiệu khớp được (cấp thấp nhất của khớp).', u:{1:'Đối chiếu ủy quyền theo thương hiệu',2:'Thương hiệu bị nhái'}},
+    {f:'product_cluster_id', e:'X', t:'string', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'Cụm listing cùng sản phẩm (gom không giám sát), dùng khi không khớp kho chuẩn.', u:{1:'Giá thị trường cho sản phẩm ngoài kho',6:'Nhóm shop bán cùng sản phẩm'}},
+    {f:'match_reviewed_by, match_reviewed_at', e:'X', t:'string, datetime', k:'Xác minh', s:'CB', ph:'I', p:'P1', fz:'Cao', d:'Người duyệt và thời điểm duyệt kết quả khớp.', u:{1:'Bộ test khớp sản phẩm',2:'Bộ test khớp sản phẩm'}},
+
+    // ---------- Tham chiếu sản phẩm & thương hiệu ----------
+    {f:'brand_id, brand_name', e:'P', t:'string', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'TB', d:'Thương hiệu trong kho tham chiếu.', u:{1:'Từ điển thương hiệu',2:'Thương hiệu cần bảo vệ'}},
+    {f:'brand_aliases', e:'P', t:'list', k:'Tham chiếu', s:'DN NV', ph:'I', p:'P0', fz:'Cao', d:'Tên khác, không dấu, biến thể viết phổ biến.', u:{1:'Khớp thương hiệu trong text',2:'Phát hiện tên gần giống'}},
+    {f:'product_line, model_code', e:'P', t:'string', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'TB', d:'Cây sản phẩm: dòng, model.', u:{1:'Cây sản phẩm chuẩn',2:'So dòng sản phẩm, kiểu dáng',5:'Khớp hồ sơ công bố'}},
+    {f:'variant_spec', e:'P', t:'json', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'TB', d:'Quy cách từng biến thể (số lượng, đơn vị).', u:{1:'Khớp biến thể, so giá đúng quy cách; quy cách không tồn tại',5:'Định lượng chuẩn'}},
+    {f:'gtin_list', e:'P', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P1', fz:'TB', d:'Mã vạch GTIN / EAN theo biến thể.', u:{1:'Khớp nhanh qua mã vạch; kiểm tra GTIN'}},
+    {f:'packaging_version_id, valid_from, valid_to', e:'P', t:'string, date', k:'Tham chiếu', s:'DN', ph:'I', p:'P1', fz:'TB', d:'Phiên bản bao bì và thời gian lưu hành.', u:{1:'So ảnh đúng đời bao bì',2:'So bao bì đúng đời'}},
+    {f:'reference_images', e:'P', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'TB', d:'Ảnh chuẩn: uri, view_type (front / back / logo_closeup / tem / barcode / phone_shot), phiên bản bao bì, nguồn, người xác thực.', u:{1:'Trùng ảnh, truy hồi sản phẩm, so chi tiết',2:'Mẫu so bao bì, logo'}},
+    {f:'reference_region_annotations', e:'P', t:'json', k:'Xác minh', s:'CB', ph:'II', p:'P1', fz:'TB', d:'bbox logo / tem trên ảnh chuẩn.', u:{1:'So vùng chi tiết',2:'Mẫu logo'}},
+    {f:'official_description', e:'P', t:'text', k:'Tham chiếu', s:'DN WEB', ph:'I', p:'P2', fz:'Cao', d:'Mô tả chính hãng.', u:{2:'Phát hiện chép mô tả chính hãng',3:'Công dụng hãng công bố'}},
+    {f:'serial_format_rule', e:'P', t:'string', k:'Tham chiếu', s:'DN', ph:'II', p:'P2', fz:'Thấp', d:'Quy tắc định dạng serial, nếu hãng cung cấp.', u:{1:'Serial sai định dạng'}},
+
+    // ---------- Kênh chính thức & ủy quyền ----------
+    {f:'official_domains', e:'A', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'Cao', d:'Tên miền chính thức của thương hiệu.', u:{1:'qr_domain_match; nguồn giá website hãng',6:'Loại trừ website chính thức khỏi cụm'}},
+    {f:'official_store_ids', e:'A', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'Cao', d:'ID gian hàng chính thức theo từng sàn.', u:{1:'Nguồn giá kênh chính hãng; ảnh chính hãng',2:'Loại trừ gian hàng chính hãng'}},
+    {f:'official_social_accounts', e:'A', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P1', fz:'Cao', d:'Page / tài khoản mạng xã hội chính thức.', u:{1:'Phân biệt page chính thức với page mạo danh'}},
+    {f:'authorized_sellers', e:'A', t:'list', k:'Tham chiếu', s:'DN', ph:'I', p:'P0', fz:'TB', d:'Nhà phân phối / đại lý: ID shop hoặc URL theo sàn, phạm vi (thương hiệu, kênh), hiệu lực.', u:{1:'authorization_status',2:'Quan hệ với chủ thể quyền'}},
+
+    // ---------- Giá tham chiếu ----------
+    {f:'rrp_value, rrp_effective_from, rrp_effective_to', e:'Q', t:'number, date', k:'Tham chiếu', s:'DN', ph:'I', p:'P1', fz:'TB', d:'Giá bán lẻ đề xuất theo biến thể, có hiệu lực.', u:{1:'Giá tham chiếu ưu tiên cao nhất'}},
+    {f:'official_channel_price', e:'Q', t:'number', k:'Thu thập', s:'LZ SP TK WEB', ph:'I', p:'P0', fz:'Cao', d:'Giá quan sát tại gian hàng chính hãng, website hãng, chuỗi ủy quyền; cần tracking.', u:{1:'Đầu vào giá sàn kênh chính hãng'}},
+    {f:'official_price_floor', e:'Q', t:'number', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Giá thấp nhất kênh chính hãng trong cửa sổ (ví dụ 60–90 ngày).', u:{1:'So giá shop không ủy quyền với giá sàn hợp lệ'}},
+    {f:'reference_price_source, reference_price_observed_at', e:'Q', t:'enum, datetime', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'brand_rrp / official_store / brand_site / authorized_retailer / market_median.', u:{1:'Cho cán bộ biết cảnh báo đang so với nguồn nào'}},
+    {f:'market_median_price', e:'Q', t:'number', k:'Hệ thống', s:'', ph:'I', p:'P1', fz:'Cao', d:'Trung vị giá trong cụm, đã loại shop vi phạm đã xác minh.', u:{1:'Giá thị trường cho sản phẩm ngoài kho chuẩn'}},
+
+    // ---------- Pháp lý & danh mục ----------
+    {f:'mark_records', e:'G', t:'json', k:'Tham chiếu', s:'DN', ph:'II', p:'P1', fz:'TB', d:'Nhãn hiệu do chủ thể quyền đăng ký: chữ, hình, số đăng bạ, nhóm Nice, chủ sở hữu, hiệu lực.', u:{2:'So tên, logo với nhãn hiệu được bảo hộ'}},
+    {f:'control_items', e:'G', t:'json', k:'Tham chiếu', s:'NV', ph:'I', p:'P0', fz:'Cao', d:'Danh mục kiểm soát: loại (cấm / hạn chế / có điều kiện), tên, đồng nghĩa, thuộc tính phân biệt, căn cứ, hiệu lực, mã HS nếu có.', u:{4:'Nền đối chiếu hàng cấm / hạn chế'}},
+    {f:'evasion_lexicon', e:'G', t:'json', k:'Tham chiếu', s:'NV', ph:'I', p:'P0', fz:'Cao', d:'Từ lóng, từ lách luật: biến thể, nhóm hành vi, mức độ, phiên bản.', u:{1:'Từ khóa hàng giả',4:'Từ lóng hàng cấm'}},
+    {f:'claim_rulebook', e:'G', t:'json', k:'Tham chiếu', s:'NV', ph:'I', p:'P0', fz:'Cao', d:'Loại claim, cụm từ, ngành áp dụng, căn cứ, hiệu lực.', u:{3:'Gắn cờ claim bị cấm / hạn chế',5:'Công dụng không được phép theo ngành'}},
+    {f:'product_declarations', e:'G', t:'json', k:'Tham chiếu', s:'CQ DN', ph:'I', p:'P1', fz:'TB', d:'Hồ sơ công bố (ngành thí điểm): số, chủ hồ sơ, thành phần, định lượng, công dụng được phép, hiệu lực.', u:{3:'Đối chiếu claim với công dụng công bố',5:'Đối chiếu thành phần, định lượng'}},
+    {f:'recall_notices', e:'G', t:'json', k:'Thu thập', s:'CQ', ph:'I', p:'P1', fz:'Cao', d:'Thông báo thu hồi từ website cơ quan quản lý: sản phẩm, số lô, lý do, ngày.', u:{5:'Listing bán sản phẩm / lô bị thu hồi'}},
+    {f:'license_records', e:'G', t:'json', k:'Tham chiếu', s:'CQ', ph:'II', p:'P1', fz:'TB', d:'Giấy phép qua trục liên thông: số, loại, chủ thể, phạm vi, hiệu lực.', u:{4:'license_status cho mặt hàng có điều kiện'}},
+
+    // ---------- Lịch sử vi phạm (dùng chung) ----------
+    {f:'violation_case_id, behavior_type, decided_at, outcome', e:'H', t:'string, enum, date', k:'Tham chiếu', s:'CQ', ph:'I', p:'P0', fz:'Chưa rõ', d:'Hồ sơ vi phạm từ CSDL 2020 (liên thông).', core:1},
+    {f:'subject_link_keys', e:'H', t:'json', k:'Tham chiếu', s:'CQ', ph:'I', p:'P0', fz:'Chưa rõ', d:'Tên, SĐT, MST, URL, ID shop ghi trong hồ sơ cũ.', core:1},
+    {f:'link_key_type, link_confidence', e:'H', t:'enum, number', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'Cao', d:'Khóa đã dùng để liên kết đối tượng hiện tại với hồ sơ cũ và độ tin cậy.', core:1},
+
+    // ---------- Xác minh & nhãn ----------
+    {f:'alert_id, verification_result', e:'N', t:'string, enum', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Có căn cứ / không có căn cứ / chưa xác định.', core:1},
+    {f:'behavior_labels, label_scope', e:'N', t:'list, enum', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Đa nhãn hành vi; cấp: claim / lô / listing / shop / quan hệ.', core:1},
+    {f:'signal_feedback', e:'N', t:'json', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Từng tín hiệu: đúng / sai / thiếu dữ liệu / sai đối tượng.', core:1},
+    {f:'label_strength, verification_method', e:'N', t:'enum', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'5 mức: kiểm nghiệm – giám định › hãng xác nhận › cán bộ kết luận › cán bộ nhận định › phản ánh.', core:1},
+    {f:'verified_by, verified_at', e:'N', t:'string, datetime', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Người và thời điểm xác minh.', core:1},
+    {f:'audit_sample_flag, sampling_weight, sampling_frame', e:'N', t:'bool, number, string', k:'Hệ thống', s:'', ph:'I', p:'P0', fz:'TB', d:'Mẫu ngẫu nhiên không bị cảnh báo được kiểm tra; ước lượng bỏ sót.', core:1},
+    {f:'complaint_records', e:'N', t:'json', k:'Thu thập', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Phản ánh của người dân / doanh nghiệp: nội dung, đối tượng (URL, shop, SĐT), nhóm hành vi cán bộ gán.', core:1},
+    {f:'seized_item_photos', e:'N', t:'list', k:'Xác minh', s:'CB', ph:'I', p:'P0', fz:'Cao', d:'Ảnh tang vật chụp qua app: view_type, capture_protocol_version, thương hiệu / sản phẩm, trạng thái xác thực.', u:{1:'Lớp ảnh “giả” cho đối chiếu và huấn luyện',2:'Mẫu hàng nhái đã xác minh',5:'Ảnh nhãn đầy đủ'}}
+  ];
+
+  // Ví dụ minh họa cho từng trường — tình huống giả định: thương hiệu VELORA, shop "Velora Store Auth 88" trên Lazada
+  var EX = {
+    // Bản ghi & nguồn gốc
+    'record_id': 'lazada:2847561930@2026-10-20T08:15',
+    'source': 'lazada',
+    'source_record_id': '2847561930',
+    'record_type': 'listing',
+    'canonical_url': 'https://www.lazada.vn/products/i2847561930.html',
+    'observed_at': '2026-10-20T08:15:00+07:00',
+    'published_at': '2026-09-02T19:40:00+07:00',
+    'crawl_mode': 'tracking',
+    'discovery_query': 'kem chống nắng velora auth',
+    'fetch_status': 'removed',
+    'access_basis': 'vendor',
+    'vendor_name, vendor_record_id': 'NCC-A · rec_88213',
+    'collector_version': 'lz-parser 1.4.2',
+    'raw_payload_uri': 's3://kgm-raw/lazada/2026/10/20/2847561930.json.gz',
+    'content_hash': 'sha256:9b1e…4f07',
+    'first_seen_at, last_seen_at': '2026-09-03 · 2026-10-18',
+    'evidence_capture_uri, evidence_capture_hash': 's3://kgm-evidence/A-000123/page.warc · sha256:51c0…aa9e',
+    // Listing
+    'title': 'Kem chống nắng VELORA SPF50 50ml hàng auth like 1:1',
+    'description': 'Hàng chuẩn auth, check mã thoải mái. Lấy sỉ inbox Zalo 09xx xxx 678. STK Vietcombank ****6789',
+    'hashtags': '#velora #repcaocap #hangxachtay',
+    'platform_category_id, platform_category_path': '10100387 · Làm đẹp > Chăm sóc da > Chống nắng',
+    'declared_brand': 'VELORA',
+    'declared_attributes': '{"dung_tich":"50ml","xuat_xu":"Pháp","han_dung":"24 tháng"}',
+    'listing_badges': '["Hàng quốc tế","Freeship Xtra"]',
+    'sold_count_raw, sold_count_value, sold_count_rounded': '"1,2k" → 1200 · true',
+    'rating_avg, rating_count': '4.6 · 312',
+    'interaction_counts': '{"like":245,"share":18,"comment":63}',
+    'fb_group_id': '5566778899 (nhóm “Săn mỹ phẩm auth”)',
+    // Biến thể & giá
+    'source_variant_id': '15982374012',
+    'variant_name': '50ml · Tuýp',
+    'price_current': '189000',
+    'price_strikethrough': '650000',
+    'currency': 'VND',
+    'price_type': 'flash_sale',
+    'price_text_raw': '“550k/chai, combo 2 chai 1tr”',
+    'pack_quantity, pack_unit': '50 · ml',
+    'unit_price': '3780 đ/ml',
+    'promo_text': 'Giảm 15% đơn từ 300k, đến 31/10',
+    // Người bán
+    'source_seller_id': 'lazada:1003458712',
+    'seller_name': 'Velora Store Auth 88',
+    'seller_url': 'https://www.lazada.vn/shop/velora-store-auth-88',
+    'seller_type': 'shop',
+    'seller_badges': '[] (shop thường) — gian hàng hãng: ["LazMall"]',
+    'seller_created_at': '2026-08-14',
+    'seller_stats': '{"rating":4.7,"followers":1250,"response_rate":0.92}',
+    'seller_listing_ids': '[2847561930, 2847561955, …] · 214 sản phẩm',
+    'seller_business_info': '{"ten":"Hộ KD Minh An","mst":"03123***78","dia_chi":"TP. Hồ Chí Minh"}',
+    'ship_from_location': 'TP. Hồ Chí Minh',
+    'admin_unit_code, admin_unit_version': '79 · 2025',
+    'region_source_type': 'platform_ship_from',
+    // Định danh liên hệ
+    'identifier_type': 'bank_account',
+    'identifier_value_encrypted': 'enc:v1:9QH2…  (giải mã: Vietcombank ****6789)',
+    'identifier_keyed_hash': 'hmac:7f3a91…c21e',
+    'bank_name': 'Vietcombank',
+    'identifier_location': '{"field":"description","chars":[96,121]}',
+    'pii_class': 'sensitive_identifier',
+    // Media
+    'media_id': 'med_000184522',
+    'media_source_url': 'https://img.lazcdn.com/…/9a1c7e.jpg',
+    'media_uri': 's3://kgm-media/2026/10/9a1c7e.jpg',
+    'media_role': 'review',
+    'parent_record_id': 'lazada:2847561930',
+    'media_sha256': 'sha256:3d7f…e10b',
+    'width, height, is_full_resolution': '1200 × 1200 · true',
+    'media_type, duration': 'video · 42 s',
+    'media_phash': 'pdq:c3d1e0f0b8a49c1e…',
+    'image_embedding_ref': 'vec:img_dinov2_v1/med_000184522',
+    'image_kind': 'real_photo',
+    'ocr_text, ocr_boxes, ocr_confidence': '"SPF50+ PA++++ LOT 24A117" · [[34,880,410,920]] · 0.93',
+    'decoded_codes': '{"type":"QR","domain":"velora-check.example","gtin":"8930000123459"}',
+    'label_view': 'ingredients',
+    'logo_regions': '[{"bbox":[120,64,318,140],"brand":"VELORA","score":0.88}]',
+    // Review / bình luận
+    'source_comment_id': 'rv_99812345',
+    'comment_parent_id': 'lazada:2847561930',
+    'comment_text': 'Mùi khác hẳn hàng mua ở store, tem bị lệch, nghi fake',
+    'review_rating': '2',
+    'comment_created_at': '2026-10-11T21:05:00+07:00',
+    'purchased_variant': '50ml · Tuýp',
+    'author_pseudo_id': 'usr:hmac:2b9e…41',
+    'comment_issue_category': 'fake',
+    // Website
+    'domain': 'velora-sale24h.example',
+    'tracking_ids': '["G-7XK2P9QL3M","fb-pixel:1029384756"]',
+    'hosting_ip, nameservers': '203.0.113.45 · ["ns1.dnshost.example"]',
+    'tls_cert_fingerprint, cert_names': 'SHA256:4F:2A…9C · [velora-sale24h.example, mirane-outlet.example]',
+    'whois_created_at, whois_registrant': '2026-07-30 · REDACTED FOR PRIVACY',
+    'moit_registration_status': 'chua_thong_bao',
+    'site_template_fingerprint': 'tpl:wp-flatsome:9d2c41',
+    // Nội dung trích xuất
+    'brand_mentions': '["VELORA","MIRANE"]',
+    'extracted_attributes': '{"dung_tich":"50ml","spf":"50+","xuat_xu":"Pháp"}',
+    'evasion_terms': '[{"term":"auth like 1:1","pos":[38,51],"negated":false}]',
+    'authenticity_claims': '["hàng chuẩn auth","check mã thoải mái"]',
+    'authorization_claims': '["Nhà phân phối độc quyền VELORA miền Nam"]',
+    'product_claims': '[{"type":"cong_dung","text":"trị nám dứt điểm sau 7 ngày"}]',
+    'predicted_category, category_confidence': 'my_pham.chong_nang · 0.94',
+    'control_list_matches': '[{"item":"KS-0412 thuốc lá điện tử","type":"cam","score":0.91}]',
+    'label_fields': '{"so_cong_bo":"12345/24/CBMP-QLD","lot":"24A117","hsd":"2027-03"}',
+    'extraction_confidence, extractor_version': '0.87 · ocr-vi 1.2 / ner-llm 0.3',
+    // Khớp sản phẩm chuẩn
+    'canonical_product_id': 'CP-VELORA-SUN-SPF50-50ML',
+    'match_level': 'variant',
+    'match_confidence, match_method': '0.91 · hybrid',
+    'matched_brand_id': 'BR-VELORA',
+    'product_cluster_id': 'PC-0007821',
+    'match_reviewed_by, match_reviewed_at': 'cb_hn_017 · 2026-10-21',
+    // Tham chiếu sản phẩm & thương hiệu
+    'brand_id, brand_name': 'BR-VELORA · VELORA',
+    'brand_aliases': '["velora","vel0ra","ve lo ra","vêlora"]',
+    'product_line, model_code': 'Sun Shield · VL-SS50',
+    'variant_spec': '{"variant":"50ml","quantity":50,"unit":"ml"}',
+    'gtin_list': '["8930000123459"]',
+    'packaging_version_id, valid_from, valid_to': 'PKG-2025A · 2025-03-01 · (đang lưu hành)',
+    'reference_images': '[{"uri":"s3://kgm-ref/BR-VELORA/VL-SS50/front.jpg","view":"front","pkg":"PKG-2025A"}]',
+    'reference_region_annotations': '[{"view":"front","label":"logo","bbox":[210,80,420,150]}]',
+    'official_description': 'Kem chống nắng phổ rộng SPF50+, kết cấu mỏng nhẹ…',
+    'serial_format_rule': '^VL[0-9]{2}[A-Z][0-9]{6}$',
+    // Kênh chính thức & ủy quyền
+    'official_domains': '["velora.example"]',
+    'official_store_ids': '{"lazada":"1000012345","shopee":"88990011"}',
+    'official_social_accounts': '["facebook.com/velora.vietnam.official"]',
+    'authorized_sellers': '[{"lazada":"1002233445","pham_vi":"VELORA, mọi kênh","het_han":"2026-12-31"}]',
+    // Giá tham chiếu
+    'rrp_value, rrp_effective_from, rrp_effective_to': '520000 · 2026-01-01 · 2026-12-31',
+    'official_channel_price': '459000 (LazMall, 2026-10-20)',
+    'official_price_floor': '399000 (thấp nhất 90 ngày, đợt 10.10)',
+    'reference_price_source, reference_price_observed_at': 'official_store · 2026-10-20',
+    'market_median_price': '430000 (cụm PC-0007821, 38 listing)',
+    // Pháp lý & danh mục
+    'mark_records': '{"chu":"VELORA","so_dang_ba":"4-0123456-000","nhom_nice":[3],"hieu_luc":"2034-05-10"}',
+    'control_items': '{"id":"KS-0412","ten":"Thuốc lá điện tử","loai":"cam","dong_nghia":["vape","pod"],"hieu_luc_tu":"2025-01-01"}',
+    'evasion_lexicon': '{"term":"rep 1:1","bien_the":["rep11","r3p 1-1"],"hanh_vi":"hang_gia","muc_do":"cao","ver":"v3"}',
+    'claim_rulebook': '{"id":"CR-MP-007","nganh":"my_pham","cum_tu":["trị nám","điều trị","chữa"],"loai":"cong_dung_benh"}',
+    'product_declarations': '{"so":"12345/24/CBMP-QLD","thanh_phan":["Zinc Oxide 15%"],"cong_dung":"Chống nắng"}',
+    'recall_notices': '{"san_pham":"Sữa rửa mặt X","so_lo":["L2309"],"ly_do":"vượt giới hạn vi sinh","ngay":"2026-09-15"}',
+    'license_records': '{"so":"GP-01234/2026","chu_the":"Cty TNHH Minh An","pham_vi":"rượu","hieu_luc":"2029-06-30"}',
+    // Lịch sử vi phạm
+    'violation_case_id, behavior_type, decided_at, outcome': 'VP-2023-HN-00871 · hang_gia · 2023-11-02 · xu_phat',
+    'subject_link_keys': '{"ten":"Velora Store","sdt":"hmac:7f3a…","url":"facebook.com/velorastore88"}',
+    'link_key_type, link_confidence': 'phone · 0.95',
+    // Xác minh & nhãn
+    'alert_id, verification_result': 'A-000123 · co_can_cu',
+    'behavior_labels, label_scope': '[hang_gia, quang_cao_sai_lech] · listing',
+    'signal_feedback': '{"official_image_reuse":"dung","price_floor":"dung","evasion_terms":"sai_doi_tuong"}',
+    'label_strength, verification_method': '3 · can_bo_ket_luan',
+    'verified_by, verified_at': 'cb_hn_017 · 2026-10-22T10:30',
+    'audit_sample_flag, sampling_weight, sampling_frame': 'true · 25.0 · my_pham_LZ_2026-10',
+    'complaint_records': '{"ma":"PA-2026-04412","url":"…/i2847561930","nhom":"hang_gia"}',
+    'seized_item_photos': '[{"uri":"s3://kgm-seized/V-2026-019/01.jpg","view":"logo_closeup","protocol":"v1","xac_thuc":"giam_dinh"}]'
+  };
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function exHtml(f){ return EX[f.f] ? '<span class="ex">'+esc(EX[f.f])+'</span>' : '<span class="muted">—</span>'; }
+  var G2 = {SP:1, TK:1, WEB:1}, REF = {DN:1, CQ:1, NV:1, CB:1};
+  function srcHtml(s){
+    if(!s) return '<span class="muted">—</span>';
+    return s.split(' ').map(function(x){ return '<span class="src'+(G2[x]?' g2':(REF[x]?' ref':''))+'">'+x+'</span>'; }).join('');
+  }
+  function phHtml(p){ return p==='I' ? '<span class="t t-g1">GĐ I</span>' : '<span class="t t-g2">GĐ II</span>'; }
+  function pHtml(p){ return '<span class="t t-'+p.toLowerCase()+'">'+p+'</span>'; }
+  var FZ = {'Cao':'t-ok','TB':'t-warn','Thấp':'t-risk','Chưa rõ':'t-low'};
+  function fzHtml(z){ return '<span class="t '+FZ[z]+'">'+z+'</span>'; }
+  function fieldHtml(f){ return '<div class="fn">'+esc(f.f)+'</div><div class="fdesc">'+esc(f.d)+'</div>'; }
+  function btHtml(f){
+    if(f.core) return '<span class="pc all">Chung</span>';
+    return Object.keys(f.u).map(function(k){ return '<span class="pc">'+k+'</span>'; }).join('');
+  }
+  function grpRow(e, n){ return '<tr class="grp"><td colspan="'+n+'">'+esc(ENT[e])+'</td></tr>'; }
+  function sorted(list){
+    return list.slice().sort(function(a,b){ return ORDER.indexOf(a.e) - ORDER.indexOf(b.e); });
+  }
+  function render(tbody, list, cols, rowFn){
+    var html = '', last = null;
+    sorted(list).forEach(function(f){
+      if(f.e !== last){ html += grpRow(f.e, cols); last = f.e; }
+      html += rowFn(f);
+    });
+    if(!list.length) html = '<tr><td colspan="'+cols+'" class="muted">Không có trường nào khớp bộ lọc.</td></tr>';
+    tbody.innerHTML = html;
+  }
+
+  // Thống kê
+  document.getElementById('st-all').textContent = F.length;
+  document.getElementById('st-p0').textContent = F.filter(function(f){return f.p==='P0';}).length;
+  document.getElementById('st-g1').textContent = F.filter(function(f){return f.ph==='I';}).length;
+  document.getElementById('st-g2').textContent = F.filter(function(f){return f.ph==='II';}).length;
+
+  // Trường dùng chung
+  render(document.getElementById('tb-core'), F.filter(function(f){return f.core;}), 7, function(f){
+    return '<tr><td>'+fieldHtml(f)+'</td><td>'+exHtml(f)+'</td><td><span class="kind">'+f.k+'</span></td><td class="srcs">'+srcHtml(f.s)+'</td><td class="nw">'+phHtml(f.ph)+'</td><td>'+pHtml(f.p)+'</td><td class="nw">'+fzHtml(f.fz)+'</td></tr>';
+  });
+
+  // Bảng theo bài toán
+  [1,2,3,4,5,6].forEach(function(k){
+    var list = F.filter(function(f){ return !f.core && f.u && f.u[k]; });
+    var p0 = list.filter(function(f){return f.p==='P0';}).length;
+    document.getElementById('cnt-'+k).textContent = list.length + ' nhóm trường riêng · ' + p0 + ' nhóm P0';
+    render(document.getElementById('tb-'+k), list, 8, function(f){
+      return '<tr><td>'+fieldHtml(f)+'</td><td>'+exHtml(f)+'</td><td><span class="kind">'+f.k+'</span></td><td class="srcs">'+srcHtml(f.s)+'</td><td>'+esc(f.u[k])+'</td><td class="nw">'+phHtml(f.ph)+'</td><td>'+pHtml(f.p)+'</td><td class="nw">'+fzHtml(f.fz)+'</td></tr>';
+    });
+  });
+
+  // Bảng chốt + bộ lọc
+  var q = document.getElementById('f-q'), ph = document.getElementById('f-ph'), bt = document.getElementById('f-bt'),
+      kd = document.getElementById('f-k'), pr = document.getElementById('f-p'), shown = document.getElementById('f-shown');
+  function filtered(){
+    var s = q.value.trim().toLowerCase();
+    return F.filter(function(f){
+      if(ph.value && f.ph !== ph.value) return false;
+      if(kd.value && f.k !== kd.value) return false;
+      if(pr.value && f.p !== pr.value) return false;
+      if(bt.value === 'core' && !f.core) return false;
+      if(bt.value && bt.value !== 'core' && (f.core || !f.u[bt.value])) return false;
+      if(s && (f.f + ' ' + f.d + ' ' + (EX[f.f] || '')).toLowerCase().indexOf(s) < 0) return false;
+      return true;
+    });
+  }
+  function draw(){
+    var list = filtered();
+    render(document.getElementById('tb-all'), list, 8, function(f){
+      return '<tr><td><div class="fn">'+esc(f.f)+'</div><div class="fdesc"><span class="ty">'+esc(f.t)+'</span> '+esc(f.d)+'</div></td><td>'+exHtml(f)+'</td><td><span class="kind">'+f.k+'</span></td><td class="srcs">'+srcHtml(f.s)+'</td><td class="nw">'+btHtml(f)+'</td><td class="nw">'+phHtml(f.ph)+'</td><td>'+pHtml(f.p)+'</td><td class="nw">'+fzHtml(f.fz)+'</td></tr>';
+    });
+    shown.textContent = 'Đang hiển thị ' + list.length + ' / ' + F.length;
+  }
+  [q, ph, bt, kd, pr].forEach(function(el){ el.addEventListener('input', draw); el.addEventListener('change', draw); });
+  document.getElementById('f-reset').addEventListener('click', function(){ q.value=''; ph.value=''; bt.value=''; kd.value=''; pr.value=''; draw(); });
+  document.getElementById('f-csv').addEventListener('click', function(){
+    var head = ['truong','thuc_the','kieu','loai','nguon','bai_toan','giai_doan','uu_tien','kha_thi','mo_ta','vi_du'];
+    var rows = sorted(filtered()).map(function(f){
+      return [f.f, ENT[f.e], f.t, f.k, f.s, f.core ? 'Chung' : Object.keys(f.u).join(' '), 'GĐ ' + f.ph, f.p, f.fz, f.d, EX[f.f] || ''];
+    });
+    var csv = [head].concat(rows).map(function(r){ return r.map(function(c){ return '"' + String(c).replace(/"/g,'""') + '"'; }).join(','); }).join('\r\n');
+    var blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'KGM_truong_du_lieu.csv';
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  });
+  draw();
+
+  // Mục lục
+  var links = Array.prototype.slice.call(document.querySelectorAll('aside.toc a'));
+  var secs = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  function sync(){
+    var idx = 0;
+    for (var i = 0; i < secs.length; i++){ if (secs[i] && secs[i].getBoundingClientRect().top <= 140) idx = i; }
+    links.forEach(function(a, i){ a.classList.toggle('active', i === idx); });
+  }
+  window.addEventListener('scroll', sync, {passive:true});
+  window.addEventListener('resize', sync);
+  sync();
+})();
+</script>
+<noscript><div class="wrap"><p>Các bảng trường dữ liệu được dựng bằng JavaScript; hãy bật JavaScript để xem.</p></div></noscript>
+</body>
+</html>

@@ -1,0 +1,15 @@
+2026-10-27 14:13:26,613 INFO nike-flagship-store page 1
+2026-10-27 14:13:32,683 INFO nike-flagship-store page 2
+2026-10-27 14:13:36,849 ERROR nike-flagship-store failed
+Traceback (most recent call last):
+  File "D:\Data engineer\lazada-football-boots\hàng chính hãng\crawl_shops.py", line 173, in collect_shop
+    write_json(folder / 'report.json', report)
+  File "D:\Data engineer\lazada-football-boots\hàng chính hãng\crawl_shops.py", line 43, in write_json
+    temp.replace(path)
+  File "C:\Users\Admin\AppData\Local\Programs\Python\Python310\lib\pathlib.py", line 1247, in replace
+    self._accessor.replace(self, target)
+PermissionError: [WinError 5] Access is denied: 'D:\\Data engineer\\lazada-football-boots\\hàng chính hãng\\data\\20261027_141321_884908\\nike-flagship-store\\report.json.tmp' -> 'D:\\Data engineer\\lazada-football-boots\\hàng chính hãng\\data\\20261027_141321_884908\\nike-flagship-store\\report.json'
+2026-10-27 14:13:37,256 INFO nike-flagship-store: 80 products; error
+2026-10-27 14:13:41,338 INFO supersports page 1
+2026-10-27 14:13:51,427 INFO supersports page 2
+2026-10-27 14:13:59,701 INFO supersports page 3

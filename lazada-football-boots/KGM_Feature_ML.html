@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KGM — Feature ML trên Lazada</title>
+<style>
+  :root{
+    --bg:#f4f5f7; --surface:#ffffff; --surface-2:#f8f9fb; --ink:#1d2129; --ink-2:#4b5361; --ink-3:#7c8494;
+    --line:#e4e7ec; --line-2:#d0d5dd; --accent:#3b5bdb; --accent-ink:#ffffff; --accent-soft:#edf1ff;
+    --danger:#d92d20; --danger-soft:#fef3f2; --warn:#b54708; --warn-soft:#fffaeb; --ok:#067647; --ok-soft:#ecfdf3;
+    --shadow:0 1px 2px rgba(16,24,40,.05);
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+    --m-rule-b:#eef0f3; --m-rule-f:#475467;
+    --m-stat-b:#e6f6f2; --m-stat-f:#0b7a62;
+    --m-nlp-b:#eef1ff;  --m-nlp-f:#3b4fd8;
+    --m-llm-b:#f3eeff;  --m-llm-f:#6d3fd1;
+    --m-ocr-b:#fff1e0;  --m-ocr-f:#a85400;
+    --m-cv-b:#fdecf2;   --m-cv-f:#bd2d5c;
+    --m-graph-b:#e8f5fd;--m-graph-f:#026aa2;
+    --m-ts-b:#e9f9ef;   --m-ts-f:#08743f;
+    --m-asr-b:#fdf0e8;  --m-asr-f:#b93815;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0f1115; --surface:#171a20; --surface-2:#1c2028; --ink:#e7e9ee; --ink-2:#b0b7c3; --ink-3:#808897;
+      --line:#262b34; --line-2:#343b47; --accent:#8aa2ff; --accent-ink:#0f1115; --accent-soft:#1d2440;
+      --danger:#f97066; --danger-soft:#2b1715; --warn:#fdb022; --warn-soft:#2a2112; --ok:#47cd89; --ok-soft:#11261b;
+      --shadow:none;
+      --m-rule-b:#232831; --m-rule-f:#c3cad6;
+      --m-stat-b:#0f2a24; --m-stat-f:#5fd4b4;
+      --m-nlp-b:#1b2142;  --m-nlp-f:#a4b2ff;
+      --m-llm-b:#241b3d;  --m-llm-f:#c4a8ff;
+      --m-ocr-b:#2e2110;  --m-ocr-f:#ffb661;
+      --m-cv-b:#331722;   --m-cv-f:#ff8db1;
+      --m-graph-b:#0f2433;--m-graph-f:#7cc8f5;
+      --m-ts-b:#10281a;   --m-ts-f:#6fdc9c;
+      --m-asr-b:#311a10;  --m-asr-f:#ff9d75;
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0; background:var(--bg); color:var(--ink); font-family:"Inter","Segoe UI",system-ui,-apple-system,"Noto Sans",Roboto,Arial,sans-serif; font-size:15px; line-height:1.6; -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1440px; margin:0 auto; padding:0 28px}
+  @media(max-width:720px){ .wrap{padding:0 16px} }
+  a{color:var(--accent)}
+  code{font-family:var(--mono); font-size:.86em; background:var(--surface-2); border:1px solid var(--line); border-radius:5px; padding:1px 5px}
+  p{margin:0 0 10px; color:var(--ink-2)}
+
+  /* Header */
+  header.top{background:var(--surface); border-bottom:1px solid var(--line)}
+  header.top .wrap{padding-top:26px; padding-bottom:18px}
+  .eyebrow{font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+  h1{font-size:26px; line-height:1.25; letter-spacing:-.015em; margin:6px 0 6px}
+  header .sub{max-width:96ch; margin:0}
+  .assume{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+  .assume span{font-size:12.5px; padding:4px 10px; border-radius:999px; border:1px solid var(--line); background:var(--surface-2); color:var(--ink-2)}
+  .assume span.no{border-color:transparent; background:var(--danger-soft); color:var(--danger)}
+  .assume span.yes{border-color:transparent; background:var(--ok-soft); color:var(--ok)}
+
+  /* Tabs */
+  nav.tabs{position:sticky; top:0; z-index:30; background:color-mix(in srgb, var(--surface) 92%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  nav.tabs .wrap{display:flex; gap:4px; overflow-x:auto; padding-top:8px; padding-bottom:8px; scrollbar-width:thin}
+  .tab{flex:0 0 auto; font:inherit; font-size:13.5px; font-weight:600; color:var(--ink-2); background:transparent; border:1px solid transparent; border-radius:9px; padding:6px 12px; cursor:pointer; display:inline-flex; gap:7px; align-items:center; white-space:nowrap}
+  .tab:hover{background:var(--surface-2); color:var(--ink)}
+  .tab[aria-selected="true"]{background:var(--accent-soft); color:var(--accent); border-color:color-mix(in srgb, var(--accent) 30%, transparent)}
+  .tab .n{font-size:11px; font-weight:700; padding:0 6px; border-radius:999px; background:var(--surface-2); color:var(--ink-3); border:1px solid var(--line)}
+  .tab[aria-selected="true"] .n{background:var(--surface); color:var(--accent)}
+  .tab:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
+  main{padding:26px 0 80px}
+  .ph h2{font-size:22px; line-height:1.3; letter-spacing:-.01em; margin:0 0 6px}
+  .ph .lead{font-size:15px; color:var(--ink-2); max-width:110ch; margin:0 0 16px}
+
+  .card{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:var(--shadow)}
+  .card h3{font-size:14.5px; margin:0 0 8px}
+  .card ul{margin:0; padding-left:18px; font-size:13.8px; color:var(--ink-2)}
+  .card li{margin-bottom:4px}
+  .grid{display:grid; gap:14px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media(max-width:980px){ .g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media(max-width:640px){ .g2,.g3{grid-template-columns:minmax(0,1fr)} }
+  .stat .v{font-size:28px; font-weight:800; letter-spacing:-.02em; line-height:1.1}
+  .stat .l{font-size:12.5px; color:var(--ink-3); margin-top:3px}
+
+  /* Chips */
+  .chip{display:inline-flex; align-items:center; padding:1px 8px; border-radius:6px; font-size:11.5px; font-weight:650; line-height:1.6; white-space:nowrap; margin:1px 4px 1px 0; background:var(--m-rule-b); color:var(--m-rule-f)}
+  .m-rule{background:var(--m-rule-b); color:var(--m-rule-f)}
+  .m-stat{background:var(--m-stat-b); color:var(--m-stat-f)}
+  .m-nlp{background:var(--m-nlp-b); color:var(--m-nlp-f)}
+  .m-llm{background:var(--m-llm-b); color:var(--m-llm-f)}
+  .m-ocr{background:var(--m-ocr-b); color:var(--m-ocr-f)}
+  .m-cv{background:var(--m-cv-b); color:var(--m-cv-f)}
+  .m-graph{background:var(--m-graph-b); color:var(--m-graph-f)}
+  .m-ts{background:var(--m-ts-b); color:var(--m-ts-f)}
+  .m-asr{background:var(--m-asr-b); color:var(--m-asr-f)}
+  .m-unk{background:var(--danger-soft); color:var(--danger)}
+  .in{display:inline-block; font-family:var(--mono); font-size:11.5px; padding:0 6px; border-radius:5px; margin:1px 4px 1px 0; border:1px solid var(--line-2); background:var(--surface-2); color:var(--ink); white-space:nowrap}
+  .in.feat{border-color:color-mix(in srgb, var(--m-llm-f) 45%, transparent); background:var(--m-llm-b); color:var(--m-llm-f)}
+  .in.unk{border-style:dashed; border-color:var(--danger); color:var(--danger); background:var(--danger-soft)}
+  .src{display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:700; padding:0 6px; border-radius:5px; margin:1px 3px 1px 0; background:var(--ok-soft); color:var(--ok)}
+  .src.g2{background:var(--m-llm-b); color:var(--m-llm-f)}
+  .src.own{background:var(--accent-soft); color:var(--accent)}
+  .bt{display:inline-flex; align-items:center; justify-content:center; min-width:22px; height:22px; padding:0 6px; border-radius:999px; font-size:11px; font-weight:800; margin:1px 3px 1px 0; background:var(--accent-soft); color:var(--accent)}
+  .bt.base{background:var(--m-llm-b); color:var(--m-llm-f)}
+  .muted{color:var(--ink-3)}
+
+  /* Toolbar */
+  .toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:4px 0 12px}
+  .toolbar input[type=search],.toolbar select{font:inherit; font-size:13.5px; padding:7px 10px; border:1px solid var(--line-2); border-radius:8px; background:var(--surface); color:var(--ink); min-width:0}
+  .toolbar input[type=search]{flex:1 1 220px; max-width:340px}
+  .mfilter{display:flex; flex-wrap:wrap; gap:4px; align-items:center}
+  .mfilter button{font:inherit; border:1px solid transparent; cursor:pointer; opacity:.55}
+  .mfilter button[aria-pressed="true"]{opacity:1; box-shadow:0 0 0 1.5px currentColor inset}
+  .mfilter button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .spacer{flex:1 1 auto}
+  .shown{font-size:12.5px; color:var(--ink-3)}
+  .btn{font:inherit; font-size:13.5px; font-weight:650; padding:7px 13px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:var(--accent-ink); cursor:pointer; white-space:nowrap}
+  .btn.ghost{background:transparent; color:var(--accent)}
+  .btn.sm{font-size:12.5px; padding:5px 10px}
+  .btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+  /* Tables */
+  .tw{overflow-x:auto; border:1px solid var(--line); border-radius:12px; background:var(--surface); position:relative; box-shadow:var(--shadow)}
+  table{border-collapse:collapse; width:100%; font-size:13.4px}
+  table.ft{min-width:1160px}
+  table.fl{min-width:1040px}
+  table.mx{min-width:760px}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:var(--surface-2); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); font-weight:750; white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover td{background:color-mix(in srgb, var(--surface-2) 60%, transparent)}
+  tr.grp td{background:var(--surface-2); padding:7px 12px; font-size:12px; font-weight:750; color:var(--ink-2)}
+  tr.grp td .cnt{font-weight:500; color:var(--ink-3); margin-left:6px}
+  td.nw{white-space:nowrap}
+  .fname{font-family:var(--mono); font-weight:750; font-size:12.8px; overflow-wrap:anywhere}
+  .mrow{margin-top:4px}
+  .out{margin-top:4px; font-size:12px; color:var(--ink-3)}
+  .out span{font-family:var(--mono)}
+  .desc{font-size:13.4px; color:var(--ink)}
+  .note{margin-top:5px; font-size:12px; color:var(--warn)}
+  .note:empty{display:none}
+  .note:focus{display:block}
+  .ex{font-family:var(--mono); font-size:11.8px; line-height:1.45; background:var(--surface-2); border:1px solid var(--line); border-radius:6px; padding:4px 7px; overflow-wrap:anywhere; min-width:150px}
+  .ty{display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:700; color:var(--ink-2); border:1px solid var(--line-2); border-radius:4px; padding:0 5px; margin-top:4px}
+  .usedby{font-size:12px; color:var(--ink-3)}
+
+  /* Editing */
+  [contenteditable="true"]{border-radius:5px; cursor:text; outline:none}
+  [contenteditable="true"]:hover{background:var(--accent-soft)}
+  [contenteditable="true"]:focus{box-shadow:0 0 0 2px var(--accent); background:var(--surface)}
+  .chipedit:focus{font-family:var(--mono); font-size:12px; padding:2px 4px}
+  .chipedit{min-height:22px; padding:1px 2px}
+  [contenteditable="true"]:empty::before{content:"(trống)"; color:var(--ink-3); font-style:italic; font-weight:400; font-family:inherit}
+  .note[contenteditable="true"]:empty::before{content:""}
+  select.sel{-webkit-appearance:none; appearance:none; font:inherit; font-size:11.5px; font-weight:700; padding:2px 10px; border-radius:999px; border:1px solid transparent; cursor:pointer; text-align:center}
+  select.sel option{background:var(--surface); color:var(--ink); font-weight:400}
+  select.sel:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .ph1{background:var(--ok-soft); color:var(--ok)}
+  .ph2{background:var(--m-llm-b); color:var(--m-llm-f)}
+  .p0{background:var(--accent); color:var(--accent-ink)}
+  .p1{background:var(--accent-soft); color:var(--accent)}
+  .p2{background:var(--surface-2); color:var(--ink-3); border-color:var(--line)!important}
+  select.grpsel{max-width:170px; text-align:left}
+  .grpsel{background:var(--surface-2); color:var(--ink-2); border-color:var(--line-2)!important; border-radius:6px!important}
+  .del{width:28px; height:28px; border-radius:7px; border:1px solid var(--line); background:transparent; color:var(--ink-3); font-size:17px; line-height:1; cursor:pointer}
+  .del:hover,.del:focus-visible{color:var(--danger); border-color:var(--danger); background:var(--danger-soft); outline:none}
+  th.dh{width:44px}
+  .sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+  tr.flash td{animation:flash 2.4s ease}
+  @keyframes flash{0%,40%{background:var(--warn-soft)}100%{background:transparent}}
+
+  /* Overview */
+  .flow{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; align-items:stretch}
+  .flow .st{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px; position:relative}
+  .flow .st b{display:block; font-size:13.5px; margin-bottom:4px}
+  .flow .st span{font-size:12.5px; color:var(--ink-2); display:block}
+  .flow .st:not(:last-child)::after{content:"→"; position:absolute; right:-10px; top:50%; transform:translate(50%,-50%); color:var(--ink-3); font-size:16px; z-index:1}
+  @media(max-width:980px){ .flow{grid-template-columns:minmax(0,1fr)} .flow .st:not(:last-child)::after{content:"↓"; right:50%; top:auto; bottom:-12px; transform:translate(50%,50%)} }
+  .mx td.c{text-align:center; font-weight:700; font-variant-numeric:tabular-nums}
+  .mx td.z{color:var(--ink-3); font-weight:400}
+  .mx th.c{text-align:center}
+  .legend{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px 18px; font-size:13px}
+  @media(max-width:980px){ .legend{grid-template-columns:minmax(0,1fr)} }
+  .legend div{display:flex; gap:8px; align-items:baseline}
+  .legend .chip{flex:0 0 auto}
+  .sec{margin-top:22px}
+  .sec > h3{font-size:15px; margin:0 0 10px}
+
+  /* Toast */
+  .toast{position:fixed; left:50%; bottom:20px; transform:translate(-50%,180%); background:var(--ink); color:var(--bg); padding:10px 14px; border-radius:10px; display:flex; gap:12px; align-items:center; font-size:13.5px; box-shadow:0 10px 30px rgba(0,0,0,.25); transition:transform .2s ease; z-index:70; max-width:calc(100vw - 32px)}
+  .toast.show{transform:translate(-50%,0)}
+  .toast .btn{background:var(--bg); color:var(--ink); border-color:var(--bg)}
+
+  /* Modal */
+  body.modal-open{overflow:hidden}
+  .modal{position:fixed; inset:0; background:rgba(10,14,20,.5); display:flex; align-items:flex-start; justify-content:center; padding:5vh 16px; z-index:60; overflow-y:auto}
+  .modal[hidden]{display:none}
+  .mcard{background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:14px; padding:20px 22px; width:100%; max-width:720px; box-shadow:0 20px 50px rgba(0,0,0,.3)}
+  .mcard h3{font-size:18px; margin:0 0 14px}
+  .fg{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px 12px}
+  .fg .s2{grid-column:span 2} .fg .s3{grid-column:span 3}
+  .mcard label{display:flex; flex-direction:column; gap:4px; font-size:12px; font-weight:700; color:var(--ink-2)}
+  .mcard input[type=text],.mcard select,.mcard textarea{font:inherit; font-size:13.5px; font-weight:400; padding:7px 9px; border:1px solid var(--line-2); border-radius:8px; background:var(--surface-2); color:var(--ink); min-width:0; resize:vertical}
+  .mcard input:focus,.mcard select:focus,.mcard textarea:focus{outline:2px solid var(--accent); outline-offset:0; border-color:var(--accent)}
+  .req{color:var(--danger)}
+  .checks{border:1px solid var(--line); border-radius:10px; margin:0; padding:8px 12px 10px; display:flex; flex-wrap:wrap; gap:6px 14px}
+  .checks legend{font-size:12px; font-weight:700; color:var(--ink-2); padding:0 4px}
+  .checks label{flex-direction:row; align-items:center; gap:6px; font-weight:500; font-size:13px; color:var(--ink)}
+  .hint{font-size:12px; font-weight:400; color:var(--ink-3)}
+  .preview{min-height:24px}
+  .err{color:var(--danger); font-size:13px; min-height:18px; margin:8px 0 0}
+  .mact{display:flex; justify-content:flex-end; gap:8px; margin-top:6px}
+  @media(max-width:600px){ .fg{grid-template-columns:minmax(0,1fr)} .fg .s2,.fg .s3{grid-column:auto} }
+  /* Bổ sung cho bản Lazada */
+  table.ft{min-width:1300px}
+  table.fl{min-width:1180px}
+  table.mx{min-width:900px}
+  table.pg{min-width:860px}
+  .use{font-size:13px; color:var(--ok); line-height:1.5}
+  @media (prefers-color-scheme: dark){ .use{color:#7fd8a9} }
+  .gp{display:flex; flex-direction:column; gap:6px; align-items:flex-start}
+  .fz-cao{background:var(--ok-soft); color:var(--ok)}
+  .fz-tb{background:var(--warn-soft); color:var(--warn)}
+  .fz-thap{background:var(--danger-soft); color:var(--danger)}
+  .fz-chua{background:var(--surface-2); color:var(--ink-3); border-color:var(--line)!important}
+  .fmeta{display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:4px}
+  .fmeta .ty{margin-top:0}
+  .outscope{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px}
+  @media(max-width:860px){ .outscope{grid-template-columns:minmax(0,1fr)} }
+  .scopebar{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow">Dự án KGM · Team ML · Scope Lazada</div>
+    <h1>Feature cho 6 bài toán trên Lazada: phương pháp, tác dụng, trường kết hợp</h1>
+    <p class="sub">Danh mục feature team ML cần xây khi chỉ dùng dữ liệu công khai trên Lazada. Mỗi trường và mỗi feature có cột <b>Tác dụng</b>; feature ghi thêm phương pháp, cách tính, các trường đầu vào được kết hợp và trang Lazada lấy dữ liệu (tính tự động). Phần hạ tầng thu thập của Data Engineering làm sau.</p>
+    <div class="assume" aria-label="Giả định phạm vi">
+      <span class="yes">Scope: dữ liệu công khai trên sàn Lazada</span>
+      <span class="yes">Có: tham chiếu team tự xây (LazMall, website hãng, văn bản công khai)</span>
+      <span class="no">Bỏ: livestream</span>
+      <span>Để sau: Facebook, Shopee, TikTok Shop, website</span>
+      <span class="no">Không có: CSDL vi phạm, giấy phép, công bố, đăng ký DN</span>
+      <span class="no">Không có: dữ liệu nội bộ Lazada / shop</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Các tab nội dung">
+  <div class="wrap" role="tablist" id="tablist"></div>
+</nav>
+
+<main>
+  <div class="wrap" id="panel" role="tabpanel"></div>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- Modal thêm feature -->
+<div class="modal" id="m-feat" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="mf-title">
+    <h3 id="mf-title">Thêm feature</h3>
+    <form id="f-feat" novalidate>
+      <div class="fg">
+        <label class="s2"><span>Tên feature <b class="req">*</b></span><input name="f" type="text" placeholder="ví dụ: seller_response_rate_drop" autocomplete="off"></label>
+        <label><span>Đầu ra (kiểu)</span><input name="o" type="text" placeholder="number / bool / enum…" autocomplete="off"></label>
+        <fieldset class="checks s3" id="mf-methods"><legend>Phương pháp</legend></fieldset>
+        <fieldset class="checks s3" id="mf-bts"><legend>Dùng cho</legend></fieldset>
+        <label class="s3"><span>Cách tính</span><textarea name="d" rows="2" placeholder="Feature được tính thế nào"></textarea></label>
+        <label class="s3"><span>Tác dụng</span><textarea name="u" rows="2" placeholder="Feature giúp phát hiện điều gì, vì sao cần"></textarea></label>
+        <label class="s2"><span>Đầu vào — trường / feature kết hợp (cách nhau bởi dấu phẩy)</span><input name="in" type="text" placeholder="title, description_text, evasion_lexicon" autocomplete="off"></label>
+        <label><span>Chèn nhanh</span><select name="pick" aria-label="Chèn trường hoặc feature vào đầu vào"></select></label>
+        <div class="s3 preview" id="mf-preview" aria-live="polite"></div>
+        <label class="s2"><span>Ví dụ giá trị</span><input name="x" type="text" autocomplete="off"></label>
+        <label><span>Giai đoạn</span><select name="ph"><option value="I">GĐ I</option><option value="II">GĐ II</option></select></label>
+        <label class="s2"><span>Lưu ý / điều kiện</span><input name="c" type="text" autocomplete="off"></label>
+        <label><span>Ưu tiên</span><select name="p"><option>P0</option><option selected>P1</option><option>P2</option></select></label>
+      </div>
+      <p class="err" id="mf-err" role="alert"></p>
+      <div class="mact"><button class="btn ghost" type="button" data-close>Hủy</button><button class="btn" type="submit">Thêm feature</button></div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal thêm trường -->
+<div class="modal" id="m-field" hidden>
+  <div class="mcard" role="dialog" aria-modal="true" aria-labelledby="md-title">
+    <h3 id="md-title">Thêm trường đầu vào</h3>
+    <form id="f-field" novalidate>
+      <div class="fg">
+        <label class="s2"><span>Tên trường <b class="req">*</b></span><input name="f" type="text" placeholder="ví dụ: shop_vacation_mode" autocomplete="off"></label>
+        <label><span>Kiểu</span><input name="t" type="text" placeholder="string / number / json…" autocomplete="off"></label>
+        <label><span>Nhóm</span><select name="e"></select></label>
+        <label><span>Khả thi trên Lazada</span><select name="fz"><option>Cao</option><option selected>TB</option><option>Thấp</option><option>Chưa rõ</option></select></label>
+        <span></span>
+        <fieldset class="checks s3" id="md-src"><legend>Lấy ở trang nào</legend></fieldset>
+        <label class="s3"><span>Mô tả</span><textarea name="d" rows="2"></textarea></label>
+        <label class="s3"><span>Tác dụng</span><textarea name="u" rows="2" placeholder="Trường này dùng để làm gì"></textarea></label>
+        <label class="s3"><span>Ví dụ</span><input name="x" type="text" autocomplete="off"></label>
+      </div>
+      <p class="err" id="md-err" role="alert"></p>
+      <div class="mact"><button class="btn ghost" type="button" data-close>Hủy</button><button class="btn" type="submit">Thêm trường</button></div>
+    </form>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ============================== DỮ LIỆU MẶC ĐỊNH ==============================
+  var GROUPS = {
+    L:'Sản phẩm (trang sản phẩm)', K:'Kết quả tìm kiếm', V:'Giá & biến thể', S:'Shop', M:'Ảnh / video',
+    C:'Đánh giá & hỏi đáp', R:'Tham chiếu tự xây (từ dữ liệu công khai)', N:'Nhãn huấn luyện & đánh giá'
+  };
+  var G_ORDER = ['L','K','V','S','M','C','R','N'];
+  var SRC = ['PDP','SHOP','SRP','REV','QA','MALL','TX','GN','CB'];
+  var SRC_LABEL = {PDP:'Trang sản phẩm', SHOP:'Trang shop', SRP:'Trang kết quả tìm kiếm', REV:'Mục đánh giá', QA:'Mục hỏi đáp', MALL:'Danh bạ LazMall / gian hàng chính hãng', TX:'Tự xây', GN:'Gán nhãn', CB:'Phản hồi cán bộ'};
+  var SRC_OWN = {TX:1, GN:1, CB:1}, SRC_G2 = {MALL:1};
+  var FZ_OPTS = ['Cao','TB','Thấp','Chưa rõ'];
+  var FZ_CLS = {'Cao':'fz-cao','TB':'fz-tb','Thấp':'fz-thap','Chưa rõ':'fz-chua'};
+
+  // [tên, nhóm, kiểu, trang Lazada, khả thi, mô tả, tác dụng, ví dụ]
+  var FIELDS0 = [
+    ['item_id','L','string','PDP SRP','Cao','ID sản phẩm Lazada (itemId) trong URL.','Khóa nối mọi feature của listing; theo dõi cùng listing qua các lần quét.','2847561930'],
+    ['title','L','text','PDP SRP','Cao','Tiêu đề sản phẩm.','Nguồn chính để nhận diện thương hiệu, từ lách luật, claim, mặt hàng kiểm soát.','Kem chống nắng VELORA SPF50 50ml hàng auth like 1:1'],
+    ['description_text','L','text','PDP','Cao','Phần mô tả dạng chữ.','Trích claim, tự xưng đại lý, thành phần, lời mời liên hệ ngoài sàn.','Hàng chuẩn auth, check mã thoải mái…'],
+    ['category_path','L','string','PDP','Cao','Ngành hàng (breadcrumb và mã ngành) người bán chọn.','So với ngành dự đoán để phát hiện đăng sai ngành; chọn quy tắc theo ngành.','Sức khỏe & Làm đẹp > Chăm sóc da > Chống nắng'],
+    ['declared_brand','L','string','PDP','Cao','Trường Thương hiệu trên Lazada (có thể là “No Brand”).','Đối chiếu với thương hiệu nêu trong tiêu đề / ảnh; “No Brand” + tên hãng lớn là dấu hiệu né kiểm duyệt.','No Brand'],
+    ['specifications','L','json','PDP','Cao','Thông số kỹ thuật theo ngành: model, xuất xứ, dung tích, hạn sử dụng, thành phần…','Đối chiếu với nhãn, claim, ảnh; khớp đúng biến thể sản phẩm chuẩn.','{"xuat_xu":"Pháp","dung_tich":"50ml","han_su_dung":"36 tháng"}'],
+    ['whats_in_box','L','text','PDP','TB','Mục “Trong hộp có gì”.','Đối chiếu số lượng / quà tặng với ảnh và biến thể.','1 tuýp 50ml'],
+    ['warranty_info','L','json','PDP','Cao','Loại và thời hạn bảo hành: nhà sản xuất / nhà bán / không bảo hành.','Phát hiện shop không chính thức cam kết “bảo hành chính hãng”.','{"loai":"Bảo hành bởi nhà sản xuất","thoi_han":"12 tháng"}'],
+    ['return_policy','L','string','PDP','Cao','Chính sách đổi trả và cam kết hiển thị (vd “100% chính hãng” của LazMall).','Phân biệt cam kết của sàn với cam kết người bán tự viết.','Đổi trả 7 ngày'],
+    ['listing_badges','L','list','PDP SRP','Cao','Nhãn trên sản phẩm: LazMall, Hàng quốc tế, LazFlash, Freeship…','Xác định tư cách gian hàng và hàng giao từ nước ngoài.','["Hàng quốc tế","Freeship"]'],
+    ['ship_from','L','string','PDP SRP','Cao','Nơi giao hàng hiển thị (“Giao từ …” hoặc nước ngoài).','Địa bàn của shop / cụm; hàng quốc tế bán thương hiệu có gian hàng chính hãng trong nước.','Hồ Chí Minh'],
+    ['observed_at','L','datetime','PDP','Cao','Thời điểm quan sát của mỗi lần quét (snapshot).','Mốc thời gian cho mọi feature theo thời gian; chia train / test theo thời gian.','2026-10-20T08:15+07:00'],
+    ['listing_status','L','enum','PDP','Cao','Trạng thái khi quét lại: active / removed / not_found.','Phát hiện listing bị gỡ, shop tái lập.','removed'],
+    ['sold_count','L','int','PDP SRP','TB','Số đã bán nếu hiển thị; “1,2k” quy về 1200 kèm cờ làm tròn.','Quy mô bán, tốc độ bán, doanh số đột biến.','1200 (rounded)'],
+    ['rating_avg, rating_count','L','number','PDP','Cao','Điểm trung bình và số lượt đánh giá.','Mẫu số cho các tỷ lệ phản ánh; theo dõi điểm giảm dần.','4.6 · 312'],
+    ['rating_distribution','L','json','PDP','Cao','Số đánh giá theo từng mức 1–5 sao.','Phát hiện phân bố bất thường của review ảo (nhiều 5 sao và 1 sao, ít mức giữa).','{"5":240,"4":12,"3":5,"2":8,"1":47}'],
+    ['search_keyword','K','string','SRP','Cao','Từ khóa tìm kiếm (trong bộ từ khóa dự án) dẫn tới listing.','Biết listing xuất hiện khi người mua tìm thương hiệu nào.','kem chống nắng velora'],
+    ['search_rank','K','int','SRP','Cao','Vị trí của listing trong kết quả tìm kiếm.','Đo mức hiển thị của listing nghi vấn khi người mua tìm tên thương hiệu.','3'],
+    ['is_sponsored','K','bool','SRP','TB','Listing hiển thị dạng quảng cáo (tài trợ).','Phát hiện shop trả tiền quảng cáo trên từ khóa thương hiệu khác.','true'],
+    ['sku_id','V','string','PDP','Cao','ID biến thể (skuId) của Lazada.','So giá đúng biến thể; gắn review với biến thể đã mua.','15982374012'],
+    ['variant_name','V','string','PDP','Cao','Tên biến thể: dung tích, màu, combo.','Tách quy cách để quy đơn giá; phát hiện biến thể mồi hoặc biến thể chứa hàng khác.','50ml · Tuýp'],
+    ['price_current','V','number','PDP SRP','Cao','Giá bán hiện tại theo biến thể.','Đầu vào của mọi feature về giá.','189000'],
+    ['price_original','V','number','PDP','Cao','Giá gốc gạch ngang do người bán đặt.','Đo độ sâu giảm giá và giảm giá ảo; không dùng làm giá tham chiếu.','650000'],
+    ['promo_info','V','json','PDP','TB','Voucher, flash sale, mua nhiều giảm giá và điều kiện.','Phát hiện điều kiện ẩn; loại giá khuyến mãi khỏi phép so giá.','{"voucher":"Giảm 15% đơn từ 300k"}'],
+    ['stock_status','V','string','PDP','TB','Còn hàng / số lượng tối đa chọn được nếu hiển thị.','Ngữ cảnh quy mô: giá rẻ bất thường đi cùng tồn kho lớn.','Còn 999'],
+    ['seller_id','S','string','PDP SHOP','Cao','ID shop trên Lazada.','Khóa nối shop; node của đồ thị cụm.','1003458712'],
+    ['seller_name','S','string','PDP SHOP','Cao','Tên shop.','Phát hiện tên shop mạo danh thương hiệu; tên shop theo mẫu trong cụm.','Velora Store Auth 88'],
+    ['seller_badges','S','list','PDP SHOP','Cao','Huy hiệu shop: LazMall, nhà bán ưu tiên…','Xác định kênh chính thức (kết hợp registry).','[] (shop thường)'],
+    ['seller_joined','S','string','SHOP','TB','Thời gian tham gia hiển thị trên trang shop.','Tuổi shop; shop mới bán nhiều hàng hiệu là dấu hiệu rủi ro.','Tham gia 2 tháng'],
+    ['seller_metrics','S','json','PDP SHOP','Cao','Đánh giá tích cực, giao hàng đúng hạn, tỷ lệ phản hồi, số người theo dõi.','Ngữ cảnh uy tín shop; so với trung vị ngành.','{"tich_cuc":0.82,"dung_han":0.9,"phan_hoi":0.95,"follow":1250}'],
+    ['seller_listing_ids','S','list','SHOP','Cao','Danh sách sản phẩm của shop (quét theo shop).','Tỷ lệ hàng hiệu / hàng kiểm soát của shop; độ trùng danh mục giữa các shop.','[2847561930, …] · 214 sản phẩm'],
+    ['seller_public_info','S','json','SHOP','Chưa rõ','Tên doanh nghiệp / hộ kinh doanh, địa chỉ, mã số thuế nếu trang shop hiển thị.','Nối các shop cùng chủ thể bằng thông tin có căn cứ.','{"ten":"Hộ KD Minh An","mst":"03123***78"}'],
+    ['image','M','image','PDP REV','Cao','Ảnh gốc: ảnh chính, thư viện, ảnh mô tả, ảnh biến thể, ảnh review; lấy bản lớn nhất.','Đầu vào của mọi feature CV và OCR.','9a1c7e.jpg (1200×1200)'],
+    ['image_role','M','enum','PDP REV','Cao','main / gallery / description / variant / review.','Chọn cách so phù hợp: ảnh review so với ảnh listing, ảnh mô tả để OCR.','review'],
+    ['image_parent_id','M','string','PDP REV','Cao','Listing hoặc review chứa ảnh.','Gắn feature ảnh về đúng listing / review.','2847561930'],
+    ['video_keyframes','M','list','PDP','TB','Khung hình tách từ video sản phẩm của listing.','Mở rộng feature ảnh cho listing chủ yếu dùng video.','[kf_001.jpg, kf_014.jpg]'],
+    ['review_text','C','text','REV','Cao','Nội dung đánh giá.','Phân loại phản ánh hàng giả, sai mô tả, chất lượng, nhầm lẫn.','Mùi khác hẳn hàng ở store, tem lệch, nghi fake'],
+    ['review_rating','C','number','REV','Cao','Số sao của từng đánh giá.','Lệch sao – nội dung; phát hiện review ảo.','2'],
+    ['review_created_at','C','datetime','REV','Cao','Thời điểm đăng đánh giá.','Đột biến phản ánh theo tuần; review dồn ngay sau khi đăng.','2026-10-11T21:05+07:00'],
+    ['purchased_variant','C','string','REV','Cao','Biến thể người mua đã mua (hiển thị dưới review).','Gắn phản ánh với đúng biến thể.','50ml · Tuýp'],
+    ['reviewer_hash','C','string','REV','Cao','Mã ẩn danh của người đánh giá (băm có khóa), không lưu tên.','Phát hiện cùng tài khoản đánh giá cho nhiều shop trong cụm.','usr:2b9e…41'],
+    ['seller_reply_text','C','text','REV','TB','Phản hồi của shop dưới đánh giá.','Shop thừa nhận / né tránh khi bị phản ánh hàng giả.','Shop cam kết hàng auth bạn nhé'],
+    ['qa_question, qa_answer','C','text','QA','TB','Câu hỏi của người mua và câu trả lời của shop ở mục Hỏi đáp.','Shop hay lộ “hàng loại 1”, “like auth” khi trả lời câu hỏi về chính hãng.','Hỏi: có chính hãng không? · Đáp: hàng loại 1 like auth ạ'],
+    ['qa_created_at','C','datetime','QA','TB','Thời điểm hỏi / đáp.','Cửa sổ thời gian cho các tỷ lệ Hỏi đáp.','2026-10-05'],
+    ['official_channel_registry','R','json','MALL TX','Cao','Gian hàng chính hãng của từng thương hiệu trên Lazada, tự xây từ danh bạ LazMall và website hãng.','Phân biệt kênh chính thức với shop thường; nguồn ảnh và giá chính hãng.','{"VELORA":{"lazada_store":"1000012345","website":"velora.example"}}'],
+    ['brand_dictionary','R','json','TX','Cao','Thương hiệu ưu tiên: tên chuẩn, alias, cách viết biến thể, ngành, mã model.','Khớp thương hiệu; phát hiện tên nhái, tên shop mạo danh.','{"VELORA":["velora","vel0ra","ve lo ra"]}'],
+    ['reference_catalog','R','json','MALL TX','TB','Sản phẩm chuẩn lấy từ listing của gian hàng chính hãng: tên, quy cách, ảnh, mô tả, thông số.','Khớp sản phẩm; so ảnh, bao bì, mô tả với hàng chính hãng.','{"CP-VELORA-SUN-50ML":{"anh":3,"gia_niem_yet":459000}}'],
+    ['official_price_history','R','json','MALL TX','Cao','Giá theo thời gian của sản phẩm chuẩn tại gian hàng chính hãng (từ tracking).','Giá sàn hợp lệ 90 ngày để so giá shop không chính thức.','[{"ngay":"2026-10-10","gia":399000}]'],
+    ['evasion_lexicon','R','json','TX','Cao','Từ lách luật, từ lóng: biến thể, nhóm hành vi, mức độ.','Bắt cách viết né kiểm duyệt của sàn.','{"rep 1:1":{"hv":"hang_gia","muc":"cao"}}'],
+    ['control_item_list','R','json','TX','Cao','Danh mục hàng cấm / hạn chế / có điều kiện, số hóa từ văn bản pháp luật công khai.','Nền đối chiếu của bài toán 4.','{"KS-0412":{"ten":"Thuốc lá điện tử","loai":"cam"}}'],
+    ['claim_rulebook','R','json','TX','Cao','Cụm từ claim bị cấm / hạn chế theo ngành.','Nền đối chiếu của bài toán 3.','{"my_pham":["trị nám","điều trị"]}'],
+    ['recall_notices','R','json','TX','Cao','Thông báo thu hồi đăng công khai trên website cơ quan quản lý.','Phát hiện listing bán sản phẩm / lô bị thu hồi.','{"san_pham":"Sữa rửa mặt X","lo":"L2309"}'],
+    ['category_baselines','R','json','TX','Cao','Mốc theo ngành tính từ dữ liệu đã thu: giá trung vị, điểm shop, tỷ lệ review tiêu cực.','Mốc so sánh cho feature thống kê; làm trơn tỷ lệ khi ít dữ liệu.','{"my_pham.chong_nang":{"gia_trung_vi_ml":5200}}'],
+    ['annotation_labels','N','json','GN','Cao','Nhãn team tự gán theo hướng dẫn: listing × 6 hành vi, mức tin cậy, 2 người gán.','Huấn luyện và đánh giá model; hiệu chỉnh ngưỡng rule.','{"hang_gia":"nghi_van_cao"}'],
+    ['officer_feedback','N','json','CB','TB','Kết quả xác minh của cán bộ khi chạy thí điểm: có căn cứ / không / chưa rõ, tín hiệu nào đúng.','Nhãn mạnh nhất; đo precision của cảnh báo.','{"ket_qua":"co_can_cu"}'],
+    ['golden_set_flag','N','bool','GN','Cao','Mẫu chuyên gia duyệt, tách riêng để đánh giá.','Đánh giá model không bị rò rỉ dữ liệu huấn luyện.','true'],
+    ['audit_sample_flag','N','bool','GN','Cao','Mẫu ngẫu nhiên không bị cảnh báo được kiểm tra.','Ước lượng tỷ lệ bỏ sót.','true']
+  ];
+
+  // [tên, phương pháp, dùng cho (N = nền), đầu vào, cách tính, tác dụng, đầu ra, ví dụ, GĐ, ưu tiên, lưu ý]
+  var FEATS0 = [
+    // ---------- Feature nền ----------
+    ['text_normalized','NLP, Rule','N','title, description_text, specifications, review_text, qa_question, qa_answer','Chuẩn hóa: thường hóa, bản không dấu song song, teencode, ký tự thay thế (0→o, 1→l), bỏ ký tự ngăn cách.','Để luật và model không bị lách bằng cách viết biến thể.','text','kem chong nang velora spf50 hang auth like 1:1','I','P0','Giữ bản gốc để trích câu làm bằng chứng.'],
+    ['ocr_text_blocks','OCR','N','image, video_keyframes','Phát hiện vùng chữ, nhận dạng tiếng Việt; trả chữ, bbox, độ tin cậy.','Lấy chữ người bán đặt trong ảnh để né bộ lọc text: claim, từ lách luật, SĐT, thông tin nhãn.','json','[{"t":"SPF50+ LOT 24A117","conf":0.93}]','I','P0','Ưu tiên ảnh mô tả và ảnh review.'],
+    ['watermark_text','OCR, CV','N','image, ocr_text_blocks','Phát hiện watermark / chữ chèn đè: tên shop khác, logo nền tảng khác, SĐT.','Biết ảnh bị sao chép từ shop / nền tảng khác; tạo cạnh liên kết giữa các shop.','list','["Velora Store 89","logo nền tảng khác"]','I','P1',''],
+    ['decoded_codes','CV, Rule','N','image','Giải mã QR, mã vạch; tách domain đích của QR và GTIN.','Kiểm tra mã trên bao bì có trỏ đúng hãng không.','json','{"qr_domain":"velora-check.example","gtin":"8930000123459"}','I','P1','Chỉ có khi ảnh chụp rõ mã.'],
+    ['image_phash','CV','N','image','Perceptual hash (pHash / PDQ).','Tìm ảnh trùng, gần trùng nhanh, kể cả bị resize, nén.','string','pdq:c3d1e0f0…','I','P0',''],
+    ['image_embedding','CV','N','image, video_keyframes','Vector ảnh từ model pretrained (DINOv2 / SigLIP), lưu Vector DB.','Tìm sản phẩm giống nhau dù khác góc chụp; nền cho khớp sản phẩm và đo độ giống bao bì.','vector','vec(768) img_v1','I','P0','GĐ II fine-tune trên kho chuẩn.'],
+    ['image_kind','CV','N','image, image_role','Phân loại ảnh: marketing / chụp thật / ảnh nhãn mặt sau / banner chữ; kèm điểm chất lượng.','Chọn ảnh đủ điều kiện để so chi tiết, đọc nhãn; tránh so nhầm ảnh quảng cáo.','enum + number','real_photo · 0.82','I','P1',''],
+    ['text_embedding','NLP','N','text_normalized','Vector câu cho tiêu đề + mô tả (BGE-M3 / embedding tiếng Việt).','Đo độ giống nội dung; gom cụm sản phẩm; phát hiện template mô tả dùng chung.','vector','vec(1024) txt_v1','I','P0',''],
+    ['ner_entities','NLP, LLM','N','text_normalized, ocr_text_blocks','Trích thực thể: thương hiệu, model, quy cách, thành phần, SĐT, Zalo, STK, cam kết chính hãng, tự xưng đại lý.','Chuyển văn bản tự do thành trường có cấu trúc cho mọi feature phía sau.','json','{"brand":"VELORA","qty":"50ml","phone":["09xx…678"]}','I','P0','Regex cho SĐT / STK; LLM on-prem cho phần còn lại.'],
+    ['predicted_category','NLP, CV','N','text_embedding, image_embedding','Ngành hàng dự đoán theo taxonomy dự án.','Chọn quy tắc, mốc giá theo đúng ngành; phát hiện đăng sai ngành.','string + number','my_pham.chong_nang · 0.94','I','P0',''],
+    ['unit_price','Rule','N','price_current, variant_name, specifications, ner_entities','Giá chuẩn hóa theo biến thể và đơn vị (đ/ml, đ/viên); tách combo, quà kèm.','So được giá giữa các quy cách và các shop khác nhau.','number','3780 đ/ml','I','P0',''],
+    ['brand_match','NLP, Rule','N','declared_brand, ner_entities, brand_dictionary','Thương hiệu khớp trong từ điển (đúng hoặc alias), từ tiêu đề, ảnh và trường Thương hiệu.','Biết listing nói về thương hiệu ưu tiên nào; điều kiện đầu vào của BT1, BT2.','string + number','VELORA · 1.0','I','P0',''],
+    ['product_match','NLP, CV, Rule','N','brand_match, ner_entities, image_embedding, reference_catalog','Gán listing vào sản phẩm chuẩn; trả cấp khớp (thương hiệu / model / biến thể) và độ tin cậy.','Chọn đúng giá, ảnh, thông số chính hãng để đối chiếu.','json','{"id":"CP-VELORA-SUN-50ML","level":"variant","conf":0.91}','I','P0','Nút thắt của BT1, BT2, BT5; đo bằng bộ test duyệt tay.'],
+    ['product_cluster','CV, NLP, Thống kê','N','text_embedding, image_embedding, unit_price','Gom listing cùng sản phẩm giữa các shop.','Có mặt bằng giá và danh mục chung cho sản phẩm chưa có trong kho chuẩn.','string','PC-0007821 (38 listing)','I','P1',''],
+    ['seller_channel_status','Rule','N','seller_id, seller_badges, listing_badges, brand_match, official_channel_registry','Shop là gian hàng chính hãng của thương hiệu đang bán / LazMall nhưng không phải của hãng / shop thường.','Tín hiệu nền của BT1, BT2: hàng hiệu bán ngoài kênh chính hãng.','enum','shop_thuong','I','P0','Không có danh sách ủy quyền: “không thấy là kênh chính thức” chưa phải “không được ủy quyền”.'],
+    ['contact_ids_hash','NLP, Rule','N','ner_entities, watermark_text, seller_public_info','SĐT, Zalo, STK chuẩn hóa rồi băm có khóa (HMAC).','Nối các shop dùng chung liên hệ mà không lộ giá trị gốc.','list','["hmac:7f3a…"]','I','P0','Trên Lazada chủ yếu nằm trong ảnh và mô tả.'],
+    ['listing_lifecycle','Time-series','N','item_id, observed_at, listing_status','Lần đầu thấy, lần cuối thấy, đã bị gỡ chưa, số ngày tồn tại.','Thay cho ngày đăng (Lazada không hiển thị); phát hiện listing sống ngắn, shop tái lập.','json','{"first":"2026-09-03","last":"2026-10-18","removed":true}','I','P1','Cần quét lại cùng listing (tracking).'],
+    ['review_issue_class','NLP, LLM','N','review_text, review_rating, purchased_variant','Phân loại từng review: hàng giả / không đúng mô tả / chất lượng / hết hạn / nhầm lẫn / giao vận / khác.','Biến review thành tín hiệu đếm được cho BT1, BT2, BT3, BT5.','enum','fake','I','P0','Zero-shot LLM ở GĐ I, model nhỏ ở GĐ II.'],
+    ['review_trust_weight','Thống kê, NLP','N','review_text, review_created_at, reviewer_hash, rating_distribution','Trọng số tin cậy của review: hạ trọng số review trùng nội dung, chung chung, dồn dập, từ tài khoản đánh giá hàng loạt.','Tránh để review ảo kéo lệch các tỷ lệ phản ánh.','number','0.35','I','P1',''],
+    ['qa_issue_class','NLP, LLM','N','qa_question, qa_answer, seller_reply_text','Phân loại Hỏi đáp và phản hồi của shop dưới đánh giá: hỏi chính hãng / hỏi thành phần / shop thừa nhận hàng không chính hãng / mời liên hệ ngoài / khác.','Tận dụng câu trả lời của shop — nơi người bán hay lộ “hàng loại 1”.','enum','seller_admits_replica','I','P1',''],
+    // ---------- BT1 Hàng giả ----------
+    ['official_image_reuse','CV, Rule','1','image_phash, image_embedding, reference_catalog, seller_channel_status','Ảnh listing trùng / gần trùng ảnh của gian hàng chính hãng, trong khi shop không phải kênh chính thức.','Bắt shop mượn ảnh hãng để tạo lòng tin; tín hiệu mạnh, không cần gán nhãn.','bool + number','true · 0.97','I','P0','Dùng lại ảnh chưa chứng minh hàng giao là giả; cần tín hiệu khác đi kèm.'],
+    ['price_vs_official_floor','Thống kê','1','unit_price, product_match, official_price_history','Giá / giá thấp nhất của gian hàng chính hãng trong 90 ngày, cùng sản phẩm chuẩn cấp biến thể.','Giá thấp hơn hẳn cả đợt khuyến mãi sâu nhất của hãng là dấu hiệu hàng giả.','number','0.47','I','P0','Chỉ tính khi product_match ở cấp biến thể.'],
+    ['price_vs_market_median','Thống kê','1','unit_price, product_cluster, category_baselines','Giá / trung vị giá trong cụm sản phẩm, loại gian hàng chính hãng.','Có mặt bằng giá cho sản phẩm chưa có trong kho chuẩn.','number','0.44','I','P1','Cần cụm đủ số listing.'],
+    ['brand_field_mismatch','Rule','1, 2','declared_brand, brand_match','Trường Thương hiệu là “No Brand” / thương hiệu khác, nhưng tiêu đề hoặc ảnh nêu thương hiệu ưu tiên.','Bắt cách né kiểm duyệt thương hiệu của sàn mà vẫn ăn theo tên hãng.','bool','true','I','P0',''],
+    ['evasion_keyword_score','Rule, NLP','1, 4','text_normalized, ocr_text_blocks, evasion_lexicon','Tổng trọng số từ lách luật tìm thấy, bỏ trường hợp phủ định / trích dẫn.','Người bán tự lộ hàng giả qua từ lóng (“rep 1:1”, “like auth”, “siêu cấp”).','number','0.8 (“auth like 1:1”)','I','P0',''],
+    ['authenticity_claim_conflict','NLP, Rule','1','ner_entities, seller_channel_status','Cam kết “chính hãng / auth / check mã” nhưng shop không phải kênh chính thức.','Phân biệt cam kết của LazMall với cam kết tự viết của shop thường.','bool','true','I','P0',''],
+    ['warranty_claim_conflict','Rule, NLP','1','warranty_info, return_policy, ner_entities, seller_channel_status','Shop không chính thức ghi “bảo hành bởi nhà sản xuất / chính hãng”, hoặc hàng điện tử thương hiệu lớn lại “không bảo hành”.','Cam kết bảo hành không có cơ sở là dấu hiệu nguồn hàng không chính ngạch.','bool','true','I','P1',''],
+    ['seller_name_impersonation','NLP, Rule','1, 2','seller_name, seller_channel_status, brand_dictionary','Tên shop chứa tên thương hiệu hoặc “official / chính hãng” nhưng không phải gian hàng chính hãng.','Bắt shop mạo danh hãng để người mua tưởng là kênh chính thức.','bool + string','true · “Velora Store Auth 88”','I','P0',''],
+    ['cross_border_brand_flag','Rule','1','listing_badges, ship_from, brand_match, official_channel_registry','Hàng quốc tế (giao từ nước ngoài) bán thương hiệu ưu tiên đã có gian hàng chính hãng trong nước.','Nguồn hàng ngoài kênh chính hãng có rủi ro giả cao hơn.','bool','true','I','P1','Hàng nhập song song có thể hợp pháp; chỉ là tín hiệu bổ trợ.'],
+    ['self_declared_distributor','NLP, Rule','1, 2','ner_entities, seller_channel_status, brand_match','Shop tự xưng “nhà phân phối / đại lý chính thức” nhưng không có trong registry kênh chính thức.','Bắt cam kết sai về tư cách phân phối.','bool','true','I','P1',''],
+    ['qa_authenticity_signal','NLP, LLM','1','qa_issue_class, qa_created_at, seller_channel_status','Hỏi đáp / phản hồi đánh giá có câu hỏi về chính hãng mà shop trả lời né tránh hoặc thừa nhận “hàng loại 1 / like auth” (tính trong cửa sổ thời gian gần đây).','Lời thừa nhận trực tiếp của shop — bằng chứng rõ cho cán bộ.','enum','seller_admits_replica','I','P0',''],
+    ['watermark_foreign_shop','OCR, CV','1, 6','watermark_text, seller_name','Ảnh mang watermark tên shop khác / nền tảng khác.','Phát hiện ảnh sao chép; nối các shop dùng chung nguồn ảnh.','bool + list','true · ["Velora Store 89"]','I','P1',''],
+    ['high_risk_brand_share','Thống kê','1, 6','seller_listing_ids, brand_match, seller_channel_status','Tỷ lệ sản phẩm của shop thuộc thương hiệu ưu tiên mà shop không phải kênh chính thức.','Đánh giá rủi ro theo shop, không chỉ theo từng listing.','number','0.78','I','P1',''],
+    ['qr_domain_mismatch','Rule','1','decoded_codes, official_channel_registry','Domain QR trỏ tới không thuộc domain chính thức của thương hiệu.','Bắt QR giả dẫn tới trang “check hàng” giả.','bool','true','I','P1',''],
+    ['gtin_check','Rule','1','decoded_codes, reference_catalog','GTIN sai chữ số kiểm tra hoặc không khớp sản phẩm chuẩn.','Mã vạch in sai là dấu hiệu bao bì giả.','enum','khong_khop','I','P2','Chỉ khi ảnh có mã vạch.'],
+    ['serial_reuse_count','OCR, Thống kê','1','ocr_text_blocks, ner_entities, seller_id','Số shop khác có cùng serial / số lô in trên ảnh.','Cùng một serial ở nhiều shop cho thấy ảnh / tem bị sao chép.','int','14','II','P2',''],
+    ['review_fake_rate','NLP, Thống kê','1','review_issue_class, review_trust_weight, rating_count, category_baselines','Tỷ lệ review phản ánh hàng giả, có trọng số tin cậy, làm trơn Bayes theo ngành.','Phản ánh của người đã mua là bằng chứng từ phía người tiêu dùng.','number','0.12 (6/52)','I','P0',''],
+    ['review_image_mismatch','CV','1, 5','image, image_role, image_parent_id, image_embedding','Ảnh người mua chụp khác ảnh do chính listing đăng / ảnh chuẩn.','Hàng nhận được khác hàng quảng cáo; không cần kho chuẩn.','number','0.38','II','P1',''],
+    ['logo_region_deviation','CV','1, 2','image, image_kind, reference_catalog','Phát hiện vùng logo / tem rồi so với mẫu chuẩn (màu, nét, font).','Bắt sai khác nhỏ trên logo, tem mà mắt thường dễ bỏ qua.','number','0.31','II','P1','Cần bbox logo cho thương hiệu ưu tiên.'],
+    ['known_fake_similarity','CV','1','image_embedding, annotation_labels','Độ giống với ảnh hàng giả đã gán nhãn / xác minh.','Nhận ra lại mẫu hàng giả đã biết khi xuất hiện ở shop mới.','number','0.89','II','P1','Cần tập nhãn đủ lớn.'],
+    ['seller_age_days','Rule','1, 6','seller_joined, listing_lifecycle','Tuổi shop: thời gian tham gia, hoặc lần đầu thấy nếu không hiển thị.','Shop mới mở bán hàng hiệu số lượng lớn là mẫu hình rủi ro.','int','68','I','P1',''],
+    ['sold_velocity','Time-series','1, 6','sold_count, observed_at','Số bán tăng thêm giữa hai lần quét, quy theo ngày.','Ước lượng quy mô tác động để ưu tiên xử lý.','number','35/ngày','I','P1','Cần tracking; số bị làm tròn.'],
+    // ---------- BT2 Hàng nhái ----------
+    ['brand_name_similarity','NLP, Rule','2','declared_brand, ner_entities, brand_dictionary','Độ giống tên với thương hiệu trong từ điển (mặt chữ, không dấu, ký tự đồng dạng, cách đọc), loại trường hợp trùng hẳn.','Bắt tên nhái kiểu “VELORRA”, “VEL0RA”.','number + string','0.86 · “VELORRA” ~ VELORA','I','P0',''],
+    ['ocr_brand_similarity','OCR, NLP','2','ocr_text_blocks, brand_dictionary','Như trên nhưng với tên in trên bao bì, đọc từ ảnh.','Bắt trường hợp text sạch nhưng bao bì in tên nhái.','number','0.83','I','P1',''],
+    ['packaging_similarity','CV','2','image_embedding, reference_catalog, predicted_category','Độ giống tổng thể bao bì với sản phẩm chuẩn cùng ngành, khi thương hiệu khác nhau.','Bắt hàng nhái kiểu dáng bao bì gây nhầm lẫn.','number','0.81','I','P0','So trong cùng ngành để tránh giống do đặc điểm chung.'],
+    ['logo_similarity','CV','2','image, reference_catalog','Độ giống vùng logo phát hiện được với logo thương hiệu.','Bắt logo biến tấu gần giống.','number','0.74','II','P1',''],
+    ['color_layout_similarity','CV','2','image, reference_catalog','Độ giống bảng màu và bố cục nhãn.','Bổ trợ khi logo khác nhưng cách trình bày giống hệt.','number','0.69','II','P2',''],
+    ['description_copy_score','NLP','2','description_text, text_embedding, reference_catalog','Mức chép mô tả chính hãng (MinHash + embedding).','Bắt shop sao chép nguyên văn mô tả hãng để mạo nhận.','number','0.72','I','P1',''],
+    ['brand_association_claim','NLP','2','text_normalized, brand_dictionary','Câu gợi liên tưởng: “dupe X”, “giống X 99%”, “thay thế X”, “inspired by X”.','Bắt cách ăn theo thương hiệu bằng lời.','bool + string','true · “dupe VELORA”','I','P0','So sánh trung thực có thể hợp lệ; chỉ là tín hiệu.'],
+    ['title_brand_stuffing','NLP, Rule','2, 3','title, brand_match, declared_brand, brand_dictionary','Tiêu đề chèn tên thương hiệu khác với thương hiệu thật của sản phẩm (“kem chống nắng như Velora”).','Bắt việc dùng tên hãng để kéo lượt tìm kiếm.','bool + list','true · ["VELORA"]','I','P1',''],
+    ['model_code_similarity','NLP, Rule','2','specifications, ner_entities, brand_dictionary','Mã model / tên dòng sản phẩm gần giống của hãng (“VL-SS50” ~ “VI-SS50”).','Bắt nhái ở cấp dòng sản phẩm.','number','0.9','I','P2',''],
+    ['sponsored_brand_keyword','Rule, Thống kê','2, 3','search_keyword, search_rank, is_sponsored, brand_match','Listing quảng cáo xuất hiện khi tìm tên thương hiệu ưu tiên nhưng không phải hàng của thương hiệu đó.','Đo việc trả tiền để chặn đường người mua tìm hàng hãng.','bool + int','true · hạng 2','I','P2',''],
+    ['review_confusion_rate','NLP, Thống kê','2','review_issue_class, review_trust_weight','Tỷ lệ review “tưởng là hàng X”, “bị nhầm”.','Bằng chứng gây nhầm lẫn thực tế từ người mua.','number','0.05','I','P1',''],
+    // ---------- BT3 Quảng cáo sai lệch ----------
+    ['claims_extracted','NLP, LLM','3, 5','text_normalized, ocr_text_blocks','Danh sách claim: loại (công dụng / xuất xứ / chứng nhận / giá / quà tặng), câu gốc, vị trí.','Nền của BT3: tách lời quảng cáo thành từng claim kiểm tra được.','json','[{"type":"cong_dung","text":"trị nám dứt điểm 7 ngày"}]','I','P0',''],
+    ['prohibited_claim_hit','Rule','3','claims_extracted, predicted_category, claim_rulebook','Số claim khớp cụm từ bị cấm / hạn chế của ngành.','Tín hiệu rõ, giải thích được, không cần model.','int','2','I','P0',''],
+    ['absolute_claim_count','Rule, NLP','3','text_normalized, ocr_text_blocks','Số cụm tuyệt đối: “100%”, “số 1”, “cam kết khỏi”, “vĩnh viễn”.','Đo mức độ phóng đại của quảng cáo.','int','3','I','P1',''],
+    ['medical_claim_non_drug','NLP, Rule','3','claims_extracted, predicted_category','Claim chữa bệnh trên mỹ phẩm, thực phẩm.','Loại vi phạm quảng cáo phổ biến, rủi ro sức khỏe cao.','bool','true','I','P0',''],
+    ['claim_attribute_conflict','NLP, Rule','3','claims_extracted, specifications, warranty_info, ner_entities','Claim mâu thuẫn thông số / bảo hành (“xuất xứ Pháp” nhưng thông số ghi “Trung Quốc”; “bảo hành 12 tháng” nhưng “không bảo hành”).','Mâu thuẫn ngay trong cùng listing, dễ chứng minh.','bool + list','true · ["xuat_xu"]','I','P1',''],
+    ['image_text_conflict','OCR, Rule','3','ocr_text_blocks, specifications, variant_name, whats_in_box','Thông tin in trong ảnh (dung tích, số lượng, quà tặng) khác thông số / biến thể / “Trong hộp có gì”.','Bắt ảnh quảng cáo hứa nhiều hơn hàng thực bán.','bool + list','true · ["100ml vs 50ml"]','I','P1',''],
+    ['variant_price_bait','Thống kê, NLP','3','price_current, variant_name, sku_id, unit_price, stock_status','Biến thể rẻ nhất rẻ bất thường so với các biến thể khác (biến thể mồi là mẫu thử / phụ kiện, hoặc luôn hết hàng).','Bắt giá “từ …” hiển thị ở trang tìm kiếm gây hiểu lầm.','bool + number','true · 0.08','I','P1',''],
+    ['discount_depth','Rule','3','price_current, price_original','1 − giá bán / giá gốc.','Ngữ cảnh giảm giá; kết hợp tracking để thấy giảm giá ảo.','number','0.71','I','P1',''],
+    ['strikethrough_inflation','Time-series','3','price_original, price_current, observed_at','Giá gốc bị nâng lên ngay trước đợt giảm.','Bằng chứng giảm giá ảo.','bool + number','true · +38%','I','P1','Cần tracking hằng ngày / tuần.'],
+    ['condition_in_image_only','OCR, NLP','3','ocr_text_blocks, promo_info, description_text','Điều kiện khuyến mãi / bảo hành chỉ có trong ảnh chữ nhỏ, không có trong text.','Phát hiện điều kiện bị che giấu.','bool','true','I','P2',''],
+    ['not_as_described_rate','NLP, Thống kê','3','review_issue_class, review_trust_weight','Tỷ lệ review “không đúng mô tả / không hiệu quả”.','Phản ánh của người mua về độ sai lệch thực tế.','number','0.18','I','P0',''],
+    ['rating_distribution_anomaly','Thống kê','3','rating_distribution, category_baselines','Phân bố sao hai đỉnh (nhiều 5 và 1 sao, ít mức giữa) so với ngành.','Dấu hiệu đánh giá ảo che phản ánh thật.','number','0.67','I','P1',''],
+    ['review_seeding_burst','Time-series','3, 6','review_created_at, review_rating, listing_lifecycle, reviewer_hash','Nhiều review 5 sao dồn trong thời gian ngắn sau khi listing xuất hiện.','Phát hiện mua review để tạo uy tín giả.','bool + number','true · 40 review / 3 ngày','I','P1',''],
+    ['rating_sentiment_gap','NLP, Thống kê','3','review_rating, review_text','Điểm sao cao nhưng nội dung tiêu cực.','Bổ trợ phát hiện review ảo hoặc bị ép đánh giá.','number','0.42','I','P2',''],
+    ['certification_claim','NLP','3','claims_extracted','Viện dẫn chứng nhận / cơ quan (“Bộ Y tế cấp phép”, “FDA”).','Đưa cán bộ danh sách claim cần kiểm tra thủ công.','list','["Bộ Y tế cấp phép"]','I','P2','Không tự xác minh được vì không có CSDL.'],
+    ['before_after_image','CV','3','image, image_kind','Ảnh trước–sau minh họa hiệu quả.','Dấu hiệu quảng cáo công dụng ở ngành nhạy cảm.','bool','true','II','P2',''],
+    // ---------- BT4 Hàng cấm ----------
+    ['control_item_match','NLP, Rule','4','text_normalized, ocr_text_blocks, ner_entities, control_item_list','Mặt hàng kiểm soát khớp được: mã, loại (cấm / hạn chế / có điều kiện), điểm.','Tín hiệu chính của BT4, giải thích theo đúng mục danh mục.','json','{"item":"KS-0412","loai":"cam","score":0.91}','I','P0',''],
+    ['disguised_listing','NLP, CV','4','predicted_category, variant_name, image_role, image_embedding, ocr_text_blocks','Tiêu đề / ảnh chính là hàng thường nhưng biến thể, ảnh mô tả hoặc chữ trong ảnh là mặt hàng kiểm soát.','Bắt cách giấu hàng cấm trong biến thể / ảnh phụ để qua kiểm duyệt của sàn.','bool + string','true · biến thể “pod tinh dầu”','I','P0',''],
+    ['category_mismatch','Rule','4','predicted_category, category_path','Ngành khai báo khác ngành dự đoán.','Bắt việc đăng sai ngành để tránh bộ lọc của sàn.','bool + number','true · 0.88','I','P1',''],
+    ['prohibited_item_image','CV','4','image_embedding','Nhận diện zero-shot mặt hàng kiểm soát qua ảnh.','Bắt listing chỉ có ảnh, không có chữ khớp danh mục.','string + number','vape · 0.86','I','P1','GĐ II fine-tune.'],
+    ['restricted_ingredient','OCR, NLP, Rule','4, 5','ocr_text_blocks, ner_entities, specifications, control_item_list','Hoạt chất cấm / hạn chế trong thành phần in trên nhãn, thông số hoặc mô tả.','Bắt mỹ phẩm, thực phẩm chứa chất cấm.','list','["hydroquinone"]','I','P1',''],
+    ['offplatform_invite','NLP, OCR, Rule','4, 6','text_normalized, ocr_text_blocks, contact_ids_hash, qa_issue_class','Mời liên hệ ngoài sàn: “ib Zalo”, SĐT trong ảnh / mô tả / Hỏi đáp.','Trên Lazada đây là hành vi né sàn, hay đi kèm hàng cấm và đường dây.','bool','true','I','P1','Chỉ cộng điểm khi có tín hiệu khác.'],
+    ['qa_prohibited_signal','NLP, LLM','4','qa_question, qa_answer, control_item_list','Hỏi đáp ẩn ý về mặt hàng kiểm soát (“có loại có nicotine không?”).','Bắt hàng cấm được bán qua trao đổi, không ghi trong listing.','bool','true','I','P1',''],
+    ['obfuscation_score','Rule','4','title, description_text, ocr_text_blocks','Mức che giấu: chữ cách quãng, ký tự thay thế, chữ chỉ có trong ảnh.','Đo mức cố ý né kiểm duyệt.','number','0.64','I','P1',''],
+    ['seller_control_item_share','Thống kê','4, 6','seller_listing_ids, control_item_match','Tỷ lệ sản phẩm của shop khớp danh mục kiểm soát.','Chuyển tín hiệu từ listing lên shop để ưu tiên xử lý.','number','0.3','I','P1',''],
+    // ---------- BT5 Kém chất lượng ----------
+    ['label_fields','OCR, NLP','5','ocr_text_blocks, image_kind','Đọc từ ảnh nhãn: thành phần, định lượng, NSX, HSD, số lô, số công bố in trên nhãn.','Có thông tin nhãn để đối chiếu dù không có CSDL công bố.','json','{"hsd":"2025-12","lot":"24A117"}','I','P0','Chỉ tính khi có ảnh nhãn đủ nét.'],
+    ['label_listing_conflict','Rule','5','label_fields, specifications, ner_entities','Thông tin nhãn lệch thông số người bán khai (quy cách, xuất xứ, thành phần).','Mâu thuẫn trong cùng listing, dễ chứng minh.','bool + list','true · ["dung_tich"]','I','P0',''],
+    ['expired_at_observation','Rule','5','label_fields, specifications, observed_at','HSD (trên nhãn hoặc thông số) sớm hơn thời điểm quan sát.','Phát hiện hàng hết hạn đang bán.','bool','true','I','P1',''],
+    ['expiry_complaint_rate','NLP, Thống kê','5','review_issue_class, review_trust_weight','Tỷ lệ review phản ánh hết hạn / cận date không báo trước.','Bằng chứng từ người mua khi ảnh nhãn không đủ.','number','0.04','I','P1',''],
+    ['label_info_missing','OCR, Rule','5','label_fields, image_kind','Ảnh nhãn đủ nét nhưng không đọc được nhãn phụ tiếng Việt / NSX / HSD.','Dấu hiệu hàng không rõ nguồn gốc.','bool','true','I','P2','Thiếu ảnh ≠ thiếu nhãn.'],
+    ['recall_match','Rule','5','product_match, label_fields, recall_notices','Sản phẩm / số lô khớp thông báo thu hồi công khai.','Bắt hàng đã bị thu hồi vẫn đang bán.','bool','true','I','P1',''],
+    ['quality_issue_rate','NLP, Thống kê','5','review_issue_class, review_trust_weight, category_baselines','Tỷ lệ review phản ánh chất lượng: hỏng, kích ứng, mùi lạ, rò rỉ.','Tín hiệu chính của BT5 từ người mua.','number','0.09','I','P0',''],
+    ['quality_issue_burst','Time-series','5','review_issue_class, review_created_at','Review chất lượng tăng đột biến theo tuần.','Phát hiện lô hàng lỗi đang bán.','bool + number','true · z=3.4','I','P1',''],
+    ['rating_decline_trend','Time-series','5','rating_avg, observed_at','Điểm trung bình giảm liên tục qua các lần quét.','Cảnh báo sớm khi chất lượng xấu đi.','number','−0.4 / tháng','I','P2','Cần tracking.'],
+    ['seller_performance_low','Thống kê','5','seller_metrics, category_baselines','Đánh giá tích cực / giao đúng hạn của shop thấp hơn trung vị ngành.','Ngữ cảnh shop để ưu tiên các phản ánh chất lượng.','number','−0.12 so với ngành','I','P2',''],
+    ['claim_label_conflict','NLP','5','claims_extracted, label_fields','Công dụng quảng cáo vượt nội dung in trên nhãn.','Thay cho đối chiếu công bố vì không có CSDL.','bool','true','I','P2',''],
+    // ---------- BT6 Đường dây ----------
+    ['shared_contact_degree','Graph','6','contact_ids_hash, seller_id','Số shop dùng chung SĐT / Zalo / STK; trọng số theo độ hiếm.','Liên kết mạnh nhất giữa các shop cùng chủ.','int + number','7 shop · 0.9','I','P0',''],
+    ['shared_image_degree','Graph, CV','6','image_phash, image_kind, watermark_text, seller_id','Số shop dùng chung ảnh đặc thù hoặc cùng watermark (loại ảnh marketing phổ biến).','Shop cùng nguồn ảnh thường cùng nguồn hàng.','int','5','I','P0',''],
+    ['shared_template_degree','Graph, NLP','6','description_text, text_embedding, seller_id','Số shop dùng chung template mô tả.','Shop cùng người vận hành hay dùng chung một bản mô tả.','int','9','I','P0',''],
+    ['catalog_overlap','Graph, Thống kê','6','seller_listing_ids, product_cluster','Độ trùng danh mục sản phẩm giữa hai shop (Jaccard theo cụm sản phẩm).','Shop vệ tinh của cùng một chủ thường bán cùng bộ sản phẩm.','number','0.83','I','P1',''],
+    ['shop_name_pattern','NLP, Graph','6','seller_name','Tên shop theo cùng mẫu (“Velora Store 88 / 89 / 90”).','Liên kết các shop được tạo hàng loạt.','number','0.91','I','P1',''],
+    ['shared_business_info','Rule, Graph','6','seller_public_info','Các shop hiển thị cùng tên doanh nghiệp / địa chỉ / mã số thuế.','Liên kết có căn cứ rõ nhất, nếu Lazada hiển thị thông tin này.','int','4 shop','I','P1','Phụ thuộc trang shop có hiển thị thông tin người bán không.'],
+    ['shared_reviewer_degree','Graph','6','reviewer_hash, seller_id, review_trust_weight','Cùng nhóm tài khoản đánh giá cho nhiều shop.','Dấu hiệu dùng chung dịch vụ review ảo trong cụm.','int','6 shop','II','P2',''],
+    ['cluster_id, cluster_size','Graph','6','shared_contact_degree, shared_image_degree, shared_template_degree, catalog_overlap, shop_name_pattern, shared_business_info','Gom cụm từ các cạnh liên kết (connected components / Leiden); số thành viên.','Chuyển từ từng shop sang cả đường dây để xử lý một lần.','string + int','CL-0213 · 12 shop','I','P0',''],
+    ['cluster_region_count','Thống kê','6','cluster_id, ship_from','Số tỉnh giao hàng trong cụm (chuẩn hóa theo đơn vị hành chính hiện hành).','Dấu hiệu hoạt động liên tỉnh.','int','4','I','P1','Chỉ dựa trên nơi giao hàng sàn hiển thị.'],
+    ['coordinated_listing_creation','Time-series, Graph','6','cluster_id, listing_lifecycle','Các shop trong cụm đăng cùng sản phẩm trong khoảng thời gian ngắn.','Dấu hiệu vận hành tập trung.','number','0.77','I','P1','Dựa trên lần đầu thấy; cần tracking.'],
+    ['price_sync_score','Time-series','6','cluster_id, unit_price, observed_at','Các shop trong cụm đổi giá cùng lúc, cùng mức.','Dấu hiệu cùng một người định giá.','number','0.81','I','P2',''],
+    ['synchronized_sales_spike','Time-series','6','cluster_id, sold_velocity','Doanh số tăng đột biến cùng lúc trong cụm.','Ước lượng quy mô và chiến dịch của đường dây.','bool','true','II','P2',''],
+    ['seller_recreation_score','CV, NLP, Time-series','6','listing_lifecycle, seller_age_days, image_phash, text_embedding, catalog_overlap','Shop mới xuất hiện sau khi shop cũ bị gỡ và giống shop cũ.','Bắt shop “mở lại” sau khi bị xử lý.','number','0.84','II','P1',''],
+    ['cluster_risk_aggregate','Thống kê','6','cluster_id, official_image_reuse, price_vs_official_floor, control_item_match, review_fake_rate','Trung vị, cực đại điểm rủi ro BT1–5 của các thành viên.','Xếp hạng cụm theo mức vi phạm, không theo số lượng thành viên.','json','{"median":0.62,"max":0.93}','I','P1','Tránh cụm lớn luôn điểm cao chỉ vì đông.']
+  ];
+
+  var BTS = [
+    {k:'1', name:'Hàng giả', sheet:'BT1 Hàng giả', file:'KGM_BT1_Hang_gia',
+     lead:'Tổ hợp: thương hiệu ưu tiên + shop không phải gian hàng chính hãng + giá dưới mặt bằng gian hàng chính hãng + mượn ảnh hãng / từ lách luật / lời thừa nhận ở Hỏi đáp.',
+     need:['Registry gian hàng chính hãng và kho sản phẩm chuẩn cho các thương hiệu thí điểm, tự xây từ danh bạ LazMall và website hãng.','Tracking giá gian hàng chính hãng để có giá sàn 90 ngày.','Không có danh sách ủy quyền: kết luận chỉ ở mức “không thấy là kênh chính thức”.']},
+    {k:'2', name:'Hàng nhái', sheet:'BT2 Hàng nhái', file:'KGM_BT2_Hang_nhai',
+     lead:'Đo mức độ giống (số liên tục) với thương hiệu và mẫu chuẩn khi tên / thương hiệu khác nhau; thêm cách ăn theo tên hãng trong tiêu đề, tên shop, quảng cáo tìm kiếm.',
+     need:['Từ điển thương hiệu ưu tiên và alias, mã model.','Ảnh bao bì chuẩn cùng ngành, lấy từ gian hàng chính hãng.','GĐ II: bbox logo cho thương hiệu ưu tiên.']},
+    {k:'3', name:'Quảng cáo sai lệch', sheet:'BT3 Quảng cáo sai lệch', file:'KGM_BT3_Quang_cao_sai_lech',
+     lead:'Trích claim từ text, ảnh; đối chiếu bộ quy tắc claim theo ngành, thông số, “Trong hộp có gì”; phát hiện giá mồi, giảm giá ảo và review ảo.',
+     need:['Bộ quy tắc claim cho 1–2 ngành thí điểm, tự xây từ văn bản công khai.','Tracking giá để phát hiện giảm giá ảo.','Không có CSDL công bố: claim chứng nhận chỉ chuyển cán bộ kiểm tra.']},
+    {k:'4', name:'Hàng cấm', sheet:'BT4 Hàng cấm', file:'KGM_BT4_Hang_cam',
+     lead:'Khớp danh mục kiểm soát tự số hóa và từ lóng; bắt hàng giấu trong biến thể, ảnh phụ, Hỏi đáp; ảnh dùng nhận diện zero-shot.',
+     need:['Danh mục kiểm soát số hóa từ văn bản pháp luật công khai, có ngày hiệu lực.','Từ điển từ lóng cập nhật liên tục.','Không có CSDL giấy phép: hàng có điều kiện chỉ gắn cờ để xác minh.']},
+    {k:'5', name:'Kém chất lượng', sheet:'BT5 Kém chất lượng', file:'KGM_BT5_Kem_chat_luong',
+     lead:'Chỉ phát hiện được thông tin chất lượng không nhất quán từ nhãn, thông số, review và xu hướng điểm đánh giá.',
+     need:['Ảnh nhãn mặt sau đủ nét (đo độ phủ trong audit).','Thông báo thu hồi thu từ website cơ quan.','Không có CSDL công bố: đối chiếu nhãn với thông số và claim.']},
+    {k:'6', name:'Đường dây', sheet:'BT6 Đường dây', file:'KGM_BT6_Duong_day',
+     lead:'Feature tính theo cụm shop trên Lazada, dựng từ liên hệ trong ảnh, ảnh / mô tả / danh mục dùng chung, mẫu tên shop, thông tin người bán.',
+     need:['Trích SĐT / Zalo / STK từ ảnh và mô tả, băm có khóa.','Quét theo shop để có danh mục sản phẩm của từng shop.','Không có IP, đơn hàng, giao dịch của Lazada: chỉ dựng được liên kết công khai.']}
+  ];
+
+  var PAGES = [
+    ['Trang sản phẩm (PDP)','Tiêu đề, mô tả, thông số, thương hiệu, bảo hành, đổi trả, “Trong hộp có gì”, biến thể & giá, ảnh, video, nơi giao, điểm và phân bố sao','Lần đầu khi phát hiện; quét lại hằng tuần cho listing nghi vấn, hằng ngày cho danh sách theo dõi','Nguồn chính của gần như mọi feature.'],
+    ['Trang shop','Tên shop, huy hiệu, thời gian tham gia, chỉ số shop, danh sách sản phẩm, thông tin người bán','Khi phát hiện shop mới; quét lại hằng tuần','Cần cho feature theo shop và theo cụm (BT6).'],
+    ['Trang kết quả tìm kiếm','Thứ hạng, nhãn quảng cáo, giá, số đã bán theo bộ từ khóa thương hiệu / ngành','Hằng ngày theo bộ từ khóa','Vừa để tìm listing mới, vừa cho feature quảng cáo ăn theo thương hiệu.'],
+    ['Mục đánh giá','Nội dung, số sao, thời gian, biến thể đã mua, ảnh, phản hồi của shop','Lần đầu lấy toàn bộ; sau đó chỉ lấy đánh giá mới','Listing ít rủi ro có thể chỉ lấy N đánh giá mới nhất.'],
+    ['Mục hỏi đáp','Câu hỏi, câu trả lời của shop, thời gian','Như mục đánh giá','Nơi shop hay lộ “hàng loại 1”, mời liên hệ ngoài sàn.'],
+    ['Danh bạ LazMall / gian hàng chính hãng','Gian hàng chính hãng theo thương hiệu; sản phẩm, ảnh, giá của gian hàng chính hãng','Danh bạ hằng tháng; giá hằng ngày cho thương hiệu thí điểm','Nền của registry kênh chính thức, kho sản phẩm chuẩn và giá sàn.']
+  ];
+
+  var OUT_SCOPE = {
+    data:['Facebook: bài đăng, hashtag, nhóm, tick xanh, tương tác','Shopee, TikTok Shop','Website độc lập: HTML, mã tracking, DNS, chứng thư, WHOIS','Livestream: âm thanh, phiên âm'],
+    feats:['Liên kết chéo nền tảng (cùng SĐT trên Facebook và sàn)','Liên kết hạ tầng website (chung mã Analytics / IP / chứng thư)','Tỷ lệ bài vi phạm trong nhóm Facebook','Đăng bài đồng thời trên Facebook','Claim trong livestream (ASR)','Số nền tảng của cụm']
+  };
+
+  var M_ORDER = ['Rule','Thống kê','NLP','LLM','OCR','CV','Graph','Time-series'];
+  var M_CLS = {'Rule':'m-rule','Thống kê':'m-stat','NLP':'m-nlp','LLM':'m-llm','OCR':'m-ocr','CV':'m-cv','Graph':'m-graph','Time-series':'m-ts','ASR':'m-asr'};
+  var M_DESC = {
+    'Rule':'Luật, đối chiếu từ điển và danh mục; không cần huấn luyện.',
+    'Thống kê':'Tỷ lệ, trung vị, z-score, làm trơn Bayes.',
+    'NLP':'Xử lý văn bản: chuẩn hóa, embedding, phân loại, trích xuất.',
+    'LLM':'Mô hình ngôn ngữ lớn chạy on-prem cho trích xuất / phân loại zero-shot.',
+    'OCR':'Đọc chữ trong ảnh (nhãn, banner, watermark, serial).',
+    'CV':'Thị giác máy tính: hash ảnh, embedding, phát hiện logo, so vùng.',
+    'Graph':'Đồ thị liên kết giữa shop, liên hệ, ảnh, người đánh giá.',
+    'Time-series':'Theo thời gian; cần quét lại cùng đối tượng (tracking).'
+  };
+  var M_USE = {
+    'Rule':'Tín hiệu rõ, giải thích được ngay; chạy từ GĐ I không cần nhãn.',
+    'Thống kê':'So với mặt bằng (giá, tỷ lệ phản ánh, ngành) để tìm điểm bất thường.',
+    'NLP':'Đọc lời người bán và người mua: từ lách luật, claim, phản ánh.',
+    'LLM':'Trích xuất, phân loại khi chưa có nhãn; đọc Hỏi đáp, review.',
+    'OCR':'Lấy chữ giấu trong ảnh: claim, SĐT, watermark, thông tin nhãn.',
+    'CV':'So ảnh với hàng chính hãng, phát hiện ảnh sao chép, bao bì nhái.',
+    'Graph':'Nối các shop thành cụm đường dây.',
+    'Time-series':'Thấy thay đổi theo thời gian: giảm giá ảo, review dồn, shop tái lập.'
+  };
+
+  function deaccent(s){ return String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D').toLowerCase(); }
+  var M_ALIAS = {'rule':'Rule','rule based':'Rule','rule-based':'Rule','luat':'Rule','thong ke':'Thống kê','stat':'Thống kê','statistics':'Thống kê','nlp':'NLP','llm':'LLM','ocr':'OCR','cv':'CV','vision':'CV','graph':'Graph','do thi':'Graph','time-series':'Time-series','time series':'Time-series','timeseries':'Time-series','ts':'Time-series','asr':'ASR'};
+  function normMethods(s){
+    var out = [];
+    String(s || '').split(/[,+;\/|]+/).forEach(function(t){ t = t.trim(); if(!t) return; var c = M_ALIAS[deaccent(t)] || t; if(out.indexOf(c) < 0) out.push(c); });
+    return out;
+  }
+  function normBts(s){
+    var out = [];
+    String(s || '').split(/[,;\s]+/).forEach(function(t){
+      t = deaccent(t.trim()); if(!t) return;
+      var c = (t === 'n' || t === 'nen' || t === 'base') ? 'N' : (/^[1-6]$/.test(t) ? t : null);
+      if(c && out.indexOf(c) < 0) out.push(c);
+    });
+    return out.sort(function(a, b){ return a === 'N' ? -1 : b === 'N' ? 1 : a - b; });
+  }
+  function normSrc(s){ return String(s || '').toUpperCase().split(/[\s,;·]+/).filter(Boolean).filter(function(x, i, a){ return a.indexOf(x) === i; }).join(' '); }
+  function normList(s){ return String(s || '').split(',').map(function(t){ return t.trim(); }).filter(Boolean).join(', '); }
+
+  function buildDefault(){
+    return {
+      fields: FIELDS0.map(function(r, i){ return {id:'fd'+i, f:r[0], e:r[1], t:r[2], s:r[3], fz:r[4], d:r[5], u:r[6], x:r[7]}; }),
+      feats: FEATS0.map(function(r, i){ return {id:'ft'+i, f:r[0], m:normMethods(r[1]).join(', '), b:normBts(r[2]).join(', '), in:r[3], d:r[4], u:r[5], o:r[6], x:r[7], ph:r[8], p:r[9], c:r[10]}; })
+    };
+  }
+
+  // ============================== TRẠNG THÁI ==============================
+  var KEY = 'kgm-feature-lazada-v1';
+  var DEFAULT = JSON.stringify(buildDefault());
+  var S = JSON.parse(DEFAULT);
+  try { var saved = localStorage.getItem(KEY); if(saved){ var o = JSON.parse(saved); if(o && Array.isArray(o.fields) && Array.isArray(o.feats)) S = o; } } catch(e) {}
+  var saveT = null;
+  function save(){ clearTimeout(saveT); saveT = setTimeout(function(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e) {} }, 250); }
+  var undo = [];
+  function pushUndo(){ undo.push(JSON.stringify(S)); if(undo.length > 40) undo.shift(); }
+  function find(kind, id){ var a = kind === 'field' ? S.fields : S.feats; for(var i = 0; i < a.length; i++) if(a[i].id === id) return a[i]; return null; }
+
+  var IDX = {};
+  function reindex(){
+    IDX = {};
+    S.fields.forEach(function(f){ f.f.split(',').forEach(function(p){ p = p.trim().toLowerCase(); if(p) IDX[p] = {k:'field', o:f}; }); });
+    S.feats.forEach(function(f){ f.f.split(',').forEach(function(p){ p = p.trim().toLowerCase(); if(p && !IDX[p]) IDX[p] = {k:'feat', o:f}; }); });
+  }
+  function tokens(s){ return String(s || '').split(',').map(function(t){ return t.trim(); }).filter(Boolean); }
+  function srcOf(tok, seen){
+    var r = IDX[tok.toLowerCase()], out = {};
+    if(!r) return out;
+    if(r.k === 'field'){ normSrc(r.o.s).split(' ').forEach(function(x){ if(x) out[x] = 1; }); return out; }
+    seen = seen || {}; if(seen[r.o.id]) return out; seen[r.o.id] = 1;
+    tokens(r.o.in).forEach(function(t){ var s = srcOf(t, seen); for(var k in s) out[k] = 1; });
+    return out;
+  }
+  function featSources(f){
+    var out = {};
+    tokens(f.in).forEach(function(t){ var s = srcOf(t, {}); for(var k in s) out[k] = 1; });
+    return SRC.filter(function(x){ return out[x]; }).concat(Object.keys(out).filter(function(x){ return SRC.indexOf(x) < 0; }));
+  }
+  function usedBy(field){
+    var names = field.f.split(',').map(function(p){ return p.trim().toLowerCase(); });
+    return S.feats.filter(function(ft){ return tokens(ft.in).some(function(t){ return names.indexOf(t.toLowerCase()) >= 0; }); });
+  }
+  function featBts(f){ return normBts(f.b); }
+  function featMethods(f){ return normMethods(f.m); }
+
+  // ============================== HIỂN THỊ ==============================
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function mChips(list){ return list.length ? list.map(function(m){ return '<span class="chip '+(M_CLS[m] || 'm-unk')+'">'+esc(m)+'</span>'; }).join('') : '<span class="muted">—</span>'; }
+  function srcChips(list){ return list.length ? list.map(function(x){ return '<span class="src'+(SRC_OWN[x] ? ' own' : SRC_G2[x] ? ' g2' : '')+'" title="'+esc(SRC_LABEL[x] || x)+'">'+esc(x)+'</span>'; }).join('') : '<span class="muted">—</span>'; }
+  function btChips(list){ return list.length ? list.map(function(b){ return '<span class="bt'+(b === 'N' ? ' base' : '')+'" title="'+(b === 'N' ? 'Feature nền' : 'Bài toán '+b)+'">'+(b === 'N' ? 'Nền' : b)+'</span>'; }).join('') : '<span class="muted">—</span>'; }
+  function inChips(s){
+    var t = tokens(s);
+    if(!t.length) return '<span class="muted">—</span>';
+    return t.map(function(x){
+      var r = IDX[x.toLowerCase()];
+      if(!r) return '<span class="in unk" title="Chưa có trong danh mục trường / feature">'+esc(x)+'</span>';
+      return '<span class="in'+(r.k === 'feat' ? ' feat' : '')+'" title="'+esc((r.k === 'feat' ? 'Feature: ' : 'Trường: ') + (r.o.u || r.o.d))+'">'+esc(x)+'</span>';
+    }).join('');
+  }
+  var CHIP_RENDER = {m:function(v){ return mChips(normMethods(v)); }, s:function(v){ return srcChips(normSrc(v).split(' ').filter(Boolean)); }, in:inChips, b:function(v){ return btChips(normBts(v)); }};
+  function ed(kind, o, p, cls){
+    var v = o[p] == null ? '' : o[p], chip = CHIP_RENDER[p];
+    return '<div class="'+cls+(chip ? ' chipedit' : '')+'" contenteditable="true" spellcheck="false" data-kind="'+kind+'" data-id="'+o.id+'" data-p="'+p+'">'+(chip ? chip(v) : esc(v))+'</div>';
+  }
+  function edInline(kind, o, p, cls){ return '<span class="'+cls+'" contenteditable="true" spellcheck="false" data-kind="'+kind+'" data-id="'+o.id+'" data-p="'+p+'">'+esc(o[p] || '')+'</span>'; }
+  function selCls(p, v){
+    if(p === 'ph') return 'sel ' + (v === 'II' ? 'ph2' : 'ph1');
+    if(p === 'p') return 'sel ' + String(v).toLowerCase();
+    if(p === 'fz') return 'sel ' + (FZ_CLS[v] || 'fz-chua');
+    return 'sel grpsel';
+  }
+  function sel(kind, o, p){
+    var opts, v = o[p];
+    if(p === 'ph') opts = [['I','GĐ I'],['II','GĐ II']];
+    else if(p === 'p') opts = [['P0','P0'],['P1','P1'],['P2','P2']];
+    else if(p === 'fz') opts = FZ_OPTS.map(function(x){ return [x, x]; });
+    else opts = G_ORDER.map(function(g){ return [g, GROUPS[g]]; });
+    var lab = {ph:'Giai đoạn', p:'Ưu tiên', fz:'Khả thi', e:'Nhóm'}[p];
+    return '<select class="'+selCls(p, v)+'" data-kind="'+kind+'" data-id="'+o.id+'" data-p="'+p+'" aria-label="'+lab+'">' +
+      opts.map(function(x){ return '<option value="'+x[0]+'"'+(x[0] === v ? ' selected' : '')+'>'+esc(x[1])+'</option>'; }).join('') + '</select>';
+  }
+  function delBtn(kind, o, scope, label){ return '<td class="nw"><button class="del" type="button" data-del="'+kind+'" data-id="'+o.id+'" data-scope="'+scope+'" title="'+esc(label)+'" aria-label="'+esc(label+': '+o.f)+'">×</button></td>'; }
+
+  var TABS = [{id:'overview', label:'Tổng quan'}, {id:'pages', label:'Dữ liệu Lazada'}, {id:'fields', label:'Trường đầu vào'}, {id:'base', label:'Feature nền'}]
+    .concat(BTS.map(function(b){ return {id:'bt'+b.k, label:'BT'+b.k+' · '+b.name, bt:b.k}; }))
+    .concat([{id:'all', label:'Tổng hợp feature'}, {id:'export', label:'Xuất dữ liệu'}]);
+  var cur = 'overview';
+  var FS = {};
+  function fstate(id){ if(!FS[id]) FS[id] = {q:'', m:{}, ph:'', fz:''}; return FS[id]; }
+  function featsFor(b){ return S.feats.filter(function(f){ return featBts(f).indexOf(b) >= 0; }); }
+  function tabCount(t){
+    if(t.id === 'fields') return S.fields.length;
+    if(t.id === 'base') return featsFor('N').length;
+    if(t.bt) return featsFor(t.bt).length;
+    if(t.id === 'all') return S.feats.length;
+    return null;
+  }
+  function renderTabs(){
+    document.getElementById('tablist').innerHTML = TABS.map(function(t){
+      var n = tabCount(t);
+      return '<button class="tab" role="tab" type="button" id="tab-'+t.id+'" data-tab="'+t.id+'" aria-selected="'+(t.id === cur)+'" aria-controls="panel">'+esc(t.label)+(n != null ? '<span class="n">'+n+'</span>' : '')+'</button>';
+    }).join('');
+  }
+
+  function toolbar(tab, opts){
+    var st = fstate(tab), h = '<div class="toolbar">';
+    h += '<input type="search" placeholder="Tìm tên, mô tả, tác dụng, ví dụ…" aria-label="Tìm trong tab" data-flt="q" value="'+esc(st.q)+'">';
+    if(opts.methods) h += '<div class="mfilter" role="group" aria-label="Lọc theo phương pháp"><span class="shown">Lọc:</span>' + M_ORDER.map(function(m){ return '<button type="button" class="chip '+M_CLS[m]+'" data-mflt="'+esc(m)+'" aria-pressed="'+(!!st.m[m])+'">'+esc(m)+'</button>'; }).join('') + '</div>';
+    if(opts.add === 'field') h += '<select data-flt="fz" aria-label="Khả thi"><option value="">Mọi mức khả thi</option>' + FZ_OPTS.map(function(x){ return '<option'+(st.fz === x ? ' selected' : '')+'>'+x+'</option>'; }).join('') + '</select>';
+    else h += '<select data-flt="ph" aria-label="Giai đoạn"><option value="">Mọi giai đoạn</option><option value="I"'+(st.ph === 'I' ? ' selected' : '')+'>GĐ I</option><option value="II"'+(st.ph === 'II' ? ' selected' : '')+'>GĐ II</option></select>';
+    h += '<span class="spacer"></span><span class="shown" id="shown"></span>';
+    h += '<button class="btn sm" type="button" data-add="'+opts.add+'" data-preset="'+(opts.preset || '')+'">＋ '+(opts.add === 'field' ? 'Thêm trường' : 'Thêm feature')+'</button>';
+    h += '<button class="btn ghost sm" type="button" data-csv="'+tab+'">Xuất CSV (theo bộ lọc)</button>';
+    return h + '</div>';
+  }
+  function passFilter(tab, o, isFeat){
+    var st = fstate(tab);
+    if(isFeat && st.ph && o.ph !== st.ph) return false;
+    if(!isFeat && st.fz && o.fz !== st.fz) return false;
+    if(isFeat){
+      var on = Object.keys(st.m).filter(function(k){ return st.m[k]; });
+      if(on.length && !featMethods(o).some(function(m){ return on.indexOf(m) >= 0; })) return false;
+    }
+    if(st.q){
+      var hay = (o.f + ' ' + (o.d || '') + ' ' + (o.u || '') + ' ' + (o.x || '') + ' ' + (o.in || '') + ' ' + (o.c || '')).toLowerCase();
+      if(hay.indexOf(st.q.toLowerCase()) < 0 && deaccent(hay).indexOf(deaccent(st.q)) < 0) return false;
+    }
+    return true;
+  }
+  function listFor(tab){
+    if(tab === 'fields') return S.fields.filter(function(f){ return passFilter(tab, f, false); });
+    var base = tab === 'all' ? S.feats : tab === 'base' ? featsFor('N') : featsFor(tab.slice(2));
+    return base.filter(function(f){ return passFilter(tab, f, true); });
+  }
+  function primary(f){ var m = featMethods(f); var i = m.map(function(x){ return M_ORDER.indexOf(x); }).filter(function(x){ return x >= 0; }); return i.length ? M_ORDER[i[0]] : (m[0] || 'Khác'); }
+
+  function featRow(f, tab){
+    var all = tab === 'all', scope = (tab === 'base' || all) ? 'all' : tab.slice(2);
+    var label = scope === 'all' ? 'Xóa feature' : 'Bỏ khỏi bài toán ' + scope;
+    return '<tr data-row="'+f.id+'">' +
+      '<td>' + ed('feat', f, 'f', 'fname') + ed('feat', f, 'm', 'mrow') + '<div class="out">→ ' + edInline('feat', f, 'o', '') + '</div></td>' +
+      (all ? '<td>' + ed('feat', f, 'b', '') + '</td>' : '') +
+      '<td>' + ed('feat', f, 'd', 'desc') + ed('feat', f, 'c', 'note') + '</td>' +
+      '<td>' + ed('feat', f, 'u', 'use') + '</td>' +
+      '<td>' + ed('feat', f, 'in', '') + '</td>' +
+      '<td data-src-for="'+f.id+'">' + srcChips(featSources(f)) + '</td>' +
+      '<td>' + ed('feat', f, 'x', 'ex') + '</td>' +
+      '<td><div class="gp">' + sel('feat', f, 'ph') + sel('feat', f, 'p') + '</div></td>' +
+      delBtn('feat', f, scope, label) + '</tr>';
+  }
+  function fieldRow(f){
+    var ub = usedBy(f), bts = {};
+    ub.forEach(function(x){ featBts(x).forEach(function(b){ bts[b] = 1; }); });
+    var btl = ['N','1','2','3','4','5','6'].filter(function(b){ return bts[b]; });
+    return '<tr data-row="'+f.id+'">' +
+      '<td>' + ed('field', f, 'f', 'fname') + '<div class="fmeta">' + edInline('field', f, 't', 'ty') + sel('field', f, 'e') + '</div></td>' +
+      '<td>' + ed('field', f, 'd', 'desc') + '</td>' +
+      '<td>' + ed('field', f, 'u', 'use') + '</td>' +
+      '<td>' + ed('field', f, 'x', 'ex') + '</td>' +
+      '<td>' + ed('field', f, 's', '') + '</td>' +
+      '<td class="nw">' + sel('field', f, 'fz') + '</td>' +
+      '<td>' + (!ub.length && f.e === 'N' ? '<div class="usedby">Dùng làm nhãn huấn luyện / đánh giá</div>' : '<div class="usedby">' + ub.length + ' feature</div>' + btChips(btl)) + '</td>' +
+      delBtn('field', f, 'all', 'Xóa trường') + '</tr>';
+  }
+  function featHead(all){
+    return '<thead><tr><th style="width:16%">Feature · phương pháp · đầu ra</th>' + (all ? '<th style="width:6%">Dùng cho</th>' : '') +
+      '<th style="width:19%">Cách tính · lưu ý</th><th style="width:16%">Tác dụng</th><th style="width:15%">Đầu vào (trường kết hợp)</th><th style="width:8%">Lấy từ đâu</th><th style="width:12%">Ví dụ</th><th>GĐ · ưu tiên</th><th class="dh"><span class="sr">Xóa</span></th></tr></thead>';
+  }
+  function renderBody(){
+    reindex();
+    var tb = document.getElementById('tbody'); if(!tb) return;
+    var list = listFor(cur), html = '';
+    if(cur === 'fields'){
+      G_ORDER.concat(['?']).forEach(function(g){
+        var rows = list.filter(function(f){ return g === '?' ? G_ORDER.indexOf(f.e) < 0 : f.e === g; });
+        if(!rows.length) return;
+        html += '<tr class="grp"><td colspan="8">'+esc(GROUPS[g] || 'Khác')+'<span class="cnt">'+rows.length+'</span></td></tr>' + rows.map(fieldRow).join('');
+      });
+      if(!list.length) html = '<tr><td colspan="8" class="muted">Không có trường nào khớp bộ lọc.</td></tr>';
+    } else {
+      var cols = cur === 'all' ? 9 : 8, groups = {}, order = [];
+      list.forEach(function(f){ var p = primary(f); if(!groups[p]){ groups[p] = []; order.push(p); } groups[p].push(f); });
+      order.sort(function(a, b){ var ia = M_ORDER.indexOf(a), ib = M_ORDER.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); });
+      order.forEach(function(p){
+        html += '<tr class="grp"><td colspan="'+cols+'"><span class="chip '+(M_CLS[p] || 'm-unk')+'">'+esc(p)+'</span> phương pháp chính<span class="cnt">'+groups[p].length+' feature</span></td></tr>';
+        html += groups[p].map(function(f){ return featRow(f, cur); }).join('');
+      });
+      if(!list.length) html = '<tr><td colspan="'+cols+'" class="muted">Không có feature nào khớp bộ lọc.</td></tr>';
+    }
+    tb.innerHTML = html;
+    var total = cur === 'fields' ? S.fields.length : cur === 'all' ? S.feats.length : cur === 'base' ? featsFor('N').length : featsFor(cur.slice(2)).length;
+    var sh = document.getElementById('shown'); if(sh) sh.textContent = 'Hiển thị ' + list.length + ' / ' + total;
+    renderTabs();
+  }
+
+  function methodBar(list){
+    var c = {}; list.forEach(function(f){ featMethods(f).forEach(function(m){ c[m] = (c[m] || 0) + 1; }); });
+    return M_ORDER.filter(function(m){ return c[m]; }).map(function(m){ return '<span class="chip '+M_CLS[m]+'">'+esc(m)+' · '+c[m]+'</span>'; }).join('') || '<span class="muted">—</span>';
+  }
+  function matrixRows(){
+    var keys = ['N'].concat(BTS.map(function(b){ return b.k; }));
+    var rows = [['Phương pháp','Nền'].concat(BTS.map(function(b){ return 'BT'+b.k; })).concat(['Tổng','Tác dụng chính'])];
+    M_ORDER.forEach(function(m){
+      var r = [m];
+      keys.forEach(function(b){ r.push(featsFor(b).filter(function(f){ return featMethods(f).indexOf(m) >= 0; }).length); });
+      r.push(S.feats.filter(function(f){ return featMethods(f).indexOf(m) >= 0; }).length);
+      r.push(M_USE[m]);
+      rows.push(r);
+    });
+    var t = ['Số feature'];
+    keys.forEach(function(b){ t.push(featsFor(b).length); });
+    t.push(S.feats.length); t.push('Một feature dùng nhiều phương pháp được đếm ở mỗi phương pháp.'); rows.push(t);
+    return rows;
+  }
+  function pageRows(){ return [['Trang Lazada','Lấy gì','Tần suất đề xuất','Tác dụng / ghi chú']].concat(PAGES.map(function(p){ return p.slice(); })); }
+
+  function renderPanel(){
+    reindex();
+    var P = document.getElementById('panel'), h = '';
+    if(cur === 'overview'){
+      var g1 = S.feats.filter(function(f){ return f.ph === 'I'; }).length;
+      var p0 = S.feats.filter(function(f){ return f.p === 'P0'; }).length;
+      var unk = 0; S.feats.forEach(function(f){ tokens(f.in).forEach(function(x){ if(!IDX[x.toLowerCase()]) unk++; }); });
+      h += '<div class="ph"><h2>Tổng quan</h2><p class="lead">'+S.feats.length+' feature (trong đó '+featsFor('N').length+' feature nền dùng chung) xây từ '+S.fields.length+' trường đầu vào, chỉ dùng dữ liệu công khai trên Lazada. Feature nền (OCR, CV, NLP) chạy một lần; feature theo bài toán kết hợp feature nền với trường đầu vào và tham chiếu tự xây; cuối cùng scorecard của Core Engine ra quyết định.</p></div>';
+      h += '<div class="grid g4">' +
+        '<div class="card stat"><div class="v">'+S.feats.length+'</div><div class="l">feature</div></div>' +
+        '<div class="card stat"><div class="v">'+S.fields.length+'</div><div class="l">trường đầu vào</div></div>' +
+        '<div class="card stat"><div class="v">'+g1+'</div><div class="l">feature GĐ I (không cần huấn luyện)</div></div>' +
+        '<div class="card stat"><div class="v">'+p0+'</div><div class="l">feature P0</div></div></div>';
+      if(unk) h += '<p style="margin-top:10px; color:var(--danger)">'+unk+' đầu vào đang tham chiếu tới trường / feature chưa có trong danh mục (viền đỏ nét đứt).</p>';
+      h += '<div class="sec"><h3>Luồng xử lý</h3><div class="flow">' +
+        '<div class="st"><b>Dữ liệu Lazada</b><span>Trang sản phẩm, trang shop, tìm kiếm, đánh giá, hỏi đáp.</span></div>' +
+        '<div class="st"><b>Tham chiếu tự xây</b><span>Gian hàng chính hãng (LazMall), kho sản phẩm chuẩn, từ điển, danh mục.</span></div>' +
+        '<div class="st"><b>Feature nền</b><span>OCR, embedding, NER, khớp sản phẩm, chuẩn hóa giá, độ tin cậy review.</span></div>' +
+        '<div class="st"><b>Feature theo bài toán</b><span>Rule, thống kê, NLP, CV, graph, time-series.</span></div>' +
+        '<div class="st"><b>Scorecard</b><span>Core Engine gộp tín hiệu, ra cảnh báo kèm giải thích.</span></div></div></div>';
+      var mr = matrixRows();
+      h += '<div class="sec"><h3>Số feature theo phương pháp và bài toán</h3><div class="toolbar"><span class="spacer"></span><button class="btn ghost sm" type="button" data-csv="overview">Xuất CSV bảng này</button></div><div class="tw"><table class="mx"><thead><tr>' +
+        mr[0].map(function(c, i){ return '<th'+(i && i < mr[0].length - 1 ? ' class="c"' : '')+'>'+esc(c)+'</th>'; }).join('') + '</tr></thead><tbody>' +
+        mr.slice(1).map(function(r, ri){ var last = ri === mr.length - 2;
+          return '<tr>' + r.map(function(c, i){
+            if(i === 0) return '<td>'+(last ? '<b>'+esc(c)+'</b>' : '<span class="chip '+M_CLS[c]+'">'+esc(c)+'</span>')+'</td>';
+            if(i === r.length - 1) return '<td class="use">'+esc(c)+'</td>';
+            return '<td class="c'+(c ? '' : ' z')+'">'+(c || '·')+'</td>'; }).join('') + '</tr>'; }).join('') +
+        '</tbody></table></div></div>';
+      h += '<div class="sec"><h3>Phương pháp</h3><div class="card"><div class="legend">' + M_ORDER.map(function(m){ return '<div><span class="chip '+M_CLS[m]+'">'+esc(m)+'</span><span>'+esc(M_DESC[m])+'</span></div>'; }).join('') + '</div>' +
+        '<p style="margin:12px 0 0; font-size:13px"><b>GĐ I</b>: chạy bằng luật, thống kê, model pretrained, không cần nhãn. <b>GĐ II</b>: cần dữ liệu gán nhãn hoặc fine-tune.</p></div></div>';
+      h += '<div class="sec"><h3>Nguồn (trang Lazada)</h3><div class="card"><div class="legend">' + SRC.map(function(x){ return '<div>'+srcChips([x])+'<span>'+esc(SRC_LABEL[x])+'</span></div>'; }).join('') + '</div><p style="margin:10px 0 0; font-size:13px">“Lấy từ đâu” của mỗi feature được tính tự động từ trang của các trường đầu vào, kể cả qua feature nền trung gian.</p></div></div>';
+      h += '<div class="sec"><h3>Ngoài scope hiện tại (để sau)</h3><div class="outscope"><div class="card"><h3>Dữ liệu</h3><ul>' + OUT_SCOPE.data.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('') + '</ul></div><div class="card"><h3>Feature đã bỏ khỏi bản Lazada</h3><ul>' + OUT_SCOPE.feats.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('') + '</ul></div></div></div>';
+      h += '<div class="sec"><h3>Cách dùng trang</h3><div class="card"><ul>' +
+        '<li>Bấm vào chữ trong bảng để sửa (Enter để xong). Ô phương pháp, đầu vào, nguồn, “dùng cho” nhập dạng danh sách cách nhau bằng dấu phẩy.</li>' +
+        '<li>Nút <b>×</b>: trong tab bài toán chỉ bỏ feature khỏi bài toán đó; ở tab Feature nền, Tổng hợp và Trường đầu vào thì xóa hẳn. Có nút Hoàn tác.</li>' +
+        '<li>Nút <b>＋ Thêm</b> ở mỗi tab để bổ sung feature / trường; đầu vào chưa có trong danh mục hiện viền đỏ.</li>' +
+        '<li>Thay đổi tự lưu trong trình duyệt này; để gửi cho người khác, dùng tab Xuất dữ liệu.</li></ul></div></div>';
+    } else if(cur === 'pages'){
+      h += '<div class="ph"><h2>Dữ liệu cần thu trên Lazada</h2><p class="lead">Sáu nguồn trên Lazada đủ cho toàn bộ feature trong scope. Tần suất là đề xuất khởi điểm để team chốt với Data Engineering; feature theo thời gian (giảm giá ảo, review dồn, shop tái lập) cần quét lại cùng listing.</p></div>';
+      h += '<div class="toolbar"><span class="spacer"></span><button class="btn ghost sm" type="button" data-csv="pages">Xuất CSV phần này</button></div>';
+      h += '<div class="tw"><table class="pg"><thead><tr><th style="width:18%">Trang Lazada</th><th style="width:34%">Lấy gì</th><th style="width:24%">Tần suất đề xuất</th><th>Tác dụng / ghi chú</th></tr></thead><tbody>' +
+        PAGES.map(function(p){ return '<tr><td><b>'+esc(p[0])+'</b></td><td class="desc">'+esc(p[1])+'</td><td class="desc">'+esc(p[2])+'</td><td class="use">'+esc(p[3])+'</td></tr>'; }).join('') + '</tbody></table></div>';
+      h += '<div class="grid g2" style="margin-top:14px"><div class="card"><h3>Dữ liệu Lazada mới bổ sung so với bản trước</h3><ul>' +
+        '<li>Trường Thương hiệu (“No Brand”), thông số kỹ thuật, bảo hành, đổi trả, “Trong hộp có gì”.</li>' +
+        '<li>Phân bố sao 1–5, phản hồi của shop dưới đánh giá.</li>' +
+        '<li>Mục Hỏi đáp: câu hỏi và câu trả lời của shop.</li>' +
+        '<li>Kết quả tìm kiếm: thứ hạng, nhãn quảng cáo.</li>' +
+        '<li>Danh bạ LazMall làm nền cho registry kênh chính thức.</li></ul></div>' +
+        '<div class="card"><h3>Cần kiểm tra trên trang thật</h3><ul>' +
+        '<li>Số đã bán và thời gian tham gia của shop có hiển thị ổn định không.</li>' +
+        '<li>Trang shop có hiển thị tên doanh nghiệp / mã số thuế của người bán không.</li>' +
+        '<li>Nhãn quảng cáo trong kết quả tìm kiếm có phân biệt được không.</li>' +
+        '<li>Lazada không hiển thị ngày đăng listing: dùng lần đầu thấy (listing_lifecycle).</li></ul></div></div>';
+    } else if(cur === 'export'){
+      h += '<div class="ph"><h2>Xuất dữ liệu</h2><p class="lead">File tổng xuất dạng Excel (.xlsx), mỗi tab nội dung là một sheet; mở được bằng Excel và Google Sheets. File tổng luôn đầy đủ, không theo bộ lọc. Muốn xuất riêng một tab, dùng nút “Xuất CSV” trong tab đó.</p></div>';
+      h += '<div class="card"><h3>'+SHEETS().length+' sheet trong file tổng</h3><ol style="margin:0; padding-left:20px; columns:2; column-gap:32px; font-size:13.8px; color:var(--ink-2)">' + SHEETS().map(function(s){ return '<li>'+esc(s.sheet)+'</li>'; }).join('') + '</ol></div>';
+      h += '<div class="toolbar" style="margin-top:16px"><button class="btn" type="button" data-xlsx>Xuất file tổng (.xlsx)</button><button class="btn ghost" type="button" data-restore>Khôi phục dữ liệu gốc</button></div>';
+    } else if(cur === 'fields'){
+      h += '<div class="ph"><h2>Trường đầu vào</h2><p class="lead">Chỉ các trường team ML dùng: dữ liệu công khai trên Lazada, tham chiếu team tự xây và nhãn. Cột “Tác dụng” nói trường dùng để làm gì; “Khả thi” là mức chắc chắn lấy được trên Lazada; “Dùng bởi” đếm số feature lấy trực tiếp trường này làm đầu vào.</p></div>';
+      h += toolbar('fields', {add:'field'});
+      h += '<div class="tw"><table class="fl"><thead><tr><th style="width:17%">Trường · kiểu · nhóm</th><th style="width:21%">Mô tả</th><th style="width:21%">Tác dụng</th><th style="width:16%">Ví dụ</th><th style="width:8%">Trang Lazada</th><th>Khả thi</th><th style="width:8%">Dùng bởi</th><th class="dh"><span class="sr">Xóa</span></th></tr></thead><tbody id="tbody"></tbody></table></div>';
+    } else if(cur === 'base'){
+      h += '<div class="ph"><h2>Feature nền</h2><p class="lead">Tính một lần, dùng lại cho nhiều bài toán: OCR, watermark, embedding, trích thực thể, khớp sản phẩm chuẩn, chuẩn hóa giá, trạng thái kênh chính thức, độ tin cậy review, phân loại Hỏi đáp.</p></div>';
+      h += '<div class="card" style="margin-bottom:14px"><h3>Theo phương pháp</h3>'+methodBar(featsFor('N'))+'</div>';
+      h += toolbar('base', {add:'feat', preset:'N', methods:true});
+      h += '<div class="tw"><table class="ft">'+featHead(false)+'<tbody id="tbody"></tbody></table></div>';
+    } else if(cur === 'all'){
+      h += '<div class="ph"><h2>Tổng hợp feature</h2><p class="lead">Mọi feature, mỗi feature một dòng; cột “Dùng cho” sửa được (Nền, 1–6).</p></div>';
+      h += toolbar('all', {add:'feat', methods:true});
+      h += '<div class="tw"><table class="ft">'+featHead(true)+'<tbody id="tbody"></tbody></table></div>';
+    } else {
+      var b = BTS.filter(function(x){ return 'bt'+x.k === cur; })[0];
+      h += '<div class="ph"><h2>Bài toán '+b.k+' · '+esc(b.name)+'</h2><p class="lead">'+esc(b.lead)+' Bảng dưới gồm feature của bài toán; feature nền ở tab riêng.</p></div>';
+      h += '<div class="grid g2" style="margin-bottom:14px"><div class="card"><h3>Theo phương pháp</h3>'+methodBar(featsFor(b.k))+'</div><div class="card"><h3>Điều kiện để chạy</h3><ul>'+b.need.map(function(n){ return '<li>'+esc(n)+'</li>'; }).join('')+'</ul></div></div>';
+      h += toolbar(cur, {add:'feat', preset:b.k, methods:true});
+      h += '<div class="tw"><table class="ft">'+featHead(false)+'<tbody id="tbody"></tbody></table></div>';
+    }
+    P.innerHTML = h;
+    P.setAttribute('aria-labelledby', 'tab-' + cur);
+    renderTabs();
+    renderBody();
+  }
+  function go(id, push){
+    if(!TABS.some(function(t){ return t.id === id; })) id = 'overview';
+    cur = id; renderPanel();
+    var at = document.getElementById('tab-' + id);
+    if(at && at.parentElement){ var w = at.parentElement; w.scrollLeft = Math.max(0, at.offsetLeft - (w.clientWidth - at.offsetWidth) / 2); }
+    if(push !== false){ try { history.replaceState(null, '', '#' + id); } catch(e) {} }
+    window.scrollTo({top:0});
+  }
+
+  // ============================== SỰ KIỆN ==============================
+  document.getElementById('tablist').addEventListener('click', function(e){ var b = e.target.closest('[data-tab]'); if(b) go(b.getAttribute('data-tab')); });
+  document.getElementById('tablist').addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var i = TABS.map(function(t){ return t.id; }).indexOf(cur);
+    i = (i + (e.key === 'ArrowRight' ? 1 : -1) + TABS.length) % TABS.length;
+    go(TABS[i].id); document.getElementById('tab-' + TABS[i].id).focus();
+  });
+  function editable(t){ return t && t.closest ? t.closest('[contenteditable="true"][data-p]') : null; }
+  document.addEventListener('input', function(e){
+    var el = editable(e.target);
+    if(el){ var o = find(el.getAttribute('data-kind'), el.getAttribute('data-id')); if(!o) return; o[el.getAttribute('data-p')] = el.textContent; save(); return; }
+    var fl = e.target.getAttribute && e.target.getAttribute('data-flt');
+    if(fl){ fstate(cur)[fl] = e.target.value; renderBody(); }
+  });
+  document.addEventListener('change', function(e){
+    var s = e.target;
+    if(s.tagName === 'SELECT' && s.hasAttribute('data-kind')){
+      var o = find(s.getAttribute('data-kind'), s.getAttribute('data-id')); if(!o) return;
+      var p = s.getAttribute('data-p'); o[p] = s.value; s.className = selCls(p, s.value); save();
+      if(p === 'e' && cur === 'fields') renderBody();
+    }
+  });
+  document.addEventListener('focusin', function(e){
+    var el = editable(e.target); if(!el || !CHIP_RENDER[el.getAttribute('data-p')]) return;
+    var o = find(el.getAttribute('data-kind'), el.getAttribute('data-id')); if(o) el.textContent = o[el.getAttribute('data-p')] || '';
+  });
+  document.addEventListener('focusout', function(e){
+    var el = editable(e.target); if(!el) return;
+    var o = find(el.getAttribute('data-kind'), el.getAttribute('data-id')); if(!o) return;
+    var p = el.getAttribute('data-p'), v = el.textContent.replace(/\s+/g, ' ').trim();
+    if(p === 'm') v = normMethods(v).join(', ');
+    else if(p === 'b') v = normBts(v).join(', ');
+    else if(p === 's') v = normSrc(v);
+    else if(p === 'in') v = normList(v);
+    o[p] = v;
+    if(CHIP_RENDER[p]){ reindex(); el.innerHTML = CHIP_RENDER[p](v); } else if(el.textContent !== v) el.textContent = v;
+    if(p === 'in' || p === 'f' || p === 's'){
+      reindex();
+      Array.prototype.forEach.call(document.querySelectorAll('[data-src-for]'), function(c){ var f = find('feat', c.getAttribute('data-src-for')); if(f) c.innerHTML = srcChips(featSources(f)); });
+    }
+    if(p === 'b') renderTabs();
+    save();
+  });
+  document.addEventListener('keydown', function(e){
+    var el = editable(e.target); if(!el) return;
+    if((e.key === 'Enter' && !e.shiftKey) || e.key === 'Escape'){ e.preventDefault(); el.blur(); }
+  });
+  document.addEventListener('paste', function(e){
+    var el = editable(e.target); if(!el) return;
+    e.preventDefault();
+    var text = (e.clipboardData || window.clipboardData).getData('text/plain') || '';
+    document.execCommand('insertText', false, text.replace(/\s+/g, ' '));
+  });
+  document.addEventListener('drop', function(e){ if(editable(e.target)) e.preventDefault(); });
+
+  var toastEl = document.getElementById('toast'), toastT = null;
+  function toast(msg, canUndo){
+    toastEl.innerHTML = '<span>'+esc(msg)+'</span>' + (canUndo && undo.length ? '<button type="button" class="btn sm" data-undo>Hoàn tác</button>' : '');
+    toastEl.classList.add('show'); clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('show'); }, 7000);
+  }
+  document.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target : e.target.parentElement;
+    var mf = t.closest('[data-mflt]');
+    if(mf){ var st = fstate(cur), m = mf.getAttribute('data-mflt'); st.m[m] = !st.m[m]; mf.setAttribute('aria-pressed', String(!!st.m[m])); renderBody(); return; }
+    var d = t.closest('[data-del]');
+    if(d){
+      var kind = d.getAttribute('data-del'), o = find(kind, d.getAttribute('data-id')), scope = d.getAttribute('data-scope'); if(!o) return;
+      pushUndo();
+      var msg;
+      if(kind === 'field'){ S.fields = S.fields.filter(function(x){ return x.id !== o.id; }); msg = 'Đã xóa trường “' + o.f + '”. Feature dùng trường này sẽ hiện đầu vào viền đỏ.'; }
+      else if(scope === 'all'){ S.feats = S.feats.filter(function(x){ return x.id !== o.id; }); msg = 'Đã xóa feature “' + o.f + '”.'; }
+      else { o.b = featBts(o).filter(function(b){ return b !== scope; }).join(', '); msg = 'Đã bỏ “' + o.f + '” khỏi bài toán ' + scope + ' (vẫn còn ở tab Tổng hợp).'; }
+      save(); renderBody(); toast(msg, true); return;
+    }
+    if(t.closest('[data-undo]')){ if(!undo.length) return; S = JSON.parse(undo.pop()); save(); renderPanel(); toast('Đã hoàn tác.', false); return; }
+    if(t.closest('[data-restore]')){ pushUndo(); S = JSON.parse(DEFAULT); save(); renderPanel(); toast('Đã khôi phục dữ liệu gốc.', true); return; }
+    var a = t.closest('[data-add]');
+    if(a){ if(a.getAttribute('data-add') === 'field') openField(); else openFeat(a.getAttribute('data-preset')); return; }
+    var c = t.closest('[data-csv]');
+    if(c){ exportCSV(c.getAttribute('data-csv')); return; }
+    if(t.closest('[data-xlsx]')){ exportXLSX(); return; }
+    if(t.closest('[data-close]')){ closeModal(); return; }
+  });
+
+  // ============================== THÊM MỚI ==============================
+  var openM = null, lastFocus = null, addPreset = null;
+  function showModal(id){ openM = document.getElementById(id); lastFocus = document.activeElement; openM.hidden = false; document.body.classList.add('modal-open'); setTimeout(function(){ openM.querySelector('input[name=f]').focus(); }, 0); }
+  function closeModal(){ if(!openM) return; openM.hidden = true; openM = null; document.body.classList.remove('modal-open'); if(lastFocus && lastFocus.focus) lastFocus.focus(); }
+  Array.prototype.forEach.call(document.querySelectorAll('.modal'), function(m){
+    m.addEventListener('click', function(e){ if(e.target === m) closeModal(); });
+    m.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){ e.preventDefault(); closeModal(); return; }
+      if(e.key === 'Tab'){
+        var fs = Array.prototype.filter.call(m.querySelectorAll('input,select,textarea,button'), function(x){ return !x.disabled; });
+        var first = fs[0], last = fs[fs.length - 1];
+        if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+        else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    });
+  });
+  var FF = document.getElementById('f-feat'), FD = document.getElementById('f-field');
+  document.getElementById('mf-methods').insertAdjacentHTML('beforeend', M_ORDER.map(function(m){ return '<label><input type="checkbox" name="m" value="'+esc(m)+'"> '+esc(m)+'</label>'; }).join(''));
+  document.getElementById('mf-bts').insertAdjacentHTML('beforeend', '<label><input type="checkbox" name="b" value="N"> Nền</label>' + BTS.map(function(b){ return '<label><input type="checkbox" name="b" value="'+b.k+'"> '+b.k+' · '+esc(b.name)+'</label>'; }).join(''));
+  document.getElementById('md-src').insertAdjacentHTML('beforeend', SRC.map(function(x){ return '<label><input type="checkbox" name="s" value="'+x+'"> '+x+' <span class="hint">'+esc(SRC_LABEL[x])+'</span></label>'; }).join(''));
+  FD.elements['e'].innerHTML = G_ORDER.map(function(g){ return '<option value="'+g+'">'+esc(GROUPS[g])+'</option>'; }).join('');
+  function fillPick(){
+    reindex();
+    var h = '<option value="">＋ chọn để chèn…</option>';
+    G_ORDER.forEach(function(g){
+      var rows = S.fields.filter(function(f){ return f.e === g; }); if(!rows.length) return;
+      h += '<optgroup label="Trường · '+esc(GROUPS[g])+'">' + rows.map(function(f){ return '<option>'+esc(f.f.split(',')[0].trim())+'</option>'; }).join('') + '</optgroup>';
+    });
+    h += '<optgroup label="Feature">' + S.feats.map(function(f){ return '<option>'+esc(f.f.split(',')[0].trim())+'</option>'; }).join('') + '</optgroup>';
+    FF.elements['pick'].innerHTML = h;
+  }
+  function preview(){ reindex(); document.getElementById('mf-preview').innerHTML = FF.elements['in'].value.trim() ? inChips(normList(FF.elements['in'].value)) : '<span class="hint">Đầu vào sẽ hiện ở đây; viền đỏ = chưa có trong danh mục.</span>'; }
+  FF.elements['in'].addEventListener('input', preview);
+  FF.elements['pick'].addEventListener('change', function(){
+    var v = FF.elements['pick'].value; if(!v) return;
+    var list = tokens(FF.elements['in'].value); if(list.indexOf(v) < 0) list.push(v);
+    FF.elements['in'].value = list.join(', '); FF.elements['pick'].value = ''; preview(); FF.elements['in'].focus();
+  });
+  function openFeat(preset){
+    addPreset = preset || '';
+    FF.reset(); document.getElementById('mf-err').textContent = '';
+    Array.prototype.forEach.call(FF.querySelectorAll('input[name=b]'), function(x){ x.checked = x.value === addPreset; });
+    fillPick(); preview(); showModal('m-feat');
+  }
+  function openField(){ FD.reset(); document.getElementById('md-err').textContent = ''; FD.elements['e'].value = 'L'; showModal('m-field'); }
+  function nameTaken(name){ reindex(); var hit = null; name.split(',').forEach(function(p){ p = p.trim().toLowerCase(); if(p && IDX[p]) hit = IDX[p].o.f; }); return hit; }
+  function flashRow(id){
+    var tr = document.querySelector('[data-row="'+id+'"]');
+    if(tr){ tr.classList.add('flash'); tr.scrollIntoView({block:'center', behavior:'smooth'}); setTimeout(function(){ tr.classList.remove('flash'); }, 2400); }
+  }
+  function clean(v){ return String(v || '').replace(/\s+/g, ' ').trim(); }
+  FF.addEventListener('submit', function(e){
+    e.preventDefault();
+    var el = FF.elements, err = document.getElementById('mf-err'), name = clean(el['f'].value);
+    if(!name){ err.textContent = 'Cần nhập tên feature.'; el['f'].focus(); return; }
+    var dup = nameTaken(name); if(dup){ err.textContent = 'Tên đã có trong danh mục: “' + dup + '”.'; el['f'].focus(); return; }
+    var ms = Array.prototype.filter.call(FF.querySelectorAll('input[name=m]'), function(x){ return x.checked; }).map(function(x){ return x.value; });
+    var bs = Array.prototype.filter.call(FF.querySelectorAll('input[name=b]'), function(x){ return x.checked; }).map(function(x){ return x.value; });
+    if(!ms.length){ err.textContent = 'Chọn ít nhất một phương pháp.'; return; }
+    var f = {id:'nf' + Date.now().toString(36), f:name, m:ms.join(', '), b:normBts(bs.join(',')).join(', '), in:normList(el['in'].value), d:clean(el['d'].value), u:clean(el['u'].value),
+      o:clean(el['o'].value) || 'number', x:clean(el['x'].value), ph:el['ph'].value, p:el['p'].value, c:clean(el['c'].value)};
+    pushUndo(); S.feats.push(f); save(); closeModal();
+    var stay = cur === 'all' || (cur === 'base' && bs.indexOf('N') >= 0) || (cur.indexOf('bt') === 0 && bs.indexOf(cur.slice(2)) >= 0);
+    if(!stay) go(bs.length === 1 ? (bs[0] === 'N' ? 'base' : 'bt' + bs[0]) : 'all'); else renderPanel();
+    flashRow(f.id); toast('Đã thêm feature “' + f.f + '”.', true);
+  });
+  FD.addEventListener('submit', function(e){
+    e.preventDefault();
+    var el = FD.elements, err = document.getElementById('md-err'), name = clean(el['f'].value);
+    if(!name){ err.textContent = 'Cần nhập tên trường.'; el['f'].focus(); return; }
+    var dup = nameTaken(name); if(dup){ err.textContent = 'Tên đã có trong danh mục: “' + dup + '”.'; el['f'].focus(); return; }
+    var ss = Array.prototype.filter.call(FD.querySelectorAll('input[name=s]'), function(x){ return x.checked; }).map(function(x){ return x.value; });
+    var f = {id:'nd' + Date.now().toString(36), f:name, e:el['e'].value, t:clean(el['t'].value) || 'string', s:ss.join(' '), fz:el['fz'].value, d:clean(el['d'].value), u:clean(el['u'].value), x:clean(el['x'].value)};
+    pushUndo(); S.fields.push(f); save(); closeModal();
+    if(cur !== 'fields') go('fields'); else renderPanel();
+    flashRow(f.id); toast('Đã thêm trường “' + f.f + '”.', true);
+  });
+
+  // ============================== XUẤT ==============================
+  function SHEETS(){
+    return [{key:'overview', sheet:'Ma trận phương pháp', file:'KGM_Ma_tran_phuong_phap'},
+            {key:'pages', sheet:'Dữ liệu Lazada', file:'KGM_Du_lieu_Lazada'},
+            {key:'fields', sheet:'Trường đầu vào', file:'KGM_Truong_dau_vao'},
+            {key:'base', sheet:'Feature nền', file:'KGM_Feature_nen'}]
+      .concat(BTS.map(function(b){ return {key:'bt'+b.k, sheet:b.sheet, file:b.file}; }))
+      .concat([{key:'all', sheet:'Tổng hợp feature', file:'KGM_Tong_hop_feature'}]);
+  }
+  function rowsFor(key, filtered){
+    reindex();
+    if(key === 'overview') return matrixRows();
+    if(key === 'pages') return pageRows();
+    if(key === 'fields'){
+      var list = filtered ? listFor('fields') : S.fields;
+      return [['Nhóm','Trường','Kiểu','Mô tả','Tác dụng','Ví dụ','Trang Lazada','Khả thi','Số feature dùng','Dùng cho']].concat(
+        G_ORDER.concat(['?']).reduce(function(acc, g){ return acc.concat(list.filter(function(f){ return g === '?' ? G_ORDER.indexOf(f.e) < 0 : f.e === g; })); }, []).map(function(f){
+          var ub = usedBy(f), bts = {}; ub.forEach(function(x){ featBts(x).forEach(function(b){ bts[b] = 1; }); });
+          return [GROUPS[f.e] || f.e, f.f, f.t, f.d, f.u, f.x, normSrc(f.s), f.fz, ub.length, ['N','1','2','3','4','5','6'].filter(function(b){ return bts[b]; }).map(function(b){ return b === 'N' ? 'Nền' : b; }).join(', ')];
+        }));
+    }
+    var base = filtered ? listFor(key) : (key === 'all' ? S.feats : key === 'base' ? featsFor('N') : featsFor(key.slice(2)));
+    var sorted = base.slice().sort(function(a, b){ return M_ORDER.indexOf(primary(a)) - M_ORDER.indexOf(primary(b)); });
+    return [['Feature','Phương pháp chính','Phương pháp','Dùng cho','Cách tính','Tác dụng','Đầu vào (trường kết hợp)','Lấy từ đâu','Đầu ra','Ví dụ','Lưu ý','Giai đoạn','Ưu tiên']].concat(sorted.map(function(f){
+      return [f.f, primary(f), featMethods(f).join(', '), featBts(f).map(function(b){ return b === 'N' ? 'Nền' : b; }).join(', '), f.d, f.u, f.in, featSources(f).join(' '), f.o, f.x, f.c, 'GĐ ' + f.ph, f.p];
+    }));
+  }
+  function download(name, blob){
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  }
+  function exportCSV(key){
+    var sh = SHEETS().filter(function(s){ return s.key === key; })[0];
+    var rows = rowsFor(key, key !== 'overview' && key !== 'pages');
+    var csv = rows.map(function(r){ return r.map(function(c){ return '"' + String(c == null ? '' : c).replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n');
+    download(sh.file + '.csv', new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8'}));
+    toast('Đã xuất ' + sh.file + '.csv (' + (rows.length - 1) + ' dòng).', false);
+  }
+  var enc = new TextEncoder();
+  var CRC = (function(){ var t = [], c; for(var n = 0; n < 256; n++){ c = n; for(var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(b){ var c = 0xFFFFFFFF; for(var i = 0; i < b.length; i++) c = CRC[(c ^ b[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  function zip(files){
+    var parts = [], cen = [], off = 0;
+    files.forEach(function(f){
+      var name = enc.encode(f.name), data = enc.encode(f.data), crc = crc32(data);
+      var h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0, true); h.setUint16(8, 0, true); h.setUint16(10, 0, true); h.setUint16(12, 33, true);
+      h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true); h.setUint16(28, 0, true);
+      parts.push(new Uint8Array(h.buffer), name, data);
+      var c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0, true); c.setUint16(10, 0, true); c.setUint16(12, 0, true); c.setUint16(14, 33, true);
+      c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true);
+      c.setUint16(30, 0, true); c.setUint16(32, 0, true); c.setUint16(34, 0, true); c.setUint16(36, 0, true); c.setUint32(38, 0, true); c.setUint32(42, off, true);
+      cen.push(new Uint8Array(c.buffer), name); off += 30 + name.length + data.length;
+    });
+    var cs = cen.reduce(function(s, a){ return s + a.length; }, 0), e = new DataView(new ArrayBuffer(22));
+    e.setUint32(0, 0x06054b50, true); e.setUint16(4, 0, true); e.setUint16(6, 0, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true);
+    e.setUint32(12, cs, true); e.setUint32(16, off, true); e.setUint16(20, 0, true);
+    return new Blob(parts.concat(cen, [new Uint8Array(e.buffer)]), {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  }
+  function xesc(s){ return String(s).replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g, '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function col(i){ var s = ''; i++; while(i > 0){ var m = (i - 1) % 26; s = String.fromCharCode(65 + m) + s; i = Math.floor((i - 1) / 26); } return s; }
+  function sheetXml(rows){
+    var n = rows[0].length, w = [];
+    for(var c = 0; c < n; c++){ var m = 8; rows.forEach(function(r){ m = Math.max(m, String(r[c] == null ? '' : r[c]).length); }); w.push(Math.min(60, m + 2)); }
+    var x = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+      '<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="15"/><cols>' +
+      w.map(function(v, i){ return '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+v+'" customWidth="1"/>'; }).join('') + '</cols><sheetData>';
+    rows.forEach(function(r, ri){
+      x += '<row r="'+(ri+1)+'">';
+      r.forEach(function(v, ci){
+        if(typeof v === 'number') x += '<c r="'+col(ci)+(ri+1)+'" s="'+(ri ? 2 : 1)+'"><v>'+v+'</v></c>';
+        else x += '<c r="'+col(ci)+(ri+1)+'" t="inlineStr" s="'+(ri ? 2 : 1)+'"><is><t xml:space="preserve">'+xesc(v == null ? '' : v)+'</t></is></c>';
+      });
+      x += '</row>';
+    });
+    return x + '</sheetData></worksheet>';
+  }
+  function exportXLSX(){
+    var sh = SHEETS().map(function(s){ return {name:s.sheet, rows:rowsFor(s.key, false)}; });
+    var NS = 'http://schemas.openxmlformats.org/', R = NS + 'officeDocument/2006/relationships', f = [];
+    f.push({name:'[Content_Types].xml', data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="'+NS+'package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+      sh.map(function(s, i){ return '<Override PartName="/xl/worksheets/sheet'+(i+1)+'.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'; }).join('') + '</Types>'});
+    f.push({name:'_rels/.rels', data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="'+NS+'package/2006/relationships"><Relationship Id="rId1" Type="'+R+'/officeDocument" Target="xl/workbook.xml"/></Relationships>'});
+    f.push({name:'xl/workbook.xml', data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="'+NS+'spreadsheetml/2006/main" xmlns:r="'+R+'"><sheets>' +
+      sh.map(function(s, i){ return '<sheet name="'+xesc(s.name)+'" sheetId="'+(i+1)+'" r:id="rId'+(i+1)+'"/>'; }).join('') + '</sheets></workbook>'});
+    f.push({name:'xl/_rels/workbook.xml.rels', data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="'+NS+'package/2006/relationships">' +
+      sh.map(function(s, i){ return '<Relationship Id="rId'+(i+1)+'" Type="'+R+'/worksheet" Target="worksheets/sheet'+(i+1)+'.xml"/>'; }).join('') +
+      '<Relationship Id="rId'+(sh.length+1)+'" Type="'+R+'/styles" Target="styles.xml"/></Relationships>'});
+    f.push({name:'xl/styles.xml', data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="'+NS+'spreadsheetml/2006/main"><fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEDF1FF"/><bgColor indexed="64"/></patternFill></fill></fills><borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'});
+    sh.forEach(function(s, i){ f.push({name:'xl/worksheets/sheet'+(i+1)+'.xml', data:sheetXml(s.rows)}); });
+    download('KGM_Feature_Lazada_tong_hop.xlsx', zip(f));
+    toast('Đã xuất KGM_Feature_Lazada_tong_hop.xlsx (' + sh.length + ' sheet).', false);
+  }
+
+  var start = (location.hash || '').replace('#', '');
+  go(start || 'overview', false);
+})();
+</script>
+</body>
+</html>
